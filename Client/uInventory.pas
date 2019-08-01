@@ -104,6 +104,7 @@ type
     procedure InventoryPMPopup(Sender: TObject);
     procedure SendEgaisMIClick(Sender: TObject);
     procedure NotSendEgaisMIClick(Sender: TObject);
+    procedure InventoryIsNotMakeMIClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -335,6 +336,7 @@ end;
 
 procedure TfInventory.InventoryPMPopup(Sender: TObject);
 begin
+ InventoryIsNotMakeMI.Visible:=(InventoryCDSISMAKE.AsInteger=1) and (Pos('Z', fMain.AdvancedGrant) > 0);
  SendEgaisMI.Visible:=(InventoryCDSEGAISSENDFLAG.AsInteger=1);
  NotSendEgaisMI.Visible:=(InventoryCDSEGAISSENDFLAG.AsInteger=2);
 end;
@@ -384,6 +386,35 @@ begin
    end; //on
   end; //try..except
  fMain.RefreshCDS(InventoryCDS);
+end;
+
+procedure TfInventory.InventoryIsNotMakeMIClick(Sender: TObject);
+begin
+ if MessageDlg('Открытие разрешает изменения в акте инвентаризации. Продолжить?', mtConfirmation,[mbYes, mbNo], 0)<>mrYes then
+   exit;
+
+ if InventoryCDSISMAKE.AsInteger <> 1 then
+  begin
+   MessageDLG('Нельзя открыть не проведенный акт инвентаризации', mtError, [mbOK], 0);
+   exit;
+  end;
+
+  with fMain do
+   try
+    SocketConnection.AppServer.DBStartTransaction;
+    // Изменяем состояние инвентаризации на состояние "активна"
+    InUpDelCDS.Close;
+    InUpDelCDS.CommandText :=
+      'update inventory il set il.ismake = 0 where il.id = ' + InventoryCDSINVENTORYID.AsString;
+    InUpDelCDS.Execute;
+    SocketConnection.AppServer.DBCommit;
+  except on E:Exception do
+   begin
+    SocketConnection.AppServer.DBRollBack;
+    MessageDlg('Ошибка: ' + E.Message,mtError,[mbOk],0);
+   end; //on E:Exception
+  end; //try
+ RefreshcxButtonClick(Self);
 end;
 
 end.

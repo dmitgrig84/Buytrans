@@ -703,7 +703,7 @@ procedure TfInventoryList.ViewPMPopup(Sender: TObject);
 begin
  FixCasheMI.Enabled        := (Pos('J', fMain.AdvancedGrant) > 0) and (InventoryListCDSSTATUS.AsInteger = 0) and (InventoryListCDSISPARTIAL.AsInteger = 0);
  AddInventoryMI.Enabled    := (Pos('J', fMain.AdvancedGrant) > 0);
- OpenInventoryMI.Enabled   := (Pos('J', fMain.AdvancedGrant) > 0) and (InventoryListCDSSTATUS.AsInteger = 2);
+ OpenInventoryMI.Visible   := (Pos('Z', fMain.AdvancedGrant) > 0) and (InventoryListCDSSTATUS.AsInteger = 2);
  EditInventoryMI.Enabled   := (Pos('J', fMain.AdvancedGrant) > 0) and not (InventoryListCDSSTATUS.AsInteger in [2,3]);
 // CloseInventoryMI.Enabled  := (Pos('J', fMain.AdvancedGrant) > 0) and (InventoryListCDSSTATUS.AsInteger = 1);
  DeleteInventoryMI.Enabled := (Pos('J', fMain.AdvancedGrant) > 0) and not (InventoryListCDSSTATUS.AsInteger in [2,3]);

@@ -1711,7 +1711,6 @@ object fInventoryList: TfInventoryList
     object OpenInventoryMI: TMenuItem
       Caption = #1054#1090#1082#1088#1099#1090#1100
       ImageIndex = 10
-      Visible = False
       OnClick = OpenInventoryMIClick
     end
     object EditInventoryMI: TMenuItem

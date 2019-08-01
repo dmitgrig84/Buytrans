@@ -1,6 +1,6 @@
 object fInventory: TfInventory
-  Left = 318
-  Top = 135
+  Left = 368
+  Top = 369
   Width = 1135
   Height = 638
   Caption = 'fInventory'
@@ -795,6 +795,12 @@ object fInventory: TfInventory
       ImageIndex = 10
       OnClick = EntercxButtonClick
     end
+    object InventoryIsNotMakeMI: TMenuItem
+      Caption = #1054#1090#1084#1077#1085#1080#1090#1100' '#1087#1088#1086#1074#1077#1076#1077#1085#1080#1077' '#1072#1082#1090#1072
+      ImageIndex = 1
+      Visible = False
+      OnClick = InventoryIsNotMakeMIClick
+    end
     object PrintMI: TMenuItem
       Caption = #1055#1077#1095#1072#1090#1100
       ImageIndex = 3
@@ -815,10 +821,6 @@ object fInventory: TfInventory
     object N3: TMenuItem
       Tag = 2
       Caption = #1054#1089#1090#1072#1090#1082#1080
-      Visible = False
-    end
-    object InventoryIsNotMakeMI: TMenuItem
-      Caption = #1054#1090#1084#1077#1085#1080#1090#1100' '#1087#1088#1086#1074#1077#1076#1077#1085#1080#1077' '#1072#1082#1090#1072
       Visible = False
     end
     object SendEgaisMI: TMenuItem
