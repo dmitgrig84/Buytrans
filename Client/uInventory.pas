@@ -405,7 +405,7 @@ begin
     // Изменяем состояние инвентаризации на состояние "активна"
     InUpDelCDS.Close;
     InUpDelCDS.CommandText :=
-      'update inventory il set il.ismake = 0 where il.id = ' + InventoryCDSINVENTORYID.AsString;
+      'update inventory il set il.make = 0 where il.id = ' + InventoryCDSINVENTORYID.AsString;
     InUpDelCDS.Execute;
     SocketConnection.AppServer.DBCommit;
   except on E:Exception do
