@@ -566,8 +566,8 @@ end;
 
 procedure CreateReportView(Child:TfReport;CDS:TClientDataSet;KeyFieldNames:string);
 begin
- fMain.RefreshCDS(CDS);
  Child.ViewDS.DataSet:=CDS;
+ fMain.RefreshCDS(CDS);
  Child.ViewcxGridDBTV.DataController.KeyFieldNames:=KeyFieldNames;
 end;
 
@@ -596,8 +596,8 @@ begin
      Child.BegincxDE.Date:=Date-7;
      Child.EndcxDE.Date:=Date-1;
      RetailEgaisDocCDS.AfterOpen:=Child.CDSAfterOpen;
-     CreateReportView(Child,RetailEgaisDocCDS,'KEYID');
      RetailEgaisDocCDS.BeforeOpen:=Child.CDSBeforeOpen;
+     CreateReportView(Child,RetailEgaisDocCDS,'KEYID');
     end;
 
    CreateReportItems(Child.ViewcxGridDBTV);
