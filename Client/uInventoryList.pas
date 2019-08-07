@@ -43,8 +43,6 @@ type
     InventoryCasheCDSDRINKID: TIntegerField;
     InventoryCasheCDSDRINKNAME: TStringField;
     InventoryCasheCDSDRINKKINDID: TIntegerField;
-    InventoryCasheCDSBOTTLECOUNT: TIntegerField;
-    InventoryCasheCDSREMBOTTLECOUNT: TIntegerField;
     InventoryCasheCDSRACKID: TIntegerField;
     InventoryCasheCDSRACKNAME: TStringField;
     InventoryCasheCDSEMPLOYEEID: TIntegerField;
@@ -117,8 +115,7 @@ type
     InventoryDetailActCDS: TClientDataSet;
     InventoryDetailActCDSDRINKID: TIntegerField;
     InventoryDetailActCDSDRINKNAME: TStringField;
-    InventoryDetailActCDSDRINKGROUP: TStringField;
-    InventoryDetailActCDSBOTTLECOUNT: TIntegerField;
+    InventoryDetailActCDSDRINKGROUPNAME: TStringField;
     InventoryDetailActCDSRETAILPRICE: TFloatField;
     InventoryDetailActCDSRETAILSUM: TFloatField;
     PageControl: TPageControl;
@@ -204,7 +201,6 @@ type
     InventoryListCDSINVENTORYTEMPID: TIntegerField;
     InventoryActPrintCDSLASTGOODSREPORTEND: TDateTimeField;
     TradeReportPrintCDSORGANIZATIONNAME: TStringField;
-    InventoryCasheCDSDEFBOTTLECOUNT: TIntegerField;
     InventoryCasheCDSDEFECTTYPE: TSmallintField;
     InventoryActPrintCDSDOCNAME: TStringField;
     IndefiniteActfrxReport: TfrxReport;
@@ -337,9 +333,9 @@ type
     DetailcxGridDBTVBARCODE: TcxGridDBColumn;
     DetailcxGridDBTVDRINKNAME: TcxGridDBColumn;
     DetailcxGridDBTVDRINKKINDID: TcxGridDBColumn;
-    DetailcxGridDBTVBOTTLECOUNT: TcxGridDBColumn;
-    DetailcxGridDBTVREMBOTTLECOUNT: TcxGridDBColumn;
-    DetailcxGridDBTVDEFBOTTLECOUNT: TcxGridDBColumn;
+    DetailcxGridDBTVCOUNTUNIT: TcxGridDBColumn;
+    DetailcxGridDBTVREMCOUNTUNIT: TcxGridDBColumn;
+    DetailcxGridDBTVDEFCOUNTUNIT: TcxGridDBColumn;
     DetailcxGridDBTVRACKID: TcxGridDBColumn;
     DetailcxGridDBTVRACKNAME: TcxGridDBColumn;
     DetailcxGridDBTVEMPLOYEEID: TcxGridDBColumn;
@@ -371,6 +367,10 @@ type
     ExciseEqualMI: TMenuItem;
     DetailcxGridDBTVID: TcxGridDBColumn;
     InventoryListCDSSTORAGETYPEID: TIntegerField;
+    InventoryCasheCDSCOUNTUNIT: TFloatField;
+    InventoryCasheCDSREMCOUNTUNIT: TFloatField;
+    InventoryCasheCDSDEFCOUNTUNIT: TFloatField;
+    InventoryDetailActCDSCOUNTUNIT: TFloatField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure RefreshInventoryBBClick(Sender: TObject);
@@ -599,7 +599,7 @@ begin
   begin
    InventoryCasheCDS.ProviderName:=CompName+'DSP';
    InventoryCasheCDS.RemoteServer:=fMain.SocketConnection;
-   InventoryCasheCDS.CommandText:='select * from BUYTRANS_INVENTORYLISTCASHEVIEW(:ininventorylistid) order by id';
+   InventoryCasheCDS.CommandText:='select * from BUYTRANS_INVENTORYLISTCASHE_VW(:ininventorylistid) order by id';
   end;
 
  RetVal := 1;
@@ -628,7 +628,7 @@ begin
  else
   begin
    InventoryDetailActCDS.CommandText :=
-    'select * from buytrans_inventorydetailact(:inventoryid, :reporttype)';
+    'select * from buytrans_inventoryactdetail_vw(:inventoryid, :reporttype)';
    InventoryDetailActCDS.RemoteServer := fMain.SocketConnection;
   end;
 
@@ -727,7 +727,7 @@ begin
    DeleteFromCasheMI.Enabled := True;
   end;
  ExciseInventoryMI.Visible:=InventoryCasheCDS.RecordCount>0;
- ExciseEqualMI.Visible:=ExciseInventoryMI.Visible and (InventoryListCDSSTATUS.AsInteger=1) and (not InventoryCasheCDSEXCISECODE.IsNull) and (InventoryCasheCDSBOTTLECOUNT.AsInteger>1);
+ ExciseEqualMI.Visible:=ExciseInventoryMI.Visible and (InventoryListCDSSTATUS.AsInteger=1) and (not InventoryCasheCDSEXCISECODE.IsNull) and (InventoryCasheCDSCOUNTUNIT.AsInteger>1);
  ExciseLineMI.Visible:=ExciseInventoryMI.Visible;
 end;
 

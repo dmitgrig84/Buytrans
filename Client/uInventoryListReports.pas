@@ -1,6 +1,6 @@
 unit uInventoryListReports;
 
-interface
+interface             
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
@@ -24,16 +24,15 @@ type
     InventoryResultCDSDRINKID: TIntegerField;
     InventoryResultCDSPRINTMARK: TStringField;
     InventoryResultCDSDRINKKINDID: TIntegerField;
-    InventoryResultCDSFIXCOUNTUNIT: TIntegerField;
-    InventoryResultCDSFACTCOUNTUNIT: TIntegerField;
-    InventoryResultCDSDELTACOUNTUNIT: TIntegerField;
+    InventoryResultCDSFIXCOUNTUNIT: TFloatField;
+    InventoryResultCDSFACTCOUNTUNIT: TFloatField;
+    InventoryResultCDSDELTACOUNTUNIT: TFloatField;
     InventoryResultCDSSUMPOST: TBCDField;
     InventoryResultCDSSUMREM: TBCDField;
     InventoryFixCasheCDS: TClientDataSet;
     InventoryFixCasheCDSDRINKID: TIntegerField;
     InventoryFixCasheCDSDRINKNAME: TStringField;
     InventoryFixCasheCDSRACKNAME: TStringField;
-    InventoryFixCasheCDSBOTTLECOUNT: TIntegerField;
     ViewdxComponentPrinter: TdxComponentPrinter;
     ViewdxComponentPrinterLink: TdxGridReportLink;
     cxStyleRepository1: TcxStyleRepository;
@@ -55,6 +54,7 @@ type
     InventoryResultCDSRACKNAME: TStringField;
     InventoryFixCasheCDSKEYID: TIntegerField;
     InventoryFixCasheCDSRACKID: TIntegerField;
+    InventoryFixCasheCDSCOUNTUNIT: TFloatField;
     procedure ViewcxGridDBTVKeyDown(Sender: TObject;
       var Key: Word; Shift: TShiftState);
     procedure RefreshMIClick(Sender: TObject);
@@ -100,7 +100,7 @@ begin
    InventoryResultCDS.ProviderName:=CompName+'DSP';
    InventoryResultCDS.RemoteServer := fMain.SocketConnection;
    InventoryResultCDS.CommandText :=
-    'select * from buytrans_inventorylistresult(:inventorylistid)';
+    'select * from buytrans_inventorylistrst_view(:inventorylistid)';
   end;
 
  RetVal := 1;

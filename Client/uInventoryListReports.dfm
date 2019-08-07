@@ -158,17 +158,17 @@ object fInventoryListReports: TfInventoryListReports
       Visible = False
       Size = 32
     end
-    object InventoryResultCDSFIXCOUNTUNIT: TIntegerField
+    object InventoryResultCDSFIXCOUNTUNIT: TFloatField
       Tag = 1
       DisplayLabel = #1047#1072#1092#1080#1082#1080#1089#1080#1088#1086#1074#1072#1085#1086', '#1096#1090'.'
       FieldName = 'FIXCOUNTUNIT'
     end
-    object InventoryResultCDSFACTCOUNTUNIT: TIntegerField
+    object InventoryResultCDSFACTCOUNTUNIT: TFloatField
       Tag = 1
       DisplayLabel = #1060#1072#1082#1090#1080#1095#1077#1089#1082#1080'('#1089' '#1091#1095#1077#1090#1086#1084' '#1089#1087#1080#1089#1072#1085#1080#1103'), '#1096#1090'.'
       FieldName = 'FACTCOUNTUNIT'
     end
-    object InventoryResultCDSDELTACOUNTUNIT: TIntegerField
+    object InventoryResultCDSDELTACOUNTUNIT: TFloatField
       Tag = 1
       DisplayLabel = #1056#1072#1079#1085#1080#1094#1072', '#1096#1090'.'
       FieldName = 'DELTACOUNTUNIT'
@@ -230,11 +230,11 @@ object fInventoryListReports: TfInventoryListReports
       Visible = False
       Size = 32
     end
-    object InventoryFixCasheCDSBOTTLECOUNT: TIntegerField
+    object InventoryFixCasheCDSCOUNTUNIT: TFloatField
       Tag = 1
-      DisplayLabel = #1050#1086#1083'-'#1074#1086
+      DisplayLabel = #1050#1086#1083'-'#1074#1086','#1096#1090'.'
       DisplayWidth = 16
-      FieldName = 'BOTTLECOUNT'
+      FieldName = 'COUNTUNIT'
     end
   end
   object ViewdxComponentPrinter: TdxComponentPrinter
@@ -258,7 +258,7 @@ object fInventoryListReports: TfInventoryListReports
       PrinterPage.ScaleMode = smFit
       PrinterPage._dxMeasurementUnits_ = 0
       PrinterPage._dxLastMU_ = 2
-      ReportDocument.CreationDate = 43640.4744585417
+      ReportDocument.CreationDate = 43684.5136329861
       ShrinkToPageWidth = True
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlack

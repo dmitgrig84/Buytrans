@@ -57,9 +57,9 @@ Launcher=
 UseLauncher=0
 DebugCWD=
 [Deployment]
-DeployDir="D:\Work\Dropbox\Projects\Buytrans\Case\"
-DeployURL=D:/Work/Dropbox/Projects/Buytrans/Case/
-HTMLDir="D:\Work\Dropbox\Projects\Buytrans\Case\"
+DeployDir="D:\Projects\Buytrans\Case\"
+DeployURL=D:/Projects/Buytrans/Case/
+HTMLDir="D:\Projects\Buytrans\Case\"
 CABCompress=1
 CodeSign=0
 IncludeVerInfo=1
@@ -74,8 +74,8 @@ CryptoType=0
 Timestamping=0
 TimestampServer=
 [FilesAndPackages]
-File_0=D:\Work\Dropbox\Projects\Buytrans\Client\Buytrans.exe
-[D:\Work\Dropbox\Projects\Buytrans\Client\Buytrans.exe]
+File_0=D:\Projects\Buytrans\Client\Buytrans.exe
+[D:\Projects\Buytrans\Client\Buytrans.exe]
 DeployDir="D:\Work\Dropbox\Projects\Buytrans\Case\"
 DeployURL=D:/Work/Dropbox/Projects/Buytrans/Case/
 IsPackage=0
@@ -88,7 +88,7 @@ IncludeVerInfo=1
 AutoIncBuild=0
 MajorVer=3
 MinorVer=6
-Release=2
+Release=4
 Build=1
 Debug=1
 PreRelease=0
@@ -100,7 +100,7 @@ CodePage=1251
 [Version Info Keys]
 CompanyName=HostWMS
 FileDescription=BuyTransportation Client
-FileVersion=3.6.2.1
+FileVersion=3.6.4.1
 InternalName=
 LegalCopyright=
 LegalTrademarks=

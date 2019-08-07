@@ -362,6 +362,21 @@ begin
    flagalc:= DrinkCDS.FieldByName('FLAGALC').AsInteger<>0;
    flagscanallexcise:=DrinkCDS.FieldByName('FLAGSCANALLEXCISE').AsInteger<>0;
    flagnotmodify:=DrinkCDS.FieldByName('FLAGNOTMODIFY').AsInteger=0;
+   case DrinkCDS.FieldByName('COEFFMEAS').AsInteger of
+    10:begin CountUnitcxME.Properties.EditMask:='(\d+)(\.)?(\d)?';
+             RemovCountUnitcxME.Properties.EditMask:='(\d+)(\.)?(\d)?';
+             DefectCountUnitcxME.Properties.EditMask:='(\d+)(\.)?(\d)?';end;
+    100:begin CountUnitcxME.Properties.EditMask:='(\d+)(\.)?(\d)?(\d)?';
+              RemovCountUnitcxME.Properties.EditMask:='(\d+)(\.)?(\d)?(\d)?';
+              DefectCountUnitcxME.Properties.EditMask:='(\d+)(\.)?(\d)?(\d)?'; end;
+    1000:begin CountUnitcxME.Properties.EditMask:='(\d+)(\.)?(\d)?(\d)?(\d)?';
+               RemovCountUnitcxME.Properties.EditMask:='(\d+)(\.)?(\d)?(\d)?(\d)?';
+               DefectCountUnitcxME.Properties.EditMask:='(\d+)(\.)?(\d)?(\d)?(\d)?'; end;
+   else
+    begin CountUnitcxME.Properties.EditMask:='\d+';
+          RemovCountUnitcxME.Properties.EditMask:='\d+';
+          DefectCountUnitcxME.Properties.EditMask:='\d+'; end;
+   end;
 
    try
     SerialNumbercxLCB.Clear;

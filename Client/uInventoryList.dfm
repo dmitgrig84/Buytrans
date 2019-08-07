@@ -1,6 +1,6 @@
 object fInventoryList: TfInventoryList
-  Left = 499
-  Top = 179
+  Left = 397
+  Top = 146
   Width = 1317
   Height = 726
   Caption = 'fInventoryList'
@@ -578,17 +578,17 @@ object fInventoryList: TfInventoryList
             item
               Kind = skSum
               Position = spFooter
-              Column = DetailcxGridDBTVBOTTLECOUNT
+              Column = DetailcxGridDBTVCOUNTUNIT
             end
             item
               Kind = skSum
               Position = spFooter
-              Column = DetailcxGridDBTVREMBOTTLECOUNT
+              Column = DetailcxGridDBTVREMCOUNTUNIT
             end
             item
               Kind = skSum
               Position = spFooter
-              Column = DetailcxGridDBTVDEFBOTTLECOUNT
+              Column = DetailcxGridDBTVDEFCOUNTUNIT
             end
             item
               Kind = skCount
@@ -598,18 +598,18 @@ object fInventoryList: TfInventoryList
           DataController.Summary.FooterSummaryItems = <
             item
               Kind = skSum
-              FieldName = 'BOTTLECOUNT'
-              Column = DetailcxGridDBTVBOTTLECOUNT
+              FieldName = 'COUNTUNIT'
+              Column = DetailcxGridDBTVCOUNTUNIT
             end
             item
               Kind = skSum
-              FieldName = 'REMBOTTLECOUNT'
-              Column = DetailcxGridDBTVREMBOTTLECOUNT
+              FieldName = 'REMCOUNTUNIT'
+              Column = DetailcxGridDBTVREMCOUNTUNIT
             end
             item
               Kind = skSum
-              FieldName = 'DEFBOTTLECOUNT'
-              Column = DetailcxGridDBTVDEFBOTTLECOUNT
+              FieldName = 'DEFCOUNTUNIT'
+              Column = DetailcxGridDBTVDEFCOUNTUNIT
             end
             item
               Kind = skCount
@@ -658,18 +658,18 @@ object fInventoryList: TfInventoryList
             DataBinding.FieldName = 'DRINKKINDID'
             Width = 66
           end
-          object DetailcxGridDBTVBOTTLECOUNT: TcxGridDBColumn
-            Caption = #1050#1086#1083#1080#1095#1077#1089#1090#1074#1086
-            DataBinding.FieldName = 'BOTTLECOUNT'
+          object DetailcxGridDBTVCOUNTUNIT: TcxGridDBColumn
+            Caption = #1050#1086#1083'-'#1074#1086', '#1096#1090'.'
+            DataBinding.FieldName = 'COUNTUNIT'
             Width = 65
           end
-          object DetailcxGridDBTVREMBOTTLECOUNT: TcxGridDBColumn
-            DataBinding.FieldName = 'REMBOTTLECOUNT'
+          object DetailcxGridDBTVREMCOUNTUNIT: TcxGridDBColumn
+            DataBinding.FieldName = 'REMCOUNTUNIT'
             Width = 65
           end
-          object DetailcxGridDBTVDEFBOTTLECOUNT: TcxGridDBColumn
+          object DetailcxGridDBTVDEFCOUNTUNIT: TcxGridDBColumn
             Caption = #1044#1077#1092#1077#1082#1090
-            DataBinding.FieldName = 'DEFBOTTLECOUNT'
+            DataBinding.FieldName = 'DEFCOUNTUNIT'
             Width = 66
           end
           object DetailcxGridDBTVRACKID: TcxGridDBColumn
@@ -1491,13 +1491,13 @@ object fInventoryList: TfInventoryList
       DisplayLabel = #1050#1086#1076' '#1087#1072#1088#1090#1080#1080
       FieldName = 'DRINKKINDID'
     end
-    object InventoryCasheCDSBOTTLECOUNT: TIntegerField
+    object InventoryCasheCDSCOUNTUNIT: TFloatField
       DisplayLabel = #1050#1086#1083'-'#1074#1086', '#1096#1090
-      FieldName = 'BOTTLECOUNT'
+      FieldName = 'COUNTUNIT'
     end
-    object InventoryCasheCDSREMBOTTLECOUNT: TIntegerField
-      DisplayLabel = #1050' '#1089#1087#1080#1089#1072#1085#1080#1102
-      FieldName = 'REMBOTTLECOUNT'
+    object InventoryCasheCDSREMCOUNTUNIT: TFloatField
+      DisplayLabel = #1050' '#1089#1087#1080#1089#1072#1085#1080#1102', '#1096#1090'.'
+      FieldName = 'REMCOUNTUNIT'
     end
     object InventoryCasheCDSRACKID: TIntegerField
       DisplayLabel = #1050#1086#1076' '#1103#1095#1077#1081#1082#1080
@@ -1540,9 +1540,9 @@ object fInventoryList: TfInventoryList
       FieldName = 'REMREASON'
       Size = 512
     end
-    object InventoryCasheCDSDEFBOTTLECOUNT: TIntegerField
+    object InventoryCasheCDSDEFCOUNTUNIT: TFloatField
       DisplayLabel = #1044#1077#1092#1077#1082#1090', '#1096#1090'.'
-      FieldName = 'DEFBOTTLECOUNT'
+      FieldName = 'DEFCOUNTUNIT'
     end
     object InventoryCasheCDSDEFECTTYPE: TSmallintField
       DisplayLabel = #1058#1080#1087' '#1076#1077#1092#1077#1082#1090#1072
@@ -3733,8 +3733,11 @@ object fInventoryList: TfInventoryList
         object Memo94: TfrxMemoView
           Left = 404.40971
           Width = 109.60637
-          Height = 19.2755905511811
+          Height = 19.27559055
           ShowHint = False
+          DataField = 'DRINKGROUPNAME'
+          DataSet = InventoryActDetailfrxDBD
+          DataSetName = #1044#1077#1090#1072#1083#1080' '#1086#1087#1080#1089#1080
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -9
@@ -3742,7 +3745,7 @@ object fInventoryList: TfInventoryList
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Memo.UTF8 = (
-            '['#1056#8221#1056#181#1057#8218#1056#176#1056#187#1056#1105' '#1056#1109#1056#1111#1056#1105#1057#1027#1056#1105'."DRINKGROUP"]')
+            '['#1056#8221#1056#181#1057#8218#1056#176#1056#187#1056#1105' '#1056#1109#1056#1111#1056#1105#1057#1027#1056#1105'."DRINKGROUPNAME"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -3765,6 +3768,9 @@ object fInventoryList: TfInventoryList
           Width = 45.35436
           Height = 19.27559055
           ShowHint = False
+          DataField = 'COUNTUNIT'
+          DataSet = InventoryActDetailfrxDBD
+          DataSetName = #1044#1077#1090#1072#1083#1080' '#1086#1087#1080#1089#1080
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -3773,7 +3779,7 @@ object fInventoryList: TfInventoryList
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           HAlign = haRight
           Memo.UTF8 = (
-            '['#1056#8221#1056#181#1057#8218#1056#176#1056#187#1056#1105' '#1056#1109#1056#1111#1056#1105#1057#1027#1056#1105'."BOTTLECOUNT"]')
+            '['#1056#8221#1056#181#1057#8218#1056#176#1056#187#1056#1105' '#1056#1109#1056#1111#1056#1105#1057#1027#1056#1105'."COUNTUNIT"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -3869,7 +3875,7 @@ object fInventoryList: TfInventoryList
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           HAlign = haRight
           Memo.UTF8 = (
-            '[SUM(<'#1056#8221#1056#181#1057#8218#1056#176#1056#187#1056#1105' '#1056#1109#1056#1111#1056#1105#1057#1027#1056#1105'."BOTTLECOUNT">,MasterData2)]')
+            '[SUM(<'#1056#8221#1056#181#1057#8218#1056#176#1056#187#1056#1105' '#1056#1109#1056#1111#1056#1105#1057#1027#1056#1105'."COUNTUNIT">,MasterData2)]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -3961,8 +3967,8 @@ object fInventoryList: TfInventoryList
           HAlign = haCenter
           Memo.UTF8 = (
             
-              '[SUMMAPROPIS(SUM(<'#1056#8221#1056#181#1057#8218#1056#176#1056#187#1056#1105' '#1056#1109#1056#1111#1056#1105#1057#1027#1056#1105'."BOTTLECOUNT">,MasterD' +
-              'ata2))]')
+              '[SUMMAPROPIS(SUM(<'#1056#8221#1056#181#1057#8218#1056#176#1056#187#1056#1105' '#1056#1109#1056#1111#1056#1105#1057#1027#1056#1105'."COUNTUNIT">,MasterDat' +
+              'a2))]')
           ParentFont = False
         end
         object Memo115: TfrxMemoView
@@ -4391,7 +4397,7 @@ object fInventoryList: TfInventoryList
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           HAlign = haRight
           Memo.UTF8 = (
-            '[SUM(<'#1056#8221#1056#181#1057#8218#1056#176#1056#187#1056#1105' '#1056#1109#1056#1111#1056#1105#1057#1027#1056#1105'."BOTTLECOUNT">,MasterData2)]')
+            '[SUM(<'#1056#8221#1056#181#1057#8218#1056#176#1056#187#1056#1105' '#1056#1109#1056#1111#1056#1105#1057#1027#1056#1105'."COUNTUNIT">,MasterData2)]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -5224,6 +5230,15 @@ object fInventoryList: TfInventoryList
   object InventoryActDetailfrxDBD: TfrxDBDataset
     UserName = #1044#1077#1090#1072#1083#1080' '#1086#1087#1080#1089#1080
     CloseDataSource = True
+    FieldAliases.Strings = (
+      'DRINKID=DRINKID'
+      'DRINKNAME=DRINKNAME'
+      'DRINKGROUPNAME=DRINKGROUPNAME'
+      'COUNTUNIT=COUNTUNIT'
+      'RETAILPRICE=RETAILPRICE'
+      'RETAILSUM=RETAILSUM'
+      'REMREASON=REMREASON'
+      'BARCODE=BARCODE')
     DataSet = InventoryDetailActCDS
     BCDToCurrency = False
     Left = 96
@@ -5242,12 +5257,12 @@ object fInventoryList: TfInventoryList
       FieldName = 'DRINKNAME'
       Size = 512
     end
-    object InventoryDetailActCDSDRINKGROUP: TStringField
-      FieldName = 'DRINKGROUP'
+    object InventoryDetailActCDSDRINKGROUPNAME: TStringField
+      FieldName = 'DRINKGROUPNAME'
       Size = 25
     end
-    object InventoryDetailActCDSBOTTLECOUNT: TIntegerField
-      FieldName = 'BOTTLECOUNT'
+    object InventoryDetailActCDSCOUNTUNIT: TFloatField
+      FieldName = 'COUNTUNIT'
     end
     object InventoryDetailActCDSRETAILPRICE: TFloatField
       FieldName = 'RETAILPRICE'
@@ -15393,7 +15408,7 @@ object fInventoryList: TfInventoryList
           GapX = 5
           HAlign = haRight
           Memo.UTF8 = (
-            '['#1056#8221#1056#181#1057#8218#1056#176#1056#187#1056#1105' '#1056#1109#1056#1111#1056#1105#1057#1027#1056#1105'."BOTTLECOUNT"]')
+            '['#1056#8221#1056#181#1057#8218#1056#176#1056#187#1056#1105' '#1056#1109#1056#1111#1056#1105#1057#1027#1056#1105'."COUNTUNIT"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -15479,7 +15494,7 @@ object fInventoryList: TfInventoryList
         end
         object Memo7: TfrxMemoView
           Left = 351.49629
-          Top = 3.77953000000002
+          Top = 3.77953
           Width = 64.25201
           Height = 18.89765
           ShowHint = False
@@ -15491,7 +15506,7 @@ object fInventoryList: TfInventoryList
           GapX = 4
           HAlign = haRight
           Memo.UTF8 = (
-            '[SUM(<'#1056#8221#1056#181#1057#8218#1056#176#1056#187#1056#1105' '#1056#1109#1056#1111#1056#1105#1057#1027#1056#1105'."BOTTLECOUNT">,MasterData1)]')
+            '[SUM(<'#1056#8221#1056#181#1057#8218#1056#176#1056#187#1056#1105' '#1056#1109#1056#1111#1056#1105#1057#1027#1056#1105'."COUNTUNIT">,MasterData1)]')
           ParentFont = False
         end
         object Memo8: TfrxMemoView
@@ -19365,7 +19380,7 @@ object fInventoryList: TfInventoryList
       'begin'
       ''
       'end.')
-    Left = 64
+    Left = 72
     Top = 88
     Datasets = <
       item
