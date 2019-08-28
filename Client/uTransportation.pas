@@ -216,6 +216,9 @@ type
     EgaisErrorFixMI: TMenuItem;
     TransportationcxGridDBTVFLAGEGAISRETAILERROR: TcxGridDBColumn;
     TransportationcxGridDBTVFLAGEXCISESCAN: TcxGridDBColumn;
+    TransportationCDSREPRICEID: TIntegerField;
+    RePriceMI: TMenuItem;
+    ransportationcxGridDBTVREPRICEID: TcxGridDBColumn;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure TransportationcxGridDBTVCustomDrawColumnHeader(
       Sender: TcxGridTableView; ACanvas: TcxCanvas;
@@ -253,6 +256,7 @@ type
     procedure TransportationcxGridDBTVCustomDrawCell(
       Sender: TcxCustomGridTableView; ACanvas: TcxCanvas;
       AViewInfo: TcxGridTableDataCellViewInfo; var ADone: Boolean);
+    procedure RePriceMIClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -584,6 +588,8 @@ begin
  EgaisErrorMI.Visible:=TransportationCDSFLAGEGAISRETAILERROR.AsInteger<>0;
  EgaisErrorFixMI.Visible:=TransportationCDSFLAGEGAISRETAILERROR.AsInteger=2;
  LineEgaisErrorMI.Visible:=EgaisErrorMI.Visible;
+
+ RePriceMI.Visible:=FlagTrans and (TransportationCDSREPRICEID.AsInteger=0);
 end;
 
 procedure TfTransportation.DeleteTransportationDetailMIClick(Sender: TObject);
@@ -831,7 +837,7 @@ begin
   try
    InUpDelCDS.Close;
    InUpDelCDS.CommandText:=
-    'insert into egaistransportation(transportationid) values('+TransportationCDSTRANSPORTATIONID.AsString+')';
+    'execute procedure buytrans_transsendtoegais('+TransportationCDSTRANSPORTATIONID.AsString+')';
    SocketConnection.AppServer.DBStartTransaction;
    InUpDelCDS.Execute;
    SocketConnection.AppServer.DBCommit;
@@ -990,6 +996,27 @@ procedure TfTransportation.TransportationcxGridDBTVCustomDrawCell(
 begin
  if (AViewInfo.GridRecord.DisplayTexts[TransportationcxGridDBTVFLAGEXCISESCAN.Index] <> '0') then
    ACanvas.Brush.Color := $00B5E8B9;
+end;
+
+procedure TfTransportation.RePriceMIClick(Sender: TObject);
+begin
+ if MessageDlg('Вы дейстыительно хотите создать переоценку на выбранный документ?'+#10#13+'Дальнейшее редактирование документа будет не возможно.', mtConfirmation, [mbYes, mbNo] , 0)<> mrYes then
+  exit;
+
+ try
+  fMain.SocketConnection.AppServer.DBStartTransaction;
+  fMain.InUpDelCDS.Close;
+  fMain.InUpDelCDS.CommandText:=
+   'execute procedure buytrans_transreprice('+TransportationCDSTRANSPORTATIONID.AsString+')';
+  fMain.InUpDelCDS.Execute;
+  fMain.SocketConnection.AppServer.DBCommit;
+ except on E:Exception do
+  begin
+   fMain.SocketConnection.AppServer.DBRollBack;
+   MessageDLG(E.Message,mtError,[mbOK],0);
+  end;//on
+ end;//try..except
+ fMain.RefreshCDS(TransportationCDS);
 end;
 
 end.

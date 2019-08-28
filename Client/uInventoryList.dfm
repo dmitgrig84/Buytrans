@@ -545,6 +545,21 @@ object fInventoryList: TfInventoryList
             Caption = #1042#1080#1076
             DataBinding.FieldName = 'ISAUDITNAME'
           end
+          object ViewcxGridDBTVISCLOSEDB: TcxGridDBColumn
+            DataBinding.FieldName = 'ISCLOSEDB'
+            PropertiesClassName = 'TcxImageComboBoxProperties'
+            Properties.Items = <
+              item
+                Description = #1053#1077#1090
+                ImageIndex = 0
+                Value = 0
+              end
+              item
+                Description = #1044#1072
+                Value = 1
+              end>
+            Visible = False
+          end
         end
         object ViewcxGridLevel: TcxGridLevel
           GridView = ViewcxGridDBTV
@@ -1634,6 +1649,7 @@ object fInventoryList: TfInventoryList
       FieldName = 'ISEXCISE'
     end
     object InventoryListCDSISCLOSEDB: TSmallintField
+      DisplayLabel = #1047#1072#1082#1088#1099#1090#1080#1077' '#1058#1058
       FieldName = 'ISCLOSEDB'
     end
     object InventoryListCDSNOTMODIFY: TSmallintField
@@ -7491,6 +7507,9 @@ object fInventoryList: TfInventoryList
           Width = 86.92919
           Height = 45.73230055
           ShowHint = False
+          DataField = 'DRINKGROUPNAME'
+          DataSet = InventoryActDetailfrxDBD
+          DataSetName = #1044#1077#1090#1072#1083#1080' '#1086#1087#1080#1089#1080
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -9
@@ -7498,7 +7517,7 @@ object fInventoryList: TfInventoryList
           Font.Style = []
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           Memo.UTF8 = (
-            '['#1056#8221#1056#181#1057#8218#1056#176#1056#187#1056#1105' '#1056#1109#1056#1111#1056#1105#1057#1027#1056#1105'."DRINKGROUP"]')
+            '['#1056#8221#1056#181#1057#8218#1056#176#1056#187#1056#1105' '#1056#1109#1056#1111#1056#1105#1057#1027#1056#1105'."DRINKGROUPNAME"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -7521,6 +7540,9 @@ object fInventoryList: TfInventoryList
           Width = 45.35436
           Height = 45.73230055
           ShowHint = False
+          DataField = 'COUNTUNIT'
+          DataSet = InventoryActDetailfrxDBD
+          DataSetName = #1044#1077#1090#1072#1083#1080' '#1086#1087#1080#1089#1080
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -11
@@ -7529,7 +7551,7 @@ object fInventoryList: TfInventoryList
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           HAlign = haRight
           Memo.UTF8 = (
-            '['#1056#8221#1056#181#1057#8218#1056#176#1056#187#1056#1105' '#1056#1109#1056#1111#1056#1105#1057#1027#1056#1105'."BOTTLECOUNT"]')
+            '['#1056#8221#1056#181#1057#8218#1056#176#1056#187#1056#1105' '#1056#1109#1056#1111#1056#1105#1057#1027#1056#1105'."COUNTUNIT"]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -7666,7 +7688,7 @@ object fInventoryList: TfInventoryList
           Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           HAlign = haRight
           Memo.UTF8 = (
-            '[SUM(<'#1056#8221#1056#181#1057#8218#1056#176#1056#187#1056#1105' '#1056#1109#1056#1111#1056#1105#1057#1027#1056#1105'."BOTTLECOUNT">,MasterData2)]')
+            '[SUM(<'#1056#8221#1056#181#1057#8218#1056#176#1056#187#1056#1105' '#1056#1109#1056#1111#1056#1105#1057#1027#1056#1105'."COUNTUNIT">,MasterData2)]')
           ParentFont = False
           VAlign = vaCenter
         end
@@ -7761,8 +7783,8 @@ object fInventoryList: TfInventoryList
           HAlign = haCenter
           Memo.UTF8 = (
             
-              '[SUMMAPROPIS(SUM(<'#1056#8221#1056#181#1057#8218#1056#176#1056#187#1056#1105' '#1056#1109#1056#1111#1056#1105#1057#1027#1056#1105'."BOTTLECOUNT">,MasterD' +
-              'ata2))]')
+              '[SUMMAPROPIS(SUM(<'#1056#8221#1056#181#1057#8218#1056#176#1056#187#1056#1105' '#1056#1109#1056#1111#1056#1105#1057#1027#1056#1105'."COUNTUNIT">,MasterDat' +
+              'a2))]')
           ParentFont = False
         end
         object Memo115: TfrxMemoView
@@ -26346,7 +26368,7 @@ object fInventoryList: TfInventoryList
           Font.Style = [fsBold]
           GapX = 4
           Memo.UTF8 = (
-            '[SUM(<'#1056#8221#1056#181#1057#8218#1056#176#1056#187#1056#1105' '#1056#1109#1056#1111#1056#1105#1057#1027#1056#1105'."BOTTLECOUNT">,MasterData1)]')
+            '[SUM(<'#1056#8221#1056#181#1057#8218#1056#176#1056#187#1056#1105' '#1056#1109#1056#1111#1056#1105#1057#1027#1056#1105'."COUNTUNIT">,MasterData1)]')
           ParentFont = False
         end
         object Memo35: TfrxMemoView

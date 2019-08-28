@@ -1,6 +1,6 @@
 object fTransportation: TfTransportation
-  Left = 629
-  Top = 203
+  Left = 383
+  Top = 185
   Width = 1217
   Height = 685
   Caption = #1055#1077#1088#1077#1084#1077#1097#1077#1085#1080#1077
@@ -507,6 +507,10 @@ object fTransportation: TfTransportation
           end
           object TransportationcxGridDBTVFLAGEXCISESCAN: TcxGridDBColumn
             DataBinding.FieldName = 'FLAGEXCISESCAN'
+            Visible = False
+          end
+          object ransportationcxGridDBTVREPRICEID: TcxGridDBColumn
+            DataBinding.FieldName = 'REPRICEID'
             Visible = False
           end
         end
@@ -1461,6 +1465,10 @@ object fTransportation: TfTransportation
       FieldName = 'FLAGEXCISESCAN'
       Visible = False
     end
+    object TransportationCDSREPRICEID: TIntegerField
+      DisplayLabel = #1050#1086#1076' '#1087#1077#1088#1077#1086#1094#1077#1085#1082#1080
+      FieldName = 'REPRICEID'
+    end
   end
   object TransportationDS: TDataSource
     DataSet = TransportationCDS
@@ -1663,6 +1671,11 @@ object fTransportation: TfTransportation
       Caption = #1054#1090#1087#1088#1072#1074#1080#1090#1100' '#1074' '#1045#1043#1040#1048#1057
       ImageIndex = 21
       OnClick = EgaisMIClick
+    end
+    object RePriceMI: TMenuItem
+      Caption = #1057#1086#1079#1076#1072#1090#1100' '#1087#1077#1088#1077#1086#1094#1077#1085#1082#1091
+      ImageIndex = 36
+      OnClick = RePriceMIClick
     end
     object CollectedMI: TMenuItem
       Caption = #1057#1086#1073#1088#1072#1085#1072

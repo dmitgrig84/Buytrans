@@ -371,6 +371,7 @@ type
     InventoryCasheCDSREMCOUNTUNIT: TFloatField;
     InventoryCasheCDSDEFCOUNTUNIT: TFloatField;
     InventoryDetailActCDSCOUNTUNIT: TFloatField;
+    ViewcxGridDBTVISCLOSEDB: TcxGridDBColumn;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure RefreshInventoryBBClick(Sender: TObject);
