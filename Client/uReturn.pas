@@ -215,6 +215,7 @@ type
     ReturnSaleCDSFLAGCANCELCONFIRM: TSmallintField;
     CancelConfirmMI: TMenuItem;
     SalecxGridDBTVFLAGCANCELCONFIRM: TcxGridDBColumn;
+    EgaisResultMI: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure SalecxGridDBTVCustomDrawColumnHeader(
       Sender: TcxGridTableView; ACanvas: TcxCanvas;
@@ -277,6 +278,7 @@ type
     procedure ReturnExciseMIClick(Sender: TObject);
     procedure SaleExciseMIClick(Sender: TObject);
     procedure CancelConfirmMIClick(Sender: TObject);
+    procedure EgaisResultMIClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -289,7 +291,7 @@ var
 implementation
 
 uses uMain, DynamicProvider, uReturnAdd, uEgaisReturn, uEgaisAct, uDelivered,
-  uExciseScan;
+  uExciseScan, uEgaisResult;
 
 {$R *.dfm}
 
@@ -901,6 +903,7 @@ begin
  CancelConfirmMI.Visible:=(ReturnSaleCDSFLAGCANCELCONFIRM.AsInteger=1);
  FirstLineMI.Visible:=EgaisSaleActMI.Visible or UnConfirmEgaisSaleMI.Visible or ConfirmEgaisSaleMI.Visible;
  SecondLineMI.Visible:=UnConfirmEgaisSaleMI.Visible or ConfirmEgaisSaleMI.Visible or SaleExciseMI.Visible or SaleNewTodayMI.Visible;
+ EgaisResultMI.Visible:=(ReturnSaleCDSEGAISSTATUS.AsInteger>4);
 end;
 
 procedure TfReturn.EgaisSaleActMIClick(Sender: TObject);
@@ -1153,6 +1156,15 @@ begin
   end;//try..except }
 
  fMain.RefreshCDS(ReturnSaleCDS);
+end;
+
+procedure TfReturn.EgaisResultMIClick(Sender: TObject);
+begin
+ if (not Assigned(fEgaisResult)) then
+  Application.CreateForm(TfEgaisResult, fEgaisResult);
+ fEgaisResult.Tag:=1;
+ fEgaisResult.ResultcxMemo.Tag:=ReturnSaleCDSSALEID.AsInteger;
+ fEgaisResult.ShowModal;
 end;
 
 end.

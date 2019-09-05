@@ -1,6 +1,6 @@
 object fSupplyResult: TfSupplyResult
-  Left = 181
-  Top = 93
+  Left = 672
+  Top = 136
   Width = 1483
   Height = 771
   Caption = #1047#1072#1082#1072#1079
@@ -455,7 +455,6 @@ object fSupplyResult: TfSupplyResult
     end
     object dxDBGrid1CBOTTLECOUNT51: TdxDBGridColumn
       Caption = #8470'51'
-      Width = 64
       BandIndex = 5
       RowIndex = 0
       FieldName = 'CBOTTLECOUNT51'

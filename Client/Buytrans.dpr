@@ -54,7 +54,8 @@ uses
   uInventoryListAdd in 'uInventoryListAdd.pas' {fInventoryListAdd},
   uInventoryListCashe in 'uInventoryListCashe.pas' {fInventoryListCashe},
   uInventoryListTRAdd in 'uInventoryListTRAdd.pas' {fInventoryListTRAdd},
-  uEgaisBuy in 'uEgaisBuy.pas' {fEgaisBuy};
+  uEgaisBuy in 'uEgaisBuy.pas' {fEgaisBuy},
+  uEgaisResult in 'uEgaisResult.pas' {fEgaisResult};
 
 {$R *.res}
 

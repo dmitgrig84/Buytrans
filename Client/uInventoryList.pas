@@ -372,6 +372,7 @@ type
     InventoryCasheCDSDEFCOUNTUNIT: TFloatField;
     InventoryDetailActCDSCOUNTUNIT: TFloatField;
     ViewcxGridDBTVISCLOSEDB: TcxGridDBColumn;
+    RefreshLinkMI: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure RefreshInventoryBBClick(Sender: TObject);
@@ -439,6 +440,7 @@ type
     procedure TradeReportCDSBeforeOpen(DataSet: TDataSet);
     procedure ExciseInventoryMIClick(Sender: TObject);
     procedure ExciseEqualMIClick(Sender: TObject);
+    procedure RefreshLinkMIClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -729,6 +731,7 @@ begin
   end;
  ExciseInventoryMI.Visible:=InventoryCasheCDS.RecordCount>0;
  ExciseEqualMI.Visible:=ExciseInventoryMI.Visible and (InventoryListCDSSTATUS.AsInteger=1) and (not InventoryCasheCDSEXCISECODE.IsNull) and (InventoryCasheCDSCOUNTUNIT.AsInteger>1);
+ RefreshLinkMI.Visible:=ExciseInventoryMI.Visible and (InventoryListCDSSTATUS.AsInteger=1);
  ExciseLineMI.Visible:=ExciseInventoryMI.Visible;
 end;
 
@@ -954,7 +957,7 @@ begin
     SocketConnection.AppServer.DBStartTransaction;
     InUpDelCDS.Close;
     InUpDelCDS.CommandText :=
-     'delete from inventorycashe where id = ' + InventoryCasheCDSID.AsString;
+     'execute procedure buytrans_inventorylistcashedel('+InventoryCasheCDSID.AsString+')';
     InUpDelCDS.Execute;
 
     SocketConnection.AppServer.DBCommit;
@@ -1922,6 +1925,33 @@ begin
     InUpDelCDS.Close;
     InUpDelCDS.CommandText :=
      'execute procedure buytrans_inventorylistlink_te('+InventoryCasheCDSID.AsString+')';
+    InUpDelCDS.Execute;
+
+    SocketConnection.AppServer.DBCommit;
+
+   except on E:Exception do
+    begin
+     SocketConnection.AppServer.DBRollBack;
+     MessageDlg('Ошибка: ' + E.Message+'"',mtError,[mbOk],0);
+    end;//except
+   end;//try..except
+
+   RefreshCDS(InventoryCasheCDS);
+  end; //with}
+end;
+
+procedure TfInventoryList.RefreshLinkMIClick(Sender: TObject);
+begin
+ if MessageDlg('Вы уверены в изменении данных?', mtConfirmation,[mbYes, mbNo], 0)<>mrYes then
+   exit;
+
+ with fMain do
+  begin
+   try
+    SocketConnection.AppServer.DBStartTransaction;
+    InUpDelCDS.Close;
+    InUpDelCDS.CommandText :=
+     'execute procedure buytrans_inventorylistlink_ref('+InventoryListCDSID.AsString+')';
     InUpDelCDS.Execute;
 
     SocketConnection.AppServer.DBCommit;

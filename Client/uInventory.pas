@@ -86,6 +86,7 @@ type
     InventoryCDSTABLEID: TIntegerField;
     InventoryCDSISREGRADINGNAME: TStringField;
     InventorycxGridDBTVISREGRADINGNAME: TcxGridDBColumn;
+    EgaisResultMI: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure InventoryCDSBeforeOpen(DataSet: TDataSet);
@@ -105,6 +106,7 @@ type
     procedure SendEgaisMIClick(Sender: TObject);
     procedure NotSendEgaisMIClick(Sender: TObject);
     procedure InventoryIsNotMakeMIClick(Sender: TObject);
+    procedure EgaisResultMIClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -116,7 +118,7 @@ var
 
 implementation
 
-uses uMain, uInventoryAdd, uInventoryPrint;
+uses uMain, uInventoryAdd, uInventoryPrint, uEgaisResult;
 
 {$R *.dfm}
 
@@ -339,6 +341,7 @@ begin
  InventoryIsNotMakeMI.Visible:=(InventoryCDSISMAKE.AsInteger=1) and (Pos('Z', fMain.AdvancedGrant) > 0);
  SendEgaisMI.Visible:=(InventoryCDSEGAISSENDFLAG.AsInteger=1);
  NotSendEgaisMI.Visible:=(InventoryCDSEGAISSENDFLAG.AsInteger=2);
+ EgaisResultMI.Visible:=(InventoryCDSEGAISREMOVINGSTATUSID.AsInteger>=4);
 end;
 
 procedure TfInventory.SendEgaisMIClick(Sender: TObject);
@@ -415,6 +418,15 @@ begin
    end; //on E:Exception
   end; //try
  RefreshcxButtonClick(Self);
+end;
+
+procedure TfInventory.EgaisResultMIClick(Sender: TObject);
+begin
+ if (not Assigned(fEgaisResult)) then
+  Application.CreateForm(TfEgaisResult, fEgaisResult);
+ fEgaisResult.Tag:=2;
+ fEgaisResult.ResultcxMemo.Tag:=InventoryCDSINVENTORYID.AsInteger;
+ fEgaisResult.ShowModal;
 end;
 
 end.

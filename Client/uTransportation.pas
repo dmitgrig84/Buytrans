@@ -219,6 +219,7 @@ type
     TransportationCDSREPRICEID: TIntegerField;
     RePriceMI: TMenuItem;
     ransportationcxGridDBTVREPRICEID: TcxGridDBColumn;
+    EgaisResultMI: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure TransportationcxGridDBTVCustomDrawColumnHeader(
       Sender: TcxGridTableView; ACanvas: TcxCanvas;
@@ -257,6 +258,7 @@ type
       Sender: TcxCustomGridTableView; ACanvas: TcxCanvas;
       AViewInfo: TcxGridTableDataCellViewInfo; var ADone: Boolean);
     procedure RePriceMIClick(Sender: TObject);
+    procedure EgaisResultMIClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -269,7 +271,7 @@ var
 implementation
 
 uses uMain,DynamicProvider, uTransportationAddDetail, uBuyTransTerm,
-  uTransportationEditPrice, uExciseScan;
+  uTransportationEditPrice, uExciseScan, uEgaisResult;
 
 {$R *.dfm}
 
@@ -590,6 +592,7 @@ begin
  LineEgaisErrorMI.Visible:=EgaisErrorMI.Visible;
 
  RePriceMI.Visible:=FlagTrans and (TransportationCDSREPRICEID.AsInteger=0);
+ EgaisResultMI.Visible:=(TransportationCDSEGAISTRANSPORTATIONSTATUSID.AsInteger>=4);
 end;
 
 procedure TfTransportation.DeleteTransportationDetailMIClick(Sender: TObject);
@@ -1017,6 +1020,15 @@ begin
   end;//on
  end;//try..except
  fMain.RefreshCDS(TransportationCDS);
+end;
+
+procedure TfTransportation.EgaisResultMIClick(Sender: TObject);
+begin
+ if (not Assigned(fEgaisResult)) then
+  Application.CreateForm(TfEgaisResult, fEgaisResult);
+ fEgaisResult.Tag:=3;
+ fEgaisResult.ResultcxMemo.Tag:=TransportationCDSTRANSPORTATIONID.AsInteger;
+ fEgaisResult.ShowModal;
 end;
 
 end.
