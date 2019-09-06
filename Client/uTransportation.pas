@@ -587,7 +587,7 @@ begin
  if TransportationCDSFLAGCOLLECTED.AsInteger=3 then begin CollectedMI.Caption:='Не доставлена'; CollectedMI.ImageIndex:=26; end;
  ChageDateMI.Visible:=FlagTrans and (TransportationCDSFLAGCHANGEDATE.AsInteger<>0);
 
- EgaisErrorMI.Visible:=TransportationCDSFLAGEGAISRETAILERROR.AsInteger<>0;
+ EgaisErrorMI.Visible:=false;//TransportationCDSFLAGEGAISRETAILERROR.AsInteger<>0;
  EgaisErrorFixMI.Visible:=TransportationCDSFLAGEGAISRETAILERROR.AsInteger=2;
  LineEgaisErrorMI.Visible:=EgaisErrorMI.Visible;
 

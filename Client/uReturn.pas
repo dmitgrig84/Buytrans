@@ -269,9 +269,6 @@ type
     procedure AcceptEgaisSaleActMIClick(Sender: TObject);
     procedure UnConfirmEgaisSaleMIClick(Sender: TObject);
     procedure ConfirmEgaisSaleMIClick(Sender: TObject);
-    procedure SalecxGridDBTVCellDblClick(Sender: TcxCustomGridTableView;
-      ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
-      AShift: TShiftState; var AHandled: Boolean);
     procedure IsDeliveredMIClick(Sender: TObject);
     procedure ExportToExcelMIClick(Sender: TObject);
     procedure SaleNewTodayMIClick(Sender: TObject);
@@ -1038,22 +1035,6 @@ begin
    end; //on
   end; //try..except
  fMain.RefreshCDS(ReturnSaleCDS);
-end;
-
-procedure TfReturn.SalecxGridDBTVCellDblClick(
-  Sender: TcxCustomGridTableView;
-  ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
-  AShift: TShiftState; var AHandled: Boolean);
-begin
- with fMain do
-  begin
-   AnyCommandCDS.Close;
-   AnyCommandCDS.CommandText:=
-    'select commentary from egais_salecomment('+ReturnSaleCDSSALEID.AsString+')';
-   AnyCommandCDS.Open;
-   if (not AnyCommandCDS.IsEmpty) and (AnyCommandCDS.Fields[0].AsString<>'') then
-    ShowMessage(AnyCommandCDS.Fields[0].AsString);
-  end;
 end;
 
 procedure TfReturn.IsDeliveredMIClick(Sender: TObject);

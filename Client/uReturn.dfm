@@ -330,7 +330,6 @@ object fReturn: TfReturn
       object SalecxGridDBTV: TcxGridDBTableView
         PopupMenu = ReturnSalePM
         NavigatorButtons.ConfirmDelete = False
-        OnCellDblClick = SalecxGridDBTVCellDblClick
         OnCustomDrawCell = SalecxGridDBTVCustomDrawCell
         DataController.DataSource = ReturnSaleDS
         DataController.KeyFieldNames = 'SALEID'

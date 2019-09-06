@@ -35,16 +35,26 @@ uses uMain;
 {$R *.dfm}
 
 procedure TfEgaisResult.GetcxButtonClick(Sender: TObject);
+var StrSteam:TStrings;
 begin
  ResultcxMemo.Clear;
  with fMain.AnyCommandCDS do
   begin
    Close;
-   CommandText:='select * from buytrans_egaiserror('+IntToStr(Self.Tag)+','+IntToStr(ResultcxMemo.Tag)+')';
+   CommandText:='select * from buytrans_egaisresultanswer('+IntToStr(Self.Tag)+','+IntToStr(ResultcxMemo.Tag)+')';
    Open;
 
    if (not IsEmpty) then
-    ResultcxMemo.Lines.LoadFromStream(CreateBlobStream(TBlobField(FieldByName('xmlfile')),bmRead));
+    begin
+     StrSteam:=TStringList.Create;
+     while not Eof do
+      begin
+       StrSteam.LoadFromStream(CreateBlobStream(TBlobField(FieldByName('xmlfile')),bmRead));
+       ResultcxMemo.Lines.AddStrings(StrSteam);
+       Next;
+      end;
+     StrSteam.Free;
+    end;
   end;
 end;
 
