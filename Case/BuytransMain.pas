@@ -4,6 +4,7 @@ unit BuyTransMain;
 
 interface
 
+
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   ActiveX, AxCtrls, Buytrans_TLB, StdVcl, StdCtrls;
