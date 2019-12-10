@@ -1,8 +1,8 @@
 object fMain: TfMain
   Left = 240
   Top = 132
-  Width = 1360
-  Height = 738
+  Width = 1292
+  Height = 732
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -80,6 +80,11 @@ object fMain: TfMain
       object EgaisFirmTypeMI: TMenuItem
         Tag = 1
         Caption = #1050#1083#1080#1077#1085#1090#1099' '#1080#1089#1082#1083#1102#1095#1077#1085#1080#1103' '#1045#1043#1040#1048#1057
+        OnClick = HandBookMIClick
+      end
+      object UTMMI: TMenuItem
+        Tag = 1
+        Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1080' '#1059#1058#1052' '
         OnClick = HandBookMIClick
       end
     end
@@ -171,6 +176,10 @@ object fMain: TfMain
       end
       object RetailErrorEgaisMI: TMenuItem
         Caption = #1042#1080#1089#1103#1082#1080' '#1088#1086#1079#1085#1080#1094#1099' '#1087#1086' '#1045#1043#1040#1048#1057
+        OnClick = ReportMIClick
+      end
+      object LastRestsMI: TMenuItem
+        Caption = #1055#1086#1089#1083#1077#1076#1085#1080#1077' '#1086#1089#1090#1072#1090#1082#1080' '#1045#1043#1040#1048#1057
         OnClick = ReportMIClick
       end
     end
@@ -272,7 +281,7 @@ object fMain: TfMain
     Left = 144
     Top = 16
     Bitmap = {
-      494C010125002700040010001000FFFFFFFFFF00FFFFFFFFFFFFFFFF424D3600
+      494C010125002700040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000A000000001001000000000000050
       0000000000000000000000000000000000000000000000000000000000000000
       2212220E010E4212020E00000000000000000000000000000000000000000000
@@ -956,7 +965,8 @@ object fMain: TfMain
       F81FC001FFFF8001F81FC001FFFF0000F81FC001FFFF00010000C00100000001
       0000C001000000000000C001000000000000C001000000000000C00100000000
       0000C00100008001F81FC000FFFF8007F81FC000FFFF007FF81FC001FFFF00FF
-      F81FC007FFFF00FFF81FC00FFFFFFFFF}
+      F81FC007FFFF00FFF81FC00FFFFFFFFF00000000000000000000000000000000
+      000000000000}
   end
   object ReturnTypeCDS: TClientDataSet
     Tag = -1
@@ -1455,6 +1465,97 @@ object fMain: TfMain
       DisplayLabel = #1055#1086#1089#1083#1077#1076#1085#1077#1077' '#1076#1077#1081#1089#1090#1074#1080#1077
       FieldName = 'WHENWHO'
       Size = 64
+    end
+  end
+  object EgaisRestsLastCDS: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    Left = 288
+    Top = 120
+    object EgaisRestsLastCDSKEYID: TIntegerField
+      DisplayLabel = #1050#1083#1102#1095
+      FieldName = 'KEYID'
+      Visible = False
+    end
+    object EgaisRestsLastCDSEGAISCONNECTID: TIntegerField
+      DisplayLabel = #1050#1086#1076' '#1087#1086#1076#1082#1083#1102#1095#1077#1085#1080#1103
+      FieldName = 'EGAISCONNECTID'
+    end
+    object EgaisRestsLastCDSECNAME: TStringField
+      DisplayLabel = #1058#1058
+      FieldName = 'ECNAME'
+      Size = 64
+    end
+    object EgaisRestsLastCDSEGAISDOCUMENTSTYPEID: TIntegerField
+      DisplayLabel = #1050#1086#1076' '#1076#1086#1082#1091#1084#1077#1085#1090#1072
+      FieldName = 'EGAISDOCUMENTSTYPEID'
+      Visible = False
+    end
+    object EgaisRestsLastCDSEDNAME: TStringField
+      DisplayLabel = #1044#1086#1082#1091#1084#1077#1085#1090
+      FieldName = 'EDNAME'
+      Size = 64
+    end
+    object EgaisRestsLastCDSEIID: TIntegerField
+      DisplayLabel = #1050#1086#1076' '#1079#1072#1087#1088#1086#1089#1072
+      FieldName = 'EIID'
+    end
+    object EgaisRestsLastCDSPRESENT: TDateTimeField
+      DisplayLabel = #1044#1072#1090#1072
+      FieldName = 'PRESENT'
+    end
+    object EgaisRestsLastCDSCOUNTUNIT: TIntegerField
+      DisplayLabel = #1050#1086#1083'-'#1074#1086', '#1096#1090'.'
+      FieldName = 'COUNTUNIT'
+    end
+  end
+  object EgaisConnectCDS: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    Left = 288
+    Top = 160
+    object EgaisConnectCDSID: TSmallintField
+      DisplayLabel = #1050#1086#1076' '#1087#1086#1076#1082#1083#1102#1095#1077#1085#1080#1103
+      FieldName = 'ID'
+      ReadOnly = True
+    end
+    object EgaisConnectCDSDISTRIBUTIONID: TIntegerField
+      DisplayLabel = #1050#1086#1076' '#1058#1058
+      FieldName = 'DISTRIBUTIONID'
+    end
+    object EgaisConnectCDSNAME: TStringField
+      DisplayLabel = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
+      FieldName = 'NAME'
+      ReadOnly = True
+      Size = 64
+    end
+    object EgaisConnectCDSKPP: TStringField
+      DisplayLabel = #1050#1055#1055
+      FieldName = 'KPP'
+      ReadOnly = True
+      Size = 16
+    end
+    object EgaisConnectCDSFSRAR_ID: TStringField
+      DisplayLabel = #1050#1086#1076' '#1045#1043#1040#1048#1057
+      FieldName = 'FSRAR_ID'
+      ReadOnly = True
+      Size = 16
+    end
+    object EgaisConnectCDSUTM_IP: TStringField
+      DisplayLabel = 'IP '#1072#1076#1088#1077#1089
+      FieldName = 'UTM_IP'
+      Size = 32
+    end
+    object EgaisConnectCDSISACTIVE: TStringField
+      DisplayLabel = #1040#1082#1090#1080#1074#1077#1085
+      FieldName = 'ISACTIVE'
+      ReadOnly = True
+      Size = 4
+    end
+    object EgaisConnectCDSLASTCONNECT: TDateTimeField
+      DisplayLabel = #1055#1086#1089#1083#1077#1076#1085#1077#1077' '#1087#1086#1076#1082#1083#1102#1095#1077#1085#1080#1077
+      FieldName = 'LASTCONNECT'
+      ReadOnly = True
     end
   end
 end

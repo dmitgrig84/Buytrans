@@ -62,6 +62,7 @@ object fHandBook: TfHandBook
     Width = 920
     Height = 425
     Align = alClient
+    PageIndex = 1
     TabOrder = 0
     object TPage
       Left = 0

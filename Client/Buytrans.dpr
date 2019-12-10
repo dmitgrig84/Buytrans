@@ -55,7 +55,7 @@ uses
   uInventoryListCashe in 'uInventoryListCashe.pas' {fInventoryListCashe},
   uInventoryListTRAdd in 'uInventoryListTRAdd.pas' {fInventoryListTRAdd},
   uEgaisBuy in 'uEgaisBuy.pas' {fEgaisBuy},
-  uEgaisResult in 'uEgaisResult.pas' {fEgaisResult};
+  uEgaisIdentifier in 'uEgaisIdentifier.pas' {fEgaisIdentifier};
 
 {$R *.res}
 

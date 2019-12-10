@@ -125,6 +125,15 @@ type
     DetailcxGridDBTVPROVIDERINN: TcxGridDBColumn;
     EgaisBuyCDSREPEALFLAG: TSmallintField;
     RequestRepealMI: TMenuItem;
+    EgaisResultMI: TMenuItem;
+    EgaisBuyDetailCDSPROVIDERNAME: TStringField;
+    EgaisBuyDetailCDSIMPORTERINN: TStringField;
+    EgaisBuyDetailCDSIMPORTERKPP: TStringField;
+    EgaisBuyDetailCDSIMPORTERNAME: TStringField;
+    DetailcxGridDBTVPROVIDERNAME: TcxGridDBColumn;
+    DetailcxGridDBTVIMPORTERINN: TcxGridDBColumn;
+    DetailcxGridDBTVIMPORTERKPP: TcxGridDBColumn;
+    DetailcxGridDBTVIMPORTERNAME: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
     procedure BegincxDEPropertiesChange(Sender: TObject);
     procedure EndcxDEPropertiesChange(Sender: TObject);
@@ -147,6 +156,7 @@ type
       AViewInfo: TcxGridTableDataCellViewInfo; var ADone: Boolean);
     procedure AlcCodeMIClick(Sender: TObject);
     procedure RequestRepealMIClick(Sender: TObject);
+    procedure EgaisResultMIClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -158,7 +168,7 @@ var
 
 implementation
 
-uses uMain,DynamicProvider, uEgaisDrink, uEgaisAct;
+uses uMain,DynamicProvider, uEgaisDrink, uEgaisAct, uEgaisIdentifier;
 
 {$R *.dfm}
 
@@ -515,6 +525,15 @@ begin
     end; //try..except
    fMain.RefreshCDS(EgaisBuyCDS);
   end;
+end;
+
+procedure TfEgaisBuy.EgaisResultMIClick(Sender: TObject);
+begin
+ if (not Assigned(fEgaisIdentifier)) then
+  Application.CreateForm(TfEgaisIdentifier, fEgaisIdentifier);
+ fEgaisIdentifier.Tag:=4;
+ fEgaisIdentifier.EgaisIdentifierCDS.Tag:=EgaisBuyCDSID.AsInteger;
+ fEgaisIdentifier.ShowModal;
 end;
 
 end.

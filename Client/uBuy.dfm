@@ -1,5 +1,5 @@
 object fBuy: TfBuy
-  Left = 308
+  Left = 341
   Top = 174
   Width = 1122
   Height = 614

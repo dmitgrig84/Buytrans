@@ -271,7 +271,7 @@ var
 implementation
 
 uses uMain,DynamicProvider, uTransportationAddDetail, uBuyTransTerm,
-  uTransportationEditPrice, uExciseScan, uEgaisResult;
+  uTransportationEditPrice, uExciseScan, uEgaisIdentifier;
 
 {$R *.dfm}
 
@@ -1024,11 +1024,11 @@ end;
 
 procedure TfTransportation.EgaisResultMIClick(Sender: TObject);
 begin
- if (not Assigned(fEgaisResult)) then
-  Application.CreateForm(TfEgaisResult, fEgaisResult);
- fEgaisResult.Tag:=3;
- fEgaisResult.ResultcxMemo.Tag:=TransportationCDSTRANSPORTATIONID.AsInteger;
- fEgaisResult.ShowModal;
+ if (not Assigned(fEgaisIdentifier)) then
+  Application.CreateForm(TfEgaisIdentifier, fEgaisIdentifier);
+ fEgaisIdentifier.Tag:=3;
+ fEgaisIdentifier.EgaisidentifierCDS.Tag:=TransportationCDSTRANSPORTATIONID.AsInteger;
+ fEgaisIdentifier.ShowModal;
 end;
 
 end.

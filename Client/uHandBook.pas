@@ -445,6 +445,29 @@ begin
        end;
       end;
 
+
+     if HandBookcxGridDBTV.DataController.DataSource.DataSet=EgaisConnectCDS then
+      begin
+       keycolumn:='ID';
+       case HandBookcxGridDBTV.DataController.DataSource.DataSet.State of
+        dsInsert: begin
+                   rowid:='null';
+                   CmdText:='insert into egaisconnect(distributionid,utm_ip) '+
+                            'values(' + EgaisConnectCDSDISTRIBUTIONID.AsString+','+
+                            #39+EgaisConnectCDSUTM_IP.AsString+#39+')';
+                  end;
+        dsEdit:   begin
+                   rowid:=HandBookcxGridDBTV.DataController.DataSource.DataSet.FieldByName(keycolumn).AsString;
+                   CmdText:='update egaisconnect set distributionid= ' + EgaisConnectCDSDISTRIBUTIONID.AsString+','+
+                            'utm_ip='+#39+EgaisConnectCDSUTM_IP.AsString+#39+
+                            ' where id=' + rowid;
+                  end;
+
+       else
+        ShowMessage('Не известный тип операции!');
+       end;
+      end;
+
       
      SocketConnection.AppServer.DBStartTransaction;
      InUpDelCDS.Close;
@@ -514,6 +537,12 @@ begin
      rowid:='id='+EgaisFirmTypeCDSID.AsString;
     end;
 
+   if HandBookcxGridDBTV.DataController.DataSource.DataSet=EgaisConnectCDS then
+    begin
+     tablename:='egaisconnect';
+     rowid:='id='+EgaisConnectCDSID.AsString;
+    end;
+
 
    try
     SocketConnection.AppServer.DBStartTransaction;
@@ -531,7 +560,7 @@ begin
     begin
      SocketConnection.AppServer.DBRollback;
      MessageDlg('При редактирвоании справочника произошла ошибка. '+
-                'Исходное сообщение ->"'+E.Message+'"',mtError,[mbOk],0);
+                'Ошибка: '+E.Message,mtError,[mbOk],0);
     end;
    end;//try..except
    RefreshCDS(TClientDataSet(HandBookcxGridDBTV.DataController.DataSource.DataSet));

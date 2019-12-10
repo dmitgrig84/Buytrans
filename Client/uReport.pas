@@ -24,6 +24,8 @@ type
     ExportToExcelcxButton: TcxButton;
     ViewDS: TDataSource;
     TimeLabel: TLabel;
+    PM: TPopupMenu;
+    EgaisResultMI: TMenuItem;
     procedure BegincxDEPropertiesChange(Sender: TObject);
     procedure EndcxDEPropertiesChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -32,6 +34,7 @@ type
     procedure CDSBeforeOpen(DataSet: TDataSet);
     procedure CDSAfterOpen(DataSet: TDataSet);
     procedure ExportToExcelcxButtonClick(Sender: TObject);
+    procedure EgaisResultMIClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -43,7 +46,7 @@ var
 
 implementation
 
-uses uMain;
+uses uMain, uEgaisIdentifier;
 
 {$R *.dfm}
 
@@ -100,6 +103,15 @@ end;
 procedure TfReport.ExportToExcelcxButtonClick(Sender: TObject);
 begin
  fMain.ExportToExcel(Self.Caption+' с '+DateToStr(BegincxDE.Date)+' по '+DateToStr(EndcxDE.Date)+'.xls',ViewcxGrid);
+end;
+
+procedure TfReport.EgaisResultMIClick(Sender: TObject);
+begin
+ if (not Assigned(fEgaisIdentifier)) then
+  Application.CreateForm(TfEgaisIdentifier, fEgaisIdentifier);
+ fEgaisIdentifier.Tag:=5;
+ fEgaisIdentifier.EgaisidentifierCDS.Tag:=TClientDataSet(ViewcxGridDBTV.DataController.DataSet).FieldByName('EIID').AsInteger;
+ fEgaisIdentifier.ShowModal;
 end;
 
 end.

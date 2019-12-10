@@ -288,7 +288,7 @@ var
 implementation
 
 uses uMain, DynamicProvider, uReturnAdd, uEgaisReturn, uEgaisAct, uDelivered,
-  uExciseScan, uEgaisResult;
+  uExciseScan, uEgaisIdentifier;
 
 {$R *.dfm}
 
@@ -1141,11 +1141,11 @@ end;
 
 procedure TfReturn.EgaisResultMIClick(Sender: TObject);
 begin
- if (not Assigned(fEgaisResult)) then
-  Application.CreateForm(TfEgaisResult, fEgaisResult);
- fEgaisResult.Tag:=1;
- fEgaisResult.ResultcxMemo.Tag:=ReturnSaleCDSSALEID.AsInteger;
- fEgaisResult.ShowModal;
+ if (not Assigned(fEgaisIdentifier)) then
+  Application.CreateForm(TfEgaisIdentifier, fEgaisIdentifier);
+ fEgaisIdentifier.Tag:=1;
+ fEgaisIdentifier.EgaisIdentifierCDS.Tag:=ReturnSaleCDSSALEID.AsInteger;
+ fEgaisIdentifier.ShowModal;
 end;
 
 end.

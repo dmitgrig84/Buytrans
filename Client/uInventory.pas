@@ -118,7 +118,7 @@ var
 
 implementation
 
-uses uMain, uInventoryAdd, uInventoryPrint, uEgaisResult;
+uses uMain, uInventoryAdd, uInventoryPrint, uEgaisIdentifier;
 
 {$R *.dfm}
 
@@ -422,11 +422,11 @@ end;
 
 procedure TfInventory.EgaisResultMIClick(Sender: TObject);
 begin
- if (not Assigned(fEgaisResult)) then
-  Application.CreateForm(TfEgaisResult, fEgaisResult);
- fEgaisResult.Tag:=2;
- fEgaisResult.ResultcxMemo.Tag:=InventoryCDSINVENTORYID.AsInteger;
- fEgaisResult.ShowModal;
+ if (not Assigned(fEgaisIdentifier)) then
+  Application.CreateForm(TfEgaisIdentifier, fEgaisIdentifier);
+ fEgaisIdentifier.Tag:=2;
+ fEgaisIdentifier.EgaisidentifierCDS.Tag:=InventoryCDSINVENTORYID.AsInteger;
+ fEgaisIdentifier.ShowModal;
 end;
 
 end.

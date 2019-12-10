@@ -152,6 +152,26 @@ type
     RetailEgaisDocCDSDISTRIBUTIONID: TIntegerField;
     RetailEgaisDocCDSKEYID: TIntegerField;
     DrinkAlcCodeCDSEGAISFACTORY: TStringField;
+    LastRestsMI: TMenuItem;
+    EgaisRestsLastCDS: TClientDataSet;
+    EgaisRestsLastCDSKEYID: TIntegerField;
+    EgaisRestsLastCDSEGAISCONNECTID: TIntegerField;
+    EgaisRestsLastCDSECNAME: TStringField;
+    EgaisRestsLastCDSEGAISDOCUMENTSTYPEID: TIntegerField;
+    EgaisRestsLastCDSEDNAME: TStringField;
+    EgaisRestsLastCDSEIID: TIntegerField;
+    EgaisRestsLastCDSPRESENT: TDateTimeField;
+    EgaisRestsLastCDSCOUNTUNIT: TIntegerField;
+    UTMMI: TMenuItem;
+    EgaisConnectCDS: TClientDataSet;
+    EgaisConnectCDSID: TSmallintField;
+    EgaisConnectCDSDISTRIBUTIONID: TIntegerField;
+    EgaisConnectCDSKPP: TStringField;
+    EgaisConnectCDSFSRAR_ID: TStringField;
+    EgaisConnectCDSUTM_IP: TStringField;
+    EgaisConnectCDSNAME: TStringField;
+    EgaisConnectCDSISACTIVE: TStringField;
+    EgaisConnectCDSLASTCONNECT: TDateTimeField;
     procedure FormShow(Sender: TObject);
     procedure RefreshCDS(CDS:TClientDataSet);
     procedure CreateExistsCDS(CDS:TClientDataSet;SC:TSocketConnection;CompName,CommandText:string);
@@ -538,6 +558,7 @@ begin
       EgaisRestsMI.Enabled:= (Pos('E', Grant) > 0);
       EgaisRests3MI.Enabled:= (Pos('E', Grant) > 0);
       RetailErrorEgaisMI.Enabled:= (Pos('E', Grant) > 0);
+      LastRestsMI.Enabled:= (Pos('E', Grant) > 0);
       ReadParamFromRegistry(Base1CPath, HKEY_CURRENT_USER, BaseFolder, 'Base1C', '');
       ReadParamFromRegistry(Base1CTypeConnector,HKEY_CURRENT_USER,BaseFolder,'Base1CTypeConnector','V83.COMConnector');
 
@@ -598,6 +619,15 @@ begin
      RetailEgaisDocCDS.AfterOpen:=Child.CDSAfterOpen;
      RetailEgaisDocCDS.BeforeOpen:=Child.CDSBeforeOpen;
      CreateReportView(Child,RetailEgaisDocCDS,'KEYID');
+    end;
+
+   if (Sender as TMenuItem).Name=LastRestsMI.Name then
+    begin
+     CreateExistsCDS(EgaisRestsLastCDS,SocketConnection,'EgaisRestsLast','select * from buytrans_reportegaisrestslast');
+     Child.TopPanel.Visible:=false;
+     Child.EgaisResultMI.Visible:=true;
+     Child.ViewcxGridDBTV.PopupMenu:=Child.PM;
+     CreateReportView(Child,EgaisRestsLastCDS,'KEYID');
     end;
 
    CreateReportItems(Child.ViewcxGridDBTV);
@@ -697,6 +727,12 @@ begin
      CreateExistsCDS(EgaisFirmTypeCDS,SocketConnection,'EgaisFirmType',
                  'select id,firmid,firmname from egaisfirmtype et where et.id>100');
      CreateHandBookView(Child,EgaisFirmTypeCDS,'ID');
+    end;
+
+   if (Sender as TMenuItem).Name=UTMMI.Name then
+    begin
+     CreateExistsCDS(EgaisConnectCDS,SocketConnection,'EgaisConnect','select * from BUYTRANS_EGAISCONNECT');
+     CreateHandBookView(Child,EgaisConnectCDS,'ID');
     end;
 
 
