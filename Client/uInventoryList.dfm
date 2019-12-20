@@ -62,7 +62,7 @@ object fInventoryList: TfInventoryList
     Top = 0
     Width = 1309
     Height = 699
-    ActivePage = InventoryListTS
+    ActivePage = TradeReportTS
     Align = alClient
     Style = tsButtons
     TabOrder = 0

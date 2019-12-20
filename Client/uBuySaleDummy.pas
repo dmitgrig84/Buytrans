@@ -55,12 +55,7 @@ begin
     begin
      AnyCommandCDS.Close;
      AnyCommandCDS.CommandText:=
-      'select f.name firmname, te.name tename, db.address from firmtradeemployee fte '+
-      'join distribution db on db.id=fte.distributionid '+
-      'join firm f on f.id=db.firmid '+
-      'join tradeemployee te on te.id=fte.tradeemployeeid '+
-      'where fte.distributionid='+DistributionIDcxME.Text+
-      ' and fte.enddate is null';
+      'select * from buytrans_buysaledummydb('+DistributionIDcxME.Text+')';
      AnyCommandCDS.Open;
      if AnyCommandCDS.IsEmpty then
       MessageDlg('Не найдено ни одного адреса ТТ.',mtError,[mbOk],0);
