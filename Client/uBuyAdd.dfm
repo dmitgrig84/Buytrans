@@ -255,7 +255,7 @@ object fBuyAdd: TfBuyAdd
     Align = alBottom
     BevelInner = bvRaised
     BevelOuter = bvLowered
-    TabOrder = 0
+    TabOrder = 20
     object ApplayBB: TBitBtn
       Left = 80
       Top = 5
@@ -347,7 +347,7 @@ object fBuyAdd: TfBuyAdd
     StyleDisabled.LookAndFeel.Kind = lfFlat
     StyleFocused.LookAndFeel.Kind = lfFlat
     StyleHot.LookAndFeel.Kind = lfFlat
-    TabOrder = 1
+    TabOrder = 2
     Width = 265
   end
   object StoragecxLCB: TcxLookupComboBox
@@ -369,7 +369,7 @@ object fBuyAdd: TfBuyAdd
     StyleDisabled.LookAndFeel.Kind = lfFlat
     StyleFocused.LookAndFeel.Kind = lfFlat
     StyleHot.LookAndFeel.Kind = lfFlat
-    TabOrder = 2
+    TabOrder = 1
     Width = 265
   end
   object BuyTypecxLCB: TcxLookupComboBox
@@ -393,7 +393,7 @@ object fBuyAdd: TfBuyAdd
     StyleDisabled.LookAndFeel.Kind = lfFlat
     StyleFocused.LookAndFeel.Kind = lfFlat
     StyleHot.LookAndFeel.Kind = lfFlat
-    TabOrder = 3
+    TabOrder = 0
     Width = 265
   end
   object ContractorNamecxLCB: TcxLookupComboBox
@@ -414,7 +414,7 @@ object fBuyAdd: TfBuyAdd
     StyleDisabled.LookAndFeel.Kind = lfFlat
     StyleFocused.LookAndFeel.Kind = lfFlat
     StyleHot.LookAndFeel.Kind = lfFlat
-    TabOrder = 4
+    TabOrder = 10
     OnKeyDown = ContractorNamecxLCBKeyDown
     Width = 193
   end
@@ -440,7 +440,7 @@ object fBuyAdd: TfBuyAdd
     StyleDisabled.LookAndFeel.Kind = lfFlat
     StyleFocused.LookAndFeel.Kind = lfFlat
     StyleHot.LookAndFeel.Kind = lfFlat
-    TabOrder = 5
+    TabOrder = 11
     Width = 321
   end
   object DistributioncxLCB: TcxLookupComboBox
@@ -467,7 +467,7 @@ object fBuyAdd: TfBuyAdd
     StyleDisabled.LookAndFeel.Kind = lfFlat
     StyleFocused.LookAndFeel.Kind = lfFlat
     StyleHot.LookAndFeel.Kind = lfFlat
-    TabOrder = 6
+    TabOrder = 13
     Width = 217
   end
   object CarriercxLCB: TcxLookupComboBox
@@ -497,7 +497,7 @@ object fBuyAdd: TfBuyAdd
     StyleDisabled.LookAndFeel.Kind = lfFlat
     StyleFocused.LookAndFeel.Kind = lfFlat
     StyleHot.LookAndFeel.Kind = lfFlat
-    TabOrder = 7
+    TabOrder = 14
     Width = 265
   end
   object CarMarkcxTE: TcxTextEdit
@@ -515,7 +515,7 @@ object fBuyAdd: TfBuyAdd
     StyleDisabled.LookAndFeel.Kind = lfFlat
     StyleFocused.LookAndFeel.Kind = lfFlat
     StyleHot.LookAndFeel.Kind = lfFlat
-    TabOrder = 8
+    TabOrder = 15
     Height = 21
     Width = 97
   end
@@ -526,7 +526,7 @@ object fBuyAdd: TfBuyAdd
     Properties.EditMask = '['#1072'-'#1103']\d\d\d['#1072'-'#1103']['#1072'-'#1103']\d\d(\d)?'
     Properties.MaxLength = 0
     Style.BorderStyle = ebsFlat
-    TabOrder = 9
+    TabOrder = 16
     Width = 106
   end
   object InBuycxCB: TcxCheckBox
@@ -537,7 +537,7 @@ object fBuyAdd: TfBuyAdd
     Properties.ValueUnchecked = 0
     State = cbsGrayed
     Style.BorderStyle = ebsFlat
-    TabOrder = 10
+    TabOrder = 18
     Width = 153
   end
   object CorrectioncxCB: TcxCheckBox
@@ -552,7 +552,7 @@ object fBuyAdd: TfBuyAdd
     StyleDisabled.LookAndFeel.Kind = lfFlat
     StyleFocused.LookAndFeel.Kind = lfFlat
     StyleHot.LookAndFeel.Kind = lfFlat
-    TabOrder = 11
+    TabOrder = 19
     Width = 121
   end
   object ContractorIDcxME: TcxMaskEdit
@@ -562,7 +562,7 @@ object fBuyAdd: TfBuyAdd
     Properties.EditMask = '\d+'
     Properties.MaxLength = 0
     Style.BorderStyle = ebsFlat
-    TabOrder = 12
+    TabOrder = 9
     OnEnter = ContractorIDcxMEEnter
     OnKeyPress = ContractorIDcxMEKeyPress
     Width = 57
@@ -575,7 +575,7 @@ object fBuyAdd: TfBuyAdd
     Properties.MaxLength = 64
     ShowHint = True
     Style.BorderStyle = ebsFlat
-    TabOrder = 13
+    TabOrder = 3
     OnExit = NumberDoccxTEExit
     OnKeyPress = NumberDoccxTEKeyPress
     Width = 85
@@ -588,7 +588,7 @@ object fBuyAdd: TfBuyAdd
     Properties.MaxLength = 64
     ShowHint = True
     Style.BorderStyle = ebsFlat
-    TabOrder = 14
+    TabOrder = 4
     Width = 85
   end
   object InputDatecxDE: TcxDateEdit
@@ -598,7 +598,7 @@ object fBuyAdd: TfBuyAdd
     ParentShowHint = False
     ShowHint = True
     Style.BorderStyle = ebsFlat
-    TabOrder = 15
+    TabOrder = 5
     Width = 85
   end
   object WhenInsertcxDE: TcxDateEdit
@@ -608,7 +608,7 @@ object fBuyAdd: TfBuyAdd
     ParentShowHint = False
     ShowHint = True
     Style.BorderStyle = ebsFlat
-    TabOrder = 16
+    TabOrder = 6
     Width = 85
   end
   object SumPricecxCE: TcxCurrencyEdit
@@ -621,7 +621,7 @@ object fBuyAdd: TfBuyAdd
     Properties.DecimalPlaces = 3
     Properties.DisplayFormat = ',0.000;-,0.000'
     Style.BorderStyle = ebsFlat
-    TabOrder = 17
+    TabOrder = 7
     Width = 85
   end
   object SumNDScxCE: TcxCurrencyEdit
@@ -634,7 +634,7 @@ object fBuyAdd: TfBuyAdd
     Properties.DecimalPlaces = 3
     Properties.DisplayFormat = ',0.000;-,0.000'
     Style.BorderStyle = ebsFlat
-    TabOrder = 18
+    TabOrder = 8
     Width = 85
   end
   object DistributionIDcxME: TcxMaskEdit
@@ -647,7 +647,7 @@ object fBuyAdd: TfBuyAdd
     StyleDisabled.LookAndFeel.Kind = lfFlat
     StyleFocused.LookAndFeel.Kind = lfFlat
     StyleHot.LookAndFeel.Kind = lfFlat
-    TabOrder = 19
+    TabOrder = 12
     OnEnter = DistributionIDcxMEEnter
     OnKeyPress = DistributionIDcxMEKeyPress
     Width = 57
@@ -662,7 +662,7 @@ object fBuyAdd: TfBuyAdd
     Properties.MaxLength = 0
     ShowHint = True
     Style.BorderStyle = ebsFlat
-    TabOrder = 20
+    TabOrder = 17
     Width = 266
   end
   object cxHintStyleController: TcxHintStyleController

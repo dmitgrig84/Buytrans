@@ -8,7 +8,9 @@ uses
   ImgList, cxStyles, cxGraphics, cxControls, cxLookAndFeels,
   cxLookAndFeelPainters, cxCustomData, cxFilter, cxData, cxDataStorage,
   cxEdit, cxDBData, cxGridLevel, cxClasses, cxGridCustomView,
-  cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGrid,cxExportGrid4Link;
+  cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGrid, cxExportGrid4Link,
+  IdMultipartFormData, IdBaseComponent, IdComponent, IdTCPConnection,
+  IdTCPClient, IdHTTP, cxImageComboBox;
 
 type
   TSaveMethod = procedure (const FileName: String; ASaveAll: Boolean) of object;
@@ -172,6 +174,21 @@ type
     EgaisConnectCDSNAME: TStringField;
     EgaisConnectCDSISACTIVE: TStringField;
     EgaisConnectCDSLASTCONNECT: TDateTimeField;
+    VetisMI: TMenuItem;
+    VetisVSDMI: TMenuItem;
+    VetisSaleMI: TMenuItem;
+    IdHTTP: TIdHTTP;
+    VetisDistributionMI: TMenuItem;
+    VetisDistributionCDS: TClientDataSet;
+    VetisDistributionCDSID: TIntegerField;
+    VetisDistributionCDSFIRMID: TIntegerField;
+    VetisDistributionCDSFIRMNAME: TStringField;
+    VetisDistributionCDSDISTRIBUTIONID: TIntegerField;
+    VetisDistributionCDSADDRESS: TStringField;
+    VetisDistributionCDSVETISGUID: TStringField;
+    VetisDistributionCDSVETISNUMBER: TStringField;
+    VetisDistributionCDSVETISNAME: TStringField;
+    VetisDistributionCDSVETISADDRESS: TStringField;
     procedure FormShow(Sender: TObject);
     procedure RefreshCDS(CDS:TClientDataSet);
     procedure CreateExistsCDS(CDS:TClientDataSet;SC:TSocketConnection;CompName,CommandText:string);
@@ -190,7 +207,7 @@ type
     logfalse:boolean;
     EmpId: integer;
     Header,TitleApplication:string;
-    Login,Grant,AdvancedGrant:string;
+    Login,Pass,Grant,AdvancedGrant:string;
     LastErrorOnApplyUpdates:string;
     BaseSQLDialect:OleVariant;
 
@@ -199,8 +216,11 @@ type
 
     procedure CDSCreate;
     function ReplaceSub(str, sub1, sub2: string): string;
+    procedure RequestFromVetis(vetisconnectid,vetissoapactionid:integer;paramvalue:string);
     procedure FloatToBcd(Sender:TComponent);
     procedure CreateReportItems(cxGridDBTV:TcxGridDBTableView);
+    function FindChildForm(Sender:TObject):TForm;
+    procedure ImageStatusColumnFromBase(cmdText:String;cxGridDBC:TcxGridColumn;sourceIL:TImageList);
   end;
 
 var
@@ -212,7 +232,7 @@ uses Reg, DynamicProvider, uPassword, ConstUnit, uHandBook, uBuy,
   uTransportation, uReturn, uClaim, uRemoving, uInventory, uInventoryList, uRetailAudit,
   uDeltaDocFact,uClientDsFloatToBcd, uSupply, uStorageDoc,
   uAutoTransportation, uAggregation, uShiftWealth, uRegrading, uEgaisRests, uNotification,uEgaisRests3,
-  uReport;
+  uReport, uVetisVSD, uVetisSale, uLogViewer;
 
 {$R *.DFM}
 
@@ -269,6 +289,54 @@ function TfMain.ReplaceSub(str, sub1, sub2: string): string;
    end;
   Result := rslt + str;
  end;
+
+procedure TfMain.RequestFromVetis(vetisconnectid,vetissoapactionid:integer;paramvalue:String);
+var data: TIdMultiPartFormDataStream;
+    viid,requestpath,httpresult:String;
+    countrequest,i:integer;
+begin
+
+ if (not Assigned(fLogViewer)) then
+  Application.CreateForm(TfLogViewer, fLogViewer);
+ if (not fLogViewer.Active) then
+  fLogViewer.Show;
+ try
+  try
+   SocketConnection.AppServer.DBStartTransaction;
+   InUpDelCDS.Close;
+   InUpDelCDS.CommandText:='select * from buytrans_vetisrequest('+IntToStr(vetisconnectid)+','+IntToStr(vetissoapactionid)+','+#39+paramvalue+#39+')';
+   InUpDelCDS.Open;
+   viid:=InUpDelCDS.FieldByName('viid').AsString;
+   requestpath:=InUpDelCDS.FieldByName('requestpath').AsString;
+   countrequest:=InUpDelCDS.FieldByName('countrequest').AsInteger;
+   SocketConnection.AppServer.DBCommit;
+   fLogViewer.LogMemo.Lines.Add(DateToStr(Date)+' '+TimeToStr(Time)+': Поставили запрос с кодом '+viid+' в очередь. Путь '+requestpath+'. Кол-во запросов '+IntToStr(countrequest));
+  except
+   begin
+    SocketConnection.AppServer.DBRollback;
+    raise;
+   end; //on
+  end; //try..except
+
+  for i:=1 to countrequest do
+   try
+    data := TIdMultiPartFormDataStream.Create;
+    data.AddFormField('dbuser', Login);
+    data.AddFormField('dbpass', Pass);
+    data.AddFormField('viid', viid);
+    fLogViewer.LogMemo.Lines.Add(DateToStr(Date)+' '+TimeToStr(Time)+': '+IdHTTP.Post(requestpath, data));
+    data.Free;
+    sleep(1000);    
+   except on E: Exception do
+    begin
+     data.Free;
+     raise;
+    end; //on
+   end; //try..except
+ except on E: Exception do
+  fLogViewer.LogMemo.Lines.Add(DateToStr(Date)+' '+TimeToStr(Time)+': Запроса к: '+requestpath+' с кодом '+viid+' завершился с ошибкой:'+#10#13+E.Message);
+ end;
+end;
 
 procedure TfMain.CDSCreate;
 var RetVal:OleVariant;
@@ -508,7 +576,9 @@ begin
       for i:=0 to MainMenu.Items.Count-1 do
        begin
         TMI:=MainMenu.Items[i];
-
+        if TMI.Tag<0 then
+         TMI.Visible:=false;
+         
         for j:=0 to TMI.Count-1 do
          begin
           if ((i=0) or (i=MainMenu.Items.Count-1)) then
@@ -562,6 +632,12 @@ begin
       ReadParamFromRegistry(Base1CPath, HKEY_CURRENT_USER, BaseFolder, 'Base1C', '');
       ReadParamFromRegistry(Base1CTypeConnector,HKEY_CURRENT_USER,BaseFolder,'Base1CTypeConnector','V83.COMConnector');
 
+      VetisMI.Visible:=(Pos('V', Grant) > 0);
+      VetisVSDMI.Enabled:=VetisMI.Visible;
+      VetisSaleMI.Enabled:=VetisMI.Visible;
+      VetisDistributionMI.Enabled:=VetisMI.Visible;
+      if (Pos('V', AdvancedGrant) > 0) then VetisDistributionMI.Tag:=1;
+      
       ConnectedDB:=true;
       CDSCreate;
      finally
@@ -666,7 +742,7 @@ var Child: TfHandBook;
     i:integer;
     flagcreate:boolean;
 begin
- flagcreate:=true;
+ flagcreate:=true;Child:=nil;
  for i:=0 to MDIChildCount-1 do
   if MDIChildren[i].Caption=(Sender as TMenuItem).Caption then
    begin
@@ -735,6 +811,11 @@ begin
      CreateHandBookView(Child,EgaisConnectCDS,'ID');
     end;
 
+   if (Sender as TMenuItem).Name=VetisDistributionMI.Name then
+    begin
+     CreateExistsCDS(VetisDistributionCDS,SocketConnection,'VetisDistribution','select * from buytrans_vetisdistributionview');
+     CreateHandBookView(Child,VetisDistributionCDS,'ID');
+    end;
 
    Child.HandBookcxGridDBTV.DataController.CreateAllItems;
    Child.FieldsToControl(Child.HandBookcxGridDBTV);
@@ -759,11 +840,62 @@ begin
 end;
 
 procedure TfMain.CreateChildForm(Sender: TObject);
-var Child: TForm;
-    i:integer;
+var Child:TForm;
+begin
+ Child:=FindChildForm(Sender);
+ if Assigned(Child) then
+  begin
+   if ((Sender as TMenuItem).Caption=VetisVSDMI.Caption) then Child.Tag:=0;
+   if Child.WindowState=wsMinimized then
+    Child.WindowState:=wsNormal;
+   if not Child.Active then
+    Child.Show;
+  end;
+end;
+
+procedure TfMain.ImageStatusColumnFromBase(cmdText:String;cxGridDBC:TcxGridColumn;sourceIL:TImageList);
+var Img:TBitmap;
+    BS:TStream;
+    Items: TcxImageComboBoxItems;
+    Item: TcxImageComboBoxItem;
+begin
+ fMain.AnyCommandCDS.Close;
+ fMain.AnyCommandCDS.CommandText:=CmdText;
+ fMain.AnyCommandCDS.Open;
+ Img:=TBitmap.Create;
+ (cxGridDBC.Properties as TcxImageComboBoxProperties).Images:=sourceIL;
+ (cxGridDBC.Properties as TcxImageComboBoxProperties).ShowDescriptions:=false;
+ Items:=(cxGridDBC.Properties as TcxImageComboBoxProperties).Items;
+ Items.Clear;
+
+ while not fMain.AnyCommandCDS.Eof do
+  begin
+   try
+    Items.BeginUpdate;
+    Item := Items.Add as TcxImageComboBoxItem;
+    Item.Value := fMain.AnyCommandCDS.FieldByName('ID').Value;
+    Item.Description := fMain.AnyCommandCDS.FieldByName('NAME').AsString;
+
+    if not fMain.AnyCommandCDS.FieldByName('IMG').IsNull then
+     begin
+      BS:= fMain.AnyCommandCDS.CreateBlobStream(fMain.AnyCommandCDS.FieldByName('IMG') as TBlobField, bmRead);
+      BS.Position:=0;
+      Img.LoadFromStream(BS);
+      SourceIL.AddMasked(Img,Img.TransparentColor);
+      Item.ImageIndex := fMain.AnyCommandCDS.FieldByName('ID').AsInteger;
+     end;
+   finally
+    Items.EndUpdate;
+   end;
+   fMain.AnyCommandCDS.Next;
+  end;
+end;
+
+function TfMain.FindChildForm(Sender:TObject):TForm;
+var i:integer;
     flagcreate:boolean;
 begin
- flagcreate:=true;
+ flagcreate:=true;result:=nil;
  for i:=0 to MDIChildCount-1 do
   if MDIChildren[i].Caption=(Sender as TMenuItem).Caption then
    begin
@@ -773,35 +905,32 @@ begin
 
  if flagcreate then
   begin
-   if (Sender as TMenuItem).Caption='Инветаризационная опись-акт' then Child:= TfInventory.Create(Application);
-   if (Sender as TMenuItem).Caption='Разница цен накладных на приемку' then Child:= TfDeltaDocFact.Create(Application);
-   if (Sender as TMenuItem).Caption='Внутренняя работа склада' then Child:= TfStorageDoc.Create(Application);
-   if (Sender as TMenuItem).Caption='Приемка' then Child:= TfBuy.Create(Application);
-   if (Sender as TMenuItem).Caption='Перемещение' then Child:= TfTransportation.Create(Application);
-   if (Sender as TMenuItem).Caption='Вычерки' then Child:= TfReturn.Create(Application);
-   if (Sender as TMenuItem).Caption='Списание' then Child:= TfRemoving.Create(Application);
-   if (Sender as TMenuItem).Caption='Пересорт' then Child:= TfRegrading.Create(Application);
-   if (Sender as TMenuItem).Caption='Претензия' then Child:= TfClaim.Create(Application);
-   if (Sender as TMenuItem).Caption='Ревизия' then Child:= TfInventoryList.Create(Application);
-   if (Sender as TMenuItem).Caption='Аудит розницы' then Child:= TfRetailAudit.Create(Application);
-   if (Sender as TMenuItem).Caption='Авто-Перемещения' then Child:= TfAutoTrans.Create(Application);
-   if (Sender as TMenuItem).Caption='Объединение МЦ' then Child:= TfAggregation.Create(Application);
-   if (Sender as TMenuItem).Caption='Перемещение МЦ' then Child:= TfShiftWealth.Create(Application);
-   if (Sender as TMenuItem).Caption='Снабжение' then Child:= TfSupply.Create(Application);
-   if (Sender as TMenuItem).Caption='Остатки ЕГАИС' then Child:= TfEgaisRests.Create(Application);
-   if (Sender as TMenuItem).Caption='Уведомления' then Child:= TfNotification.Create(Application);
-   if (Sender as TMenuItem).Caption='Остатки З регистр' then Child:= TfEgaisRests3.Create(Application);
-
-   if Assigned(Child) then
-    Child.Caption:=(Sender as TMenuItem).Caption;
+   if (Sender as TMenuItem).Caption='Инветаризационная опись-акт' then result:= TfInventory.Create(Application);
+   if (Sender as TMenuItem).Caption='Разница цен накладных на приемку' then result:= TfDeltaDocFact.Create(Application);
+   if (Sender as TMenuItem).Caption='Внутренняя работа склада' then result:= TfStorageDoc.Create(Application);
+   if (Sender as TMenuItem).Caption='Приемка' then result:= TfBuy.Create(Application);
+   if (Sender as TMenuItem).Caption='Перемещение' then result:= TfTransportation.Create(Application);
+   if (Sender as TMenuItem).Caption='Вычерки' then result:= TfReturn.Create(Application);
+   if (Sender as TMenuItem).Caption='Списание' then result:= TfRemoving.Create(Application);
+   if (Sender as TMenuItem).Caption='Пересорт' then result:= TfRegrading.Create(Application);
+   if (Sender as TMenuItem).Caption='Претензия' then result:= TfClaim.Create(Application);
+   if (Sender as TMenuItem).Caption='Ревизия' then result:= TfInventoryList.Create(Application);
+   if (Sender as TMenuItem).Caption='Аудит розницы' then result:= TfRetailAudit.Create(Application);
+   if (Sender as TMenuItem).Caption='Авто-Перемещения' then result:= TfAutoTrans.Create(Application);
+   if (Sender as TMenuItem).Caption='Объединение МЦ' then result:= TfAggregation.Create(Application);
+   if (Sender as TMenuItem).Caption='Перемещение МЦ' then result:= TfShiftWealth.Create(Application);
+   if (Sender as TMenuItem).Caption='Снабжение' then result:= TfSupply.Create(Application);
+   if (Sender as TMenuItem).Caption='Остатки ЕГАИС' then result:= TfEgaisRests.Create(Application);
+   if (Sender as TMenuItem).Caption='Уведомления' then result:= TfNotification.Create(Application);
+   if (Sender as TMenuItem).Caption='Остатки З регистр' then result:= TfEgaisRests3.Create(Application);
+   if (Sender as TMenuItem).Caption=VetisVSDMI.Caption then result:= TfVetisVSD.Create(Application);
+   if (Sender as TMenuItem).Caption=VetisSaleMI.Caption then result:= TfVetisSale.Create(Application);
+   if Assigned(result) then
+    result.Caption:=(Sender as TMenuItem).Caption;
   end
  else
   if (i>=0) and (i<MDIChildCount) then
-   begin
-    MDIChildren[i].Show;
-    if (MDIChildren[i].WindowState=wsMinimized)  then
-     MDIChildren[i].WindowState:=wsNormal;
-   end;
+   result:=(MDIChildren[i] as TForm);
 end;
 
 

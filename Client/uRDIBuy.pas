@@ -132,7 +132,7 @@ var
 
 implementation
 
-uses uMain,DynamicProvider,uBuySaleDummy;
+uses uMain,DynamicProvider,uDistributionEdit;
 
 {$R *.dfm}
 
@@ -259,10 +259,10 @@ end;
 
 procedure TfRDIBuy.EditDistributionIDMIClick(Sender: TObject);
 begin
- if (not Assigned(fBuySaleDummy)) then
-  Application.CreateForm(TfBuySaleDummy, fBuySaleDummy);
- fBuySaleDummy.Caption:='Смена кода ТТ склада поступления';
- if fBuySaleDummy.ShowModal=mrOk then
+ if (not Assigned(fDistributionEdit)) then
+  Application.CreateForm(TfDistributionEdit, fDistributionEdit);
+ fDistributionEdit.Caption:='Смена кода ТТ склада поступления';
+ if fDistributionEdit.ShowModal=mrOk then
   begin
    with fMain do
     try
@@ -271,7 +271,7 @@ begin
      InUpDelCDS.CommandText:=
      'execute procedure buytrans_rdibuydistributionedit('+
        ViewCDSSUPORDERID.AsString+','+
-       fBuySaleDummy.DistributionIDcxME.Text+')';
+       fDistributionEdit.DistributionIDcxME.Text+')';
      InUpDelCDS.Execute;
      SocketConnection.AppServer.DBCommit;
     except on E: Exception do
@@ -282,7 +282,6 @@ begin
     end; //try..except
     fMain.RefreshCDS(ViewCDS);
   end;
-
 end;
 
 procedure TfRDIBuy.DeleteMIClick(Sender: TObject);

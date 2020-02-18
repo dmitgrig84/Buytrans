@@ -468,6 +468,19 @@ begin
        end;
       end;
 
+     if HandBookcxGridDBTV.DataController.DataSource.DataSet=VetisDistributionCDS then
+      begin
+       keycolumn:='ID';
+       case HandBookcxGridDBTV.DataController.DataSource.DataSet.State of
+        dsInsert: rowid:='null';
+        dsEdit:   rowid:=HandBookcxGridDBTV.DataController.DataSource.DataSet.FieldByName(keycolumn).AsString;
+       else ShowMessage('Не известный тип операции!');
+       end; //case
+       CmdText:='execute procedure buytrans_vetisdistributioninup('+rowid+','+VetisDistributionCDSDISTRIBUTIONID.AsString+','+#39+
+                                                                   VetisDistributionCDSVETISNUMBER.AsString+#39+','+#39+
+                                                                   VetisDistributionCDSVETISGUID.AsString+#39+')';
+      end;
+
       
      SocketConnection.AppServer.DBStartTransaction;
      InUpDelCDS.Close;
@@ -543,6 +556,11 @@ begin
      rowid:='id='+EgaisConnectCDSID.AsString;
     end;
 
+   if HandBookcxGridDBTV.DataController.DataSource.DataSet=VetisDistributionCDS then
+    begin
+     tablename:='vetisdistribution';
+     rowid:='id='+VetisDistributionCDSID.AsString;
+    end;
 
    try
     SocketConnection.AppServer.DBStartTransaction;

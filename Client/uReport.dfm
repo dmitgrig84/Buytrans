@@ -1,6 +1,6 @@
 object fReport: TfReport
-  Left = 130
-  Top = 170
+  Left = 400
+  Top = 178
   Width = 1292
   Height = 700
   Caption = #1054#1090#1095#1077#1090' - '

@@ -597,6 +597,10 @@ object fBuy: TfBuy
         DataBinding.FieldName = 'SALEID'
         Visible = False
       end
+      object BuycxGridDBTVVETISBUYSTATUSID: TcxGridDBColumn
+        DataBinding.FieldName = 'VETISBUYSTATUSID'
+        Visible = False
+      end
     end
     object BuycxGridLevel: TcxGridLevel
       GridView = BuycxGridDBTV
@@ -790,6 +794,10 @@ object fBuy: TfBuy
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 15
       Styles.Footer = cxStyle1
+      object BuyDetailcxGridDBTVID: TcxGridDBColumn
+        DataBinding.FieldName = 'ID'
+        Visible = False
+      end
       object BuyDetailcxGridDBTVBUYID: TcxGridDBColumn
         DataBinding.FieldName = 'BUYID'
         Visible = False
@@ -1179,6 +1187,10 @@ object fBuy: TfBuy
     object BuyCDSACTIVITYKINDID: TIntegerField
       FieldName = 'ACTIVITYKINDID'
     end
+    object BuyCDSVETISBUYSTATUSID: TIntegerField
+      DisplayLabel = #1050#1086#1076' '#1089#1090#1072#1090#1091#1089#1072' '#1042#1045#1058#1048#1057' '#1087#1088#1080#1093#1086#1076#1085#1086#1081' '#1085#1072#1082#1083#1072#1076#1085#1086#1081
+      FieldName = 'VETISBUYSTATUSID'
+    end
   end
   object BuyDS: TDataSource
     DataSet = BuyCDS
@@ -1190,7 +1202,7 @@ object fBuy: TfBuy
     Images = fMain.MenuIL
     OnPopup = BuyPMPopup
     Left = 192
-    Top = 165
+    Top = 168
     object AddBuyMI: TMenuItem
       Caption = #1044#1086#1073#1072#1074#1080#1090#1100' '#1085#1072#1082#1083#1072#1076#1085#1091#1102' (INS)'
       ImageIndex = 0
@@ -1277,6 +1289,11 @@ object fBuy: TfBuy
       ImageIndex = 35
       OnClick = BuyRDIMIClick
     end
+    object VetisVSDLinkMI: TMenuItem
+      Caption = #1055#1088#1080#1074#1103#1079#1072#1090#1100' '#1042#1057#1044
+      ImageIndex = 37
+      OnClick = VetisVSDLinkMIClick
+    end
   end
   object BuyDetailPM: TPopupMenu
     Images = fMain.MenuIL
@@ -1331,6 +1348,7 @@ object fBuy: TfBuy
     Left = 116
     Top = 185
     object BuyDetailCDSID: TIntegerField
+      DisplayLabel = #1050#1086#1076' '#1087#1086#1079#1080#1094#1080#1080
       FieldName = 'ID'
       Visible = False
     end

@@ -288,7 +288,7 @@ var
 implementation
 
 uses uMain, DynamicProvider, uReturnAdd, uEgaisReturn, uEgaisAct, uDelivered,
-  uExciseScan, uEgaisIdentifier;
+  uExciseScan, uXmlViewer;
 
 {$R *.dfm}
 
@@ -464,66 +464,9 @@ begin
  EndcxDE.Date:=Date;
  ReturnFiltercxCBClick(nil);
 
- fMain.AnyCommandCDS.Close;
- fMain.AnyCommandCDS.CommandText:=
-  'select * from egaissalestatus order by id';
- fMain.AnyCommandCDS.Open;
- Img:=TBitmap.Create;
- Items:=(SalecxGridDBTVEGAISSTATUS.Properties as TcxImageComboBoxProperties).Items;
- Items.Clear;
+ fMain.ImageStatusColumnFromBase('select id,name,img from egaissalestatus order by id',SalecxGridDBTVEGAISSTATUS,EgaisIL);
 
- while not fMain.AnyCommandCDS.Eof do
-  begin
-   try
-    Items.BeginUpdate;
-    Item := Items.Add as TcxImageComboBoxItem;
-    Item.Value := fMain.AnyCommandCDS.FieldByName('ID').Value;
-    Item.Description := fMain.AnyCommandCDS.FieldByName('NAME').AsString;
-
-    if not fMain.AnyCommandCDS.FieldByName('IMG').IsNull then
-     begin
-      BS:= fMain.AnyCommandCDS.CreateBlobStream(fMain.AnyCommandCDS.FieldByName('IMG') as TBlobField, bmRead);
-      BS.Position:=0;
-      Img.LoadFromStream(BS);
-      EgaisIL.AddMasked(Img,Img.TransparentColor);
-      Item.ImageIndex := fMain.AnyCommandCDS.FieldByName('ID').AsInteger;
-     end;
-   finally
-    Items.EndUpdate;
-   end;
-   fMain.AnyCommandCDS.Next;
-  end;
-
- fMain.AnyCommandCDS.Close;
- fMain.AnyCommandCDS.CommandText:=
-  'select * from saledeliveredtype order by id';
- fMain.AnyCommandCDS.Open;
- Img:=TBitmap.Create;
- Items:=(SalecxGridDBTVISDELIVERED.Properties as TcxImageComboBoxProperties).Items;
- Items.Clear;
-
- while not fMain.AnyCommandCDS.Eof do
-  begin
-   try
-    Items.BeginUpdate;
-    Item := Items.Add as TcxImageComboBoxItem;
-    Item.Value := fMain.AnyCommandCDS.FieldByName('ID').Value;
-    Item.Description := fMain.AnyCommandCDS.FieldByName('NAME').AsString;
-
-    if not fMain.AnyCommandCDS.FieldByName('IMG').IsNull then
-     begin
-      BS:= fMain.AnyCommandCDS.CreateBlobStream(fMain.AnyCommandCDS.FieldByName('IMG') as TBlobField, bmRead);
-      BS.Position:=0;
-      Img.LoadFromStream(BS);
-      DeliveredIL.AddMasked(Img,Img.TransparentColor);
-      Item.ImageIndex := fMain.AnyCommandCDS.FieldByName('ID').AsInteger;
-     end;
-   finally
-    Items.EndUpdate;
-   end;
-   fMain.AnyCommandCDS.Next;
-  end;
-
+ fMain.ImageStatusColumnFromBase('select id,name,img from saledeliveredtype order by id',SalecxGridDBTVISDELIVERED,DeliveredIL);
 end;
 
 procedure TfReturn.ConractorIDFiltercxMEEnter(Sender: TObject);
@@ -1141,11 +1084,11 @@ end;
 
 procedure TfReturn.EgaisResultMIClick(Sender: TObject);
 begin
- if (not Assigned(fEgaisIdentifier)) then
-  Application.CreateForm(TfEgaisIdentifier, fEgaisIdentifier);
- fEgaisIdentifier.Tag:=1;
- fEgaisIdentifier.EgaisIdentifierCDS.Tag:=ReturnSaleCDSSALEID.AsInteger;
- fEgaisIdentifier.ShowModal;
+ if (not Assigned(fXmlViewer)) then
+  Application.CreateForm(TfXmlViewer, fXmlViewer);
+ fXmlViewer.Tag:=1;
+ fXmlViewer.XmlCDS.Tag:=ReturnSaleCDSSALEID.AsInteger;
+ fXmlViewer.ShowModal;
 end;
 
 end.

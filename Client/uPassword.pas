@@ -109,6 +109,7 @@ begin
          begin
           fMain.EmpId:=FieldByName('id').AsInteger;
           fMain.Login:=LoginEdit.Text;
+          fMain.Pass:=PasswordEdit.Text;
           fMain.Grant:=FieldByName('Grants').asString;
           fMain.AdvancedGrant:=FieldByName('AdvancedGrants').asString;
           fMain.Caption:=fMain.Caption+' Текущий пользователь - '+FieldByName('name').asString;

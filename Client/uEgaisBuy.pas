@@ -168,7 +168,7 @@ var
 
 implementation
 
-uses uMain,DynamicProvider, uEgaisDrink, uEgaisAct, uEgaisIdentifier;
+uses uMain,DynamicProvider, uDrinkEdit, uEgaisAct, uXmlViewer;
 
 {$R *.dfm}
 
@@ -398,11 +398,28 @@ end;
 
 procedure TfEgaisBuy.DetailDrinkMIClick(Sender: TObject);
 begin
- if (not Assigned(fEgaisDrink)) then
-  Application.CreateForm(TfEgaisDrink, fEgaisDrink);
- fEgaisDrink.Tag:=EgaisBuyDetailCDSID.AsInteger;
- if fEgaisDrink.ShowModal=mrOk then
-  fMain.RefreshCDS(EgaisBuyDetailCDS);
+ if (not Assigned(fDrinkEdit)) then
+  Application.CreateForm(TfDrinkEdit, fDrinkEdit);
+
+ fDrinkEdit.Caption:=(Sender as TMenuItem).Caption;
+ if fDrinkEdit.ShowModal=mrOk then
+  begin
+   with fMain do
+    try
+     SocketConnection.AppServer.DBStartTransaction;
+     InUpDelCDS.Close;
+     InUpDelCDS.CommandText:=
+        'execute procedure buytrans_egaisbuydetaildrink('+fDrinkEdit.DrinkcxME.Text+','+EgaisBuyDetailCDSID.AsString+')';
+     InUpDelCDS.Execute;
+     SocketConnection.AppServer.DBCommit;
+    except on E: Exception do
+     begin
+      SocketConnection.AppServer.DBRollback;
+      MessageDlg('Ошибка добавления накладной!' + #13+ ' ' + E.Message,mtError,[mbOk],0);
+     end; //on
+    end; //try..except
+    fMain.RefreshCDS(EgaisBuyDetailCDS);
+  end;
 end;
 
 procedure TfEgaisBuy.DetailPMPopup(Sender: TObject);
@@ -529,11 +546,11 @@ end;
 
 procedure TfEgaisBuy.EgaisResultMIClick(Sender: TObject);
 begin
- if (not Assigned(fEgaisIdentifier)) then
-  Application.CreateForm(TfEgaisIdentifier, fEgaisIdentifier);
- fEgaisIdentifier.Tag:=4;
- fEgaisIdentifier.EgaisIdentifierCDS.Tag:=EgaisBuyCDSID.AsInteger;
- fEgaisIdentifier.ShowModal;
+ if (not Assigned(fXmlViewer)) then
+  Application.CreateForm(TfXmlViewer, fXmlViewer);
+ fXmlViewer.Tag:=4;
+ fXmlViewer.XmlCDS.Tag:=EgaisBuyCDSID.AsInteger;
+ fXmlViewer.ShowModal;
 end;
 
 end.

@@ -252,6 +252,10 @@ type
     RDILineMI: TMenuItem;
     BuycxGridDBTVISDUMMYSTORAGE: TcxGridDBColumn;
     BuycxGridDBTVSALEID: TcxGridDBColumn;
+    BuyCDSVETISBUYSTATUSID: TIntegerField;
+    BuycxGridDBTVVETISBUYSTATUSID: TcxGridDBColumn;
+    VetisVSDLinkMI: TMenuItem;
+    BuyDetailcxGridDBTVID: TcxGridDBColumn;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure BuycxGridDBTVCustomDrawCell(Sender: TcxCustomGridTableView;
       ACanvas: TcxCanvas; AViewInfo: TcxGridTableDataCellViewInfo;
@@ -286,6 +290,7 @@ type
     procedure TransOrgMIClick(Sender: TObject);
     procedure SaleActMIClick(Sender: TObject);
     procedure BuyRDIMIClick(Sender: TObject);
+    procedure VetisVSDLinkMIClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -298,7 +303,7 @@ var
 implementation
 
 uses uMain, uBuyAdd, uBuyAddDetail,DynamicProvider, uBuyTransTerm,
-  uBuySaleDummy, uEgaisBuy, uEgaisSaleAct, uRDIBuy;
+  uDistributionEdit, uEgaisBuy, uEgaisSaleAct, uRDIBuy, uVetisVsd;
 
 {$R *.dfm}
 
@@ -313,6 +318,12 @@ procedure TfBuy.BuycxGridDBTVCustomDrawCell(Sender: TcxCustomGridTableView;
 var lTextToDraw:string;
     lColFont:TFont;
 begin
+ if (AViewInfo.GridRecord.DisplayTexts[BuycxGridDBTVINBUY.Index] = '1') then
+   ACanvas.Brush.Color := $C0FFC0;
+
+ if (AViewInfo.GridRecord.DisplayTexts[BuycxGridDBTVVETISBUYSTATUSID.Index] <>'0' ) then
+  ACanvas.Brush.Color := $000080FF;
+
  if (AViewInfo.GridRecord.DisplayTexts[BuycxGridDBTVNOTCOMPLITESUM.Index]='1') then
   begin
    ACanvas.Brush.Color := $00DFDFFF;
@@ -320,9 +331,6 @@ begin
   end
  else
   PrintBuyMI.Enabled:=True;
-
- if (AViewInfo.GridRecord.DisplayTexts[BuycxGridDBTVINBUY.Index] = '1') then
-   ACanvas.Brush.Color := $C0FFC0;
 
  if (BuyCDSADDBUY.asInteger=-1) and (BuyCDSSTORAGETYPEID.AsInteger<>6) then
     PrintBuyMI.Enabled:=False;
@@ -606,6 +614,7 @@ begin
 
  BuyRDIMI.Visible:=(Pos('S',fMain.AdvancedGrant)>0);;
  RDILineMI.Visible:=BuyRDIMI.Visible;
+ VetisVSDLinkMI.Visible:=(BuyCDSVETISBUYSTATUSID.AsInteger<>0) and (BuyCDSDIRECTORVIEW.AsInteger<>2);
 end;
 
 procedure TfBuy.AddBuyMIClick(Sender: TObject);
@@ -899,10 +908,10 @@ end;
 procedure TfBuy.SaleDummyMIClick(Sender: TObject);
 var sqnno,present:string;
 begin
- if (not Assigned(fBuySaleDummy)) then
-  Application.CreateForm(TfBuySaleDummy, fBuySaleDummy);
- fBuySaleDummy.Caption:='Фиктивная накладная';
- if fBuySaleDummy.ShowModal=mrOk then
+ if (not Assigned(fDistributionEdit)) then
+  Application.CreateForm(TfDistributionEdit, fDistributionEdit);
+ fDistributionEdit.Caption:='Фиктивная накладная';
+ if fDistributionEdit.ShowModal=mrOk then
   begin
    with fMain do
     try
@@ -911,7 +920,7 @@ begin
      InUpDelCDS.CommandText:=
      'select sqnno,present from buytrans_buysaledummy('+
        BuyCDSID.AsString+','+
-       fBuySaleDummy.DistributionIDcxME.Text+')';
+       fDistributionEdit.DistributionIDcxME.Text+')';
      InUpDelCDS.Open;
      sqnno:=InUpDelCDS.FieldByName('sqnno').AsString;
      present:=InUpDelCDS.FieldByName('present').AsString;
@@ -1007,6 +1016,18 @@ begin
   Application.CreateForm(TfRDIBuy, fRDIBuy);
  fRDIBuy.fBuyLink:=self;
  fRDIBuy.ShowModal;
+end;
+
+procedure TfBuy.VetisVSDLinkMIClick(Sender: TObject);
+var fVetisVsdLink:TfVetisVsd;
+begin
+ fVetisVsdLink:=(fMain.FindChildForm(fMain.VetisVSDMI) as TfVetisVsd);
+ fVetisVsdLink.VetisConnectcxLCB.EditValue:=1;
+ fVetisVsdLink.BegincxDE.Date:=BuyCDSINPUTDATE.AsDateTime-7;
+ fVetisVsdLink.EndcxDE.Date:=BuyCDSINPUTDATE.AsDateTime;
+ fVetisVsdLink.Tag:=BuyCDSID.AsInteger;
+ fMain.RefreshCDS(fVetisVsdLink.VsdCDS);
+ fVetisVsdLink.Show;
 end;
 
 end.

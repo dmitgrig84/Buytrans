@@ -46,7 +46,7 @@ var
 
 implementation
 
-uses uMain, uEgaisIdentifier;
+uses uMain, uXmlViewer;
 
 {$R *.dfm}
 
@@ -107,11 +107,11 @@ end;
 
 procedure TfReport.EgaisResultMIClick(Sender: TObject);
 begin
- if (not Assigned(fEgaisIdentifier)) then
-  Application.CreateForm(TfEgaisIdentifier, fEgaisIdentifier);
- fEgaisIdentifier.Tag:=5;
- fEgaisIdentifier.EgaisidentifierCDS.Tag:=TClientDataSet(ViewcxGridDBTV.DataController.DataSet).FieldByName('EIID').AsInteger;
- fEgaisIdentifier.ShowModal;
+ if (not Assigned(fXmlViewer)) then
+  Application.CreateForm(TfXmlViewer, fXmlViewer);
+ fXmlViewer.Tag:=5;
+ fXmlViewer.XmlCDS.Tag:=TClientDataSet(ViewcxGridDBTV.DataController.DataSet).FieldByName('EIID').AsInteger;
+ fXmlViewer.ShowModal;
 end;
 
 end.

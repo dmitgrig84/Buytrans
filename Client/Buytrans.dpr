@@ -18,7 +18,7 @@ uses
   uInventory in 'uInventory.pas' {fInventory},
   uInventoryAdd in 'uInventoryAdd.pas' {fInventoryAdd: TActiveForm},
   uBuyTransTerm in 'uBuyTransTerm.pas' {fBuyTransTerm},
-  uBuySaleDummy in 'uBuySaleDummy.pas' {fBuySaleDummy},
+  uDistributionEdit in 'uDistributionEdit.pas' {fDistributionEdit},
   uInventoryList in 'uInventoryList.pas' {fInventoryList},
   uInventoryListReports in 'uInventoryListReports.pas' {fInventoryListReports},
   uInventoryListClose in 'uInventoryListClose.pas' {fInventoryListClose},
@@ -34,7 +34,7 @@ uses
   uAggregation in 'uAggregation.pas' {fAggregation},
   uShiftWealth in 'uShiftWealth.pas' {fShiftWealth},
   uEgaisSaleAct in 'uEgaisSaleAct.pas' {fEgaisSaleAct},
-  uEgaisDrink in 'uEgaisDrink.pas' {fEgaisDrink},
+  uDrinkEdit in 'uDrinkEdit.pas' {fDrinkEdit},
   uEgaisAct in 'uEgaisAct.pas' {fEgaisAct},
   uReturnAdd in 'uReturnAdd.pas' {fReturnAdd},
   uDelivered in 'uDelivered.pas' {fDelivered},
@@ -54,8 +54,11 @@ uses
   uInventoryListAdd in 'uInventoryListAdd.pas' {fInventoryListAdd},
   uInventoryListCashe in 'uInventoryListCashe.pas' {fInventoryListCashe},
   uInventoryListTRAdd in 'uInventoryListTRAdd.pas' {fInventoryListTRAdd},
+  uVetisSale in 'uVetisSale.pas' {fVetisSale},
+  uXmlViewer in 'uXmlViewer.pas' {fXmlViewer},
   uEgaisBuy in 'uEgaisBuy.pas' {fEgaisBuy},
-  uEgaisIdentifier in 'uEgaisIdentifier.pas' {fEgaisIdentifier};
+  uLogViewer in 'uLogViewer.pas' {fLogViewer},
+  uVetisVSD in 'uVetisVsd.pas' {fVetisVsd};
 
 {$R *.res}
 

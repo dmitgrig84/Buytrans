@@ -118,7 +118,7 @@ var
 
 implementation
 
-uses uMain,DynamicProvider, uEgaisDrink, uEgaisAct;
+uses uMain, DynamicProvider, uEgaisAct;
 
 {$R *.dfm}
 
