@@ -256,6 +256,8 @@ type
     BuycxGridDBTVVETISBUYSTATUSID: TcxGridDBColumn;
     VetisVSDLinkMI: TMenuItem;
     BuyDetailcxGridDBTVID: TcxGridDBColumn;
+    BuyDetailCDSVETISBUYDETAILSTATUSID: TSmallintField;
+    BuyDetailcxGridDBTVVETISBUYDETAILSTATUSID: TcxGridDBColumn;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure BuycxGridDBTVCustomDrawCell(Sender: TcxCustomGridTableView;
       ACanvas: TcxCanvas; AViewInfo: TcxGridTableDataCellViewInfo;
@@ -291,6 +293,9 @@ type
     procedure SaleActMIClick(Sender: TObject);
     procedure BuyRDIMIClick(Sender: TObject);
     procedure VetisVSDLinkMIClick(Sender: TObject);
+    procedure BuyDetailcxGridDBTVCustomDrawCell(
+      Sender: TcxCustomGridTableView; ACanvas: TcxCanvas;
+      AViewInfo: TcxGridTableDataCellViewInfo; var ADone: Boolean);
   private
     { Private declarations }
   public
@@ -1028,6 +1033,14 @@ begin
  fVetisVsdLink.Tag:=BuyCDSID.AsInteger;
  fMain.RefreshCDS(fVetisVsdLink.VsdCDS);
  fVetisVsdLink.Show;
+end;
+
+procedure TfBuy.BuyDetailcxGridDBTVCustomDrawCell(
+  Sender: TcxCustomGridTableView; ACanvas: TcxCanvas;
+  AViewInfo: TcxGridTableDataCellViewInfo; var ADone: Boolean);
+begin
+ if (AViewInfo.GridRecord.DisplayTexts[BuyDetailcxGridDBTVVETISBUYDETAILSTATUSID.Index] <>'0' ) then
+  ACanvas.Brush.Color := $000080FF;
 end;
 
 end.

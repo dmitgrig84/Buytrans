@@ -189,6 +189,9 @@ type
     VetisDistributionCDSVETISNUMBER: TStringField;
     VetisDistributionCDSVETISNAME: TStringField;
     VetisDistributionCDSVETISADDRESS: TStringField;
+    VetisStockMI: TMenuItem;
+    LineMI: TMenuItem;
+    VetisDistributionCDSREGISTRYSTATUS: TStringField;
     procedure FormShow(Sender: TObject);
     procedure RefreshCDS(CDS:TClientDataSet);
     procedure CreateExistsCDS(CDS:TClientDataSet;SC:TSocketConnection;CompName,CommandText:string);
@@ -232,7 +235,7 @@ uses Reg, DynamicProvider, uPassword, ConstUnit, uHandBook, uBuy,
   uTransportation, uReturn, uClaim, uRemoving, uInventory, uInventoryList, uRetailAudit,
   uDeltaDocFact,uClientDsFloatToBcd, uSupply, uStorageDoc,
   uAutoTransportation, uAggregation, uShiftWealth, uRegrading, uEgaisRests, uNotification,uEgaisRests3,
-  uReport, uVetisVSD, uVetisSale, uLogViewer;
+  uReport, uVetisVSD, uVetisSale, uLogViewer, uVetisStock;
 
 {$R *.DFM}
 
@@ -635,6 +638,7 @@ begin
       VetisMI.Visible:=(Pos('V', Grant) > 0);
       VetisVSDMI.Enabled:=VetisMI.Visible;
       VetisSaleMI.Enabled:=VetisMI.Visible;
+      VetisStockMI.Enabled:=VetisMI.Visible;
       VetisDistributionMI.Enabled:=VetisMI.Visible;
       if (Pos('V', AdvancedGrant) > 0) then VetisDistributionMI.Tag:=1;
       
@@ -925,6 +929,7 @@ begin
    if (Sender as TMenuItem).Caption='Остатки З регистр' then result:= TfEgaisRests3.Create(Application);
    if (Sender as TMenuItem).Caption=VetisVSDMI.Caption then result:= TfVetisVSD.Create(Application);
    if (Sender as TMenuItem).Caption=VetisSaleMI.Caption then result:= TfVetisSale.Create(Application);
+   if (Sender as TMenuItem).Caption=VetisStockMI.Caption then result:= TfVetisStock.Create(Application);
    if Assigned(result) then
     result.Caption:=(Sender as TMenuItem).Caption;
   end

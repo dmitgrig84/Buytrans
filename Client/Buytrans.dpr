@@ -58,6 +58,7 @@ uses
   uXmlViewer in 'uXmlViewer.pas' {fXmlViewer},
   uEgaisBuy in 'uEgaisBuy.pas' {fEgaisBuy},
   uLogViewer in 'uLogViewer.pas' {fLogViewer},
+  uVetisStock in 'uVetisStock.pas' {fVetisStock},
   uVetisVSD in 'uVetisVsd.pas' {fVetisVsd};
 
 {$R *.res}

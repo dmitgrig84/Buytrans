@@ -1,6 +1,6 @@
 object fHandBook: TfHandBook
-  Left = 403
-  Top = 209
+  Left = 404
+  Top = 210
   Width = 928
   Height = 452
   Caption = 'fHandBook'

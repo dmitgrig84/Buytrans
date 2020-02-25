@@ -617,6 +617,7 @@ object fBuy: TfBuy
     object BuyDetailcxGridDBTV: TcxGridDBTableView
       PopupMenu = BuyDetailPM
       NavigatorButtons.ConfirmDelete = False
+      OnCustomDrawCell = BuyDetailcxGridDBTVCustomDrawCell
       DataController.DataSource = BuyDetailDS
       DataController.KeyFieldNames = 'ID'
       DataController.Summary.DefaultGroupSummaryItems = <
@@ -924,6 +925,10 @@ object fBuy: TfBuy
       end
       object BuyDetailcxGridDBTVLINKTOSALE: TcxGridDBColumn
         DataBinding.FieldName = 'LINKTOSALE'
+      end
+      object BuyDetailcxGridDBTVVETISBUYDETAILSTATUSID: TcxGridDBColumn
+        DataBinding.FieldName = 'VETISBUYDETAILSTATUSID'
+        Visible = False
       end
     end
     object BuyDetailcxGridLevel: TcxGridLevel
@@ -1487,6 +1492,11 @@ object fBuy: TfBuy
     end
     object BuyDetailCDSCOEFFMEAS: TIntegerField
       FieldName = 'COEFFMEAS'
+    end
+    object BuyDetailCDSVETISBUYDETAILSTATUSID: TSmallintField
+      DisplayLabel = #1050#1086#1076' '#1089#1090#1072#1090#1091#1089#1072' '#1042#1045#1058#1048#1057' '#1087#1086#1079#1080#1094#1080#1080
+      FieldName = 'VETISBUYDETAILSTATUSID'
+      Visible = False
     end
   end
   object DirectorViewImageList: TImageList

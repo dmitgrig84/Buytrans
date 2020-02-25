@@ -1,6 +1,6 @@
 object fMain: TfMain
-  Left = 473
-  Top = 171
+  Left = 365
+  Top = 166
   Width = 1292
   Height = 732
   Color = clBtnFace
@@ -164,6 +164,13 @@ object fMain: TfMain
       object VetisSaleMI: TMenuItem
         Caption = #1048#1089#1093#1086#1076#1103#1097#1080#1077' '#1042#1057#1044
         OnClick = CreateChildForm
+      end
+      object VetisStockMI: TMenuItem
+        Caption = #1057#1087#1080#1089#1086#1082' '#1079#1072#1087#1080#1089#1077#1081' '#1078#1091#1088#1085#1072#1083#1072
+        OnClick = CreateChildForm
+      end
+      object LineMI: TMenuItem
+        Caption = '-'
       end
       object VetisDistributionMI: TMenuItem
         Caption = #1055#1086#1076#1085#1072#1076#1079#1086#1088#1085#1099#1077' '#1086#1073#1100#1077#1082#1090#1099
@@ -1649,6 +1656,11 @@ object fMain: TfMain
       FieldName = 'VETISADDRESS'
       ReadOnly = True
       Size = 256
+    end
+    object VetisDistributionCDSREGISTRYSTATUS: TStringField
+      DisplayLabel = #1057#1090#1072#1090#1091#1089' '#1042#1045#1058#1048#1057
+      FieldName = 'REGISTRYSTATUS'
+      Size = 16
     end
   end
 end
