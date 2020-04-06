@@ -298,22 +298,32 @@ var data: TIdMultiPartFormDataStream;
     viid,requestpath,httpresult:String;
     countrequest,i:integer;
 begin
-
  if (not Assigned(fLogViewer)) then
   Application.CreateForm(TfLogViewer, fLogViewer);
+
  if (not fLogViewer.Active) then
   fLogViewer.Show;
+
  try
   try
    SocketConnection.AppServer.DBStartTransaction;
    InUpDelCDS.Close;
    InUpDelCDS.CommandText:='select * from buytrans_vetisrequest('+IntToStr(vetisconnectid)+','+IntToStr(vetissoapactionid)+','+#39+paramvalue+#39+')';
    InUpDelCDS.Open;
-   viid:=InUpDelCDS.FieldByName('viid').AsString;
-   requestpath:=InUpDelCDS.FieldByName('requestpath').AsString;
-   countrequest:=InUpDelCDS.FieldByName('countrequest').AsInteger;
+   if (not InUpDelCDS.IsEmpty) then
+    begin
+     viid:=InUpDelCDS.FieldByName('viid').AsString;
+     requestpath:=InUpDelCDS.FieldByName('requestpath').AsString;
+     countrequest:=InUpDelCDS.FieldByName('countrequest').AsInteger;
+    end
+   else
+    countrequest:=0;
+
    SocketConnection.AppServer.DBCommit;
-   fLogViewer.LogMemo.Lines.Add(DateToStr(Date)+' '+TimeToStr(Time)+': Поставили запрос с кодом '+viid+' в очередь. Путь '+requestpath+'. Кол-во запросов '+IntToStr(countrequest));
+   if countrequest<>0 then
+    fLogViewer.LogMemo.Lines.Add(DateToStr(Date)+' '+TimeToStr(Time)+': Поставили запрос с параметрами '+paramvalue+' в очередь. Код '+viid+'. Путь '+requestpath+'. Кол-во запросов '+IntToStr(countrequest))
+   else
+    fLogViewer.LogMemo.Lines.Add(DateToStr(Date)+' '+TimeToStr(Time)+': Пропустили создание запроса с параметрами: '+paramvalue);
   except
    begin
     SocketConnection.AppServer.DBRollback;
@@ -327,9 +337,10 @@ begin
     data.AddFormField('dbuser', Login);
     data.AddFormField('dbpass', Pass);
     data.AddFormField('viid', viid);
-    fLogViewer.LogMemo.Lines.Add(DateToStr(Date)+' '+TimeToStr(Time)+': '+IdHTTP.Post(requestpath, data));
+    fLogViewer.LogMemo.Lines.Add(DateToStr(Date)+' '+TimeToStr(Time)+': '+UTF8ToAnsi(IdHTTP.Post(requestpath, data)));
     data.Free;
-    sleep(1000);    
+    if (countrequest>i) then
+     sleep(2000);    
    except on E: Exception do
     begin
      data.Free;

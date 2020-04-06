@@ -1,6 +1,6 @@
 object fInventoryList: TfInventoryList
-  Left = 254
-  Top = 155
+  Left = 395
+  Top = 169
   Width = 1317
   Height = 726
   Caption = 'fInventoryList'
@@ -1548,7 +1548,9 @@ object fInventoryList: TfInventoryList
     end
     object InventoryCasheCDSDRINKGROUPNAME: TStringField
       DisplayLabel = #1043#1088#1091#1087#1087#1072
+      DisplayWidth = 20
       FieldName = 'DRINKGROUPNAME'
+      Size = 32
     end
     object InventoryCasheCDSREMREASON: TStringField
       DisplayLabel = #1055#1088#1080#1095#1080#1085#1072' '#1076#1077#1092#1077#1082#1090#1072

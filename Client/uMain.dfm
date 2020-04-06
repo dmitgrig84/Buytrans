@@ -1,6 +1,6 @@
 object fMain: TfMain
-  Left = 365
-  Top = 166
+  Left = 308
+  Top = 140
   Width = 1292
   Height = 732
   Color = clBtnFace
@@ -1457,8 +1457,9 @@ object fMain: TfMain
     end
     object RetailEgaisDocCDSEGAISSTATUSNAME: TStringField
       DisplayLabel = #1057#1090#1072#1090#1091#1089' '#1076#1086#1082#1091#1084#1077#1085#1090#1072
+      DisplayWidth = 64
       FieldName = 'EGAISSTATUSNAME'
-      Size = 64
+      Size = 256
     end
     object RetailEgaisDocCDSDOCID: TIntegerField
       DisplayLabel = #1050#1086#1076' '#1076#1086#1082#1091#1084#1077#1085#1090#1072
