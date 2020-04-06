@@ -110,6 +110,7 @@ begin
    XmlCDS.ProviderName:=CompName+'DSP';
    XmlCDS.RemoteServer:=fMain.SocketConnection;
    XmlCDS.CommandText:='select distinct * from buytrans_xmlviewer(:operationtypeid,:operationid)';
+   {Привет всем на GitHub}
   end;
 end;
 
