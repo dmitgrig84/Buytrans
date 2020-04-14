@@ -1,6 +1,6 @@
 object fMain: TfMain
   Left = 308
-  Top = 140
+  Top = 138
   Width = 1292
   Height = 732
   Color = clBtnFace
@@ -67,24 +67,9 @@ object fMain: TfMain
         Caption = #1050#1086#1101#1092#1092#1080#1094#1080#1077#1085#1090#1099' '#1058#1058
         OnClick = HandBookMIClick
       end
-      object N1: TMenuItem
-        Tag = 1
-        Caption = #1055#1088#1080#1074#1103#1079#1082#1072' '#1085#1086#1084#1077#1085#1082#1083#1072#1090#1091#1088#1099' '#1082' '#1045#1043#1040#1048#1057
-        OnClick = HandBookMIClick
-      end
       object BonusTabakMI: TMenuItem
         Tag = 1
         Caption = #1041#1086#1085#1091#1089#1099' '#1090#1072#1073#1072#1082#1072
-        OnClick = HandBookMIClick
-      end
-      object EgaisFirmTypeMI: TMenuItem
-        Tag = 1
-        Caption = #1050#1083#1080#1077#1085#1090#1099' '#1080#1089#1082#1083#1102#1095#1077#1085#1080#1103' '#1045#1043#1040#1048#1057
-        OnClick = HandBookMIClick
-      end
-      object UTMMI: TMenuItem
-        Tag = 1
-        Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1080' '#1059#1058#1052' '
         OnClick = HandBookMIClick
       end
     end
@@ -177,33 +162,51 @@ object fMain: TfMain
         OnClick = HandBookMIClick
       end
     end
-    object ReportMI: TMenuItem
-      Caption = #1054#1090#1095#1077#1090#1099
-      object SupplyMI: TMenuItem
-        Caption = #1057#1085#1072#1073#1078#1077#1085#1080#1077
-        OnClick = CreateChildForm
-      end
-      object N3: TMenuItem
-        Caption = '-'
-      end
+    object EgaisMI: TMenuItem
+      Caption = #1045#1075#1072#1080#1089
       object EgaisRestsMI: TMenuItem
-        Caption = #1054#1089#1090#1072#1090#1082#1080' '#1045#1043#1040#1048#1057
+        Caption = #1054#1089#1090#1072#1090#1082#1080
         OnClick = CreateChildForm
       end
       object EgaisRests3MI: TMenuItem
         Caption = #1054#1089#1090#1072#1090#1082#1080' '#1047' '#1088#1077#1075#1080#1089#1090#1088
         OnClick = CreateChildForm
       end
+      object N3: TMenuItem
+        Caption = '-'
+      end
+      object EgaisRetailDocMI: TMenuItem
+        Caption = #1053#1077' '#1087#1088#1086#1074#1077#1076#1077#1085#1085#1099#1077' '#1076#1086#1082#1091#1084#1077#1085#1090#1099' '#1088#1086#1079#1085#1080#1094#1099
+        OnClick = ReportMIClick
+      end
+      object EgaisLastRestsMI: TMenuItem
+        Caption = #1055#1086#1089#1083#1077#1076#1085#1080#1077' '#1086#1089#1090#1072#1090#1082#1080' '#1085#1072' '#1058#1058' '#1074' '#1045#1043#1040#1048#1057
+        OnClick = ReportMIClick
+      end
       object N4: TMenuItem
         Caption = '-'
       end
-      object RetailErrorEgaisMI: TMenuItem
-        Caption = #1042#1080#1089#1103#1082#1080' '#1088#1086#1079#1085#1080#1094#1099' '#1087#1086' '#1045#1043#1040#1048#1057
-        OnClick = ReportMIClick
+      object EgaisFirmTypeMI: TMenuItem
+        Tag = 1
+        Caption = #1050#1083#1080#1077#1085#1090#1099' '#1080#1089#1082#1083#1102#1095#1077#1085#1080#1103
+        OnClick = HandBookMIClick
       end
-      object LastRestsMI: TMenuItem
-        Caption = #1055#1086#1089#1083#1077#1076#1085#1080#1077' '#1086#1089#1090#1072#1090#1082#1080' '#1045#1043#1040#1048#1057
-        OnClick = ReportMIClick
+      object EgaisDrinkAlcCodeMI: TMenuItem
+        Tag = 1
+        Caption = #1055#1088#1080#1074#1103#1079#1082#1072' '#1085#1086#1084#1077#1085#1082#1083#1072#1090#1091#1088#1099
+        OnClick = HandBookMIClick
+      end
+      object EgaisUTMSettingsMI: TMenuItem
+        Tag = 1
+        Caption = #1053#1072#1089#1090#1088#1086#1081#1082#1080' '#1059#1058#1052' '
+        OnClick = HandBookMIClick
+      end
+    end
+    object ReportMI: TMenuItem
+      Caption = #1054#1090#1095#1077#1090#1099
+      object SupplyMI: TMenuItem
+        Caption = #1057#1085#1072#1073#1078#1077#1085#1080#1077
+        OnClick = CreateChildForm
       end
     end
     object HelpMI: TMenuItem
@@ -1491,44 +1494,44 @@ object fMain: TfMain
       Size = 64
     end
   end
-  object EgaisRestsLastCDS: TClientDataSet
+  object EgaisLastRestsCDS: TClientDataSet
     Aggregates = <>
     Params = <>
     Left = 288
     Top = 120
-    object EgaisRestsLastCDSKEYID: TIntegerField
+    object EgaisLastRestsCDSKEYID: TIntegerField
       DisplayLabel = #1050#1083#1102#1095
       FieldName = 'KEYID'
       Visible = False
     end
-    object EgaisRestsLastCDSEGAISCONNECTID: TIntegerField
+    object EgaisLastRestsCDSEGAISCONNECTID: TIntegerField
       DisplayLabel = #1050#1086#1076' '#1087#1086#1076#1082#1083#1102#1095#1077#1085#1080#1103
       FieldName = 'EGAISCONNECTID'
     end
-    object EgaisRestsLastCDSECNAME: TStringField
+    object EgaisLastRestsCDSECNAME: TStringField
       DisplayLabel = #1058#1058
       FieldName = 'ECNAME'
       Size = 64
     end
-    object EgaisRestsLastCDSEGAISDOCUMENTSTYPEID: TIntegerField
+    object EgaisLastRestsCDSEGAISDOCUMENTSTYPEID: TIntegerField
       DisplayLabel = #1050#1086#1076' '#1076#1086#1082#1091#1084#1077#1085#1090#1072
       FieldName = 'EGAISDOCUMENTSTYPEID'
       Visible = False
     end
-    object EgaisRestsLastCDSEDNAME: TStringField
+    object EgaisLastRestsCDSEDNAME: TStringField
       DisplayLabel = #1044#1086#1082#1091#1084#1077#1085#1090
       FieldName = 'EDNAME'
       Size = 64
     end
-    object EgaisRestsLastCDSEIID: TIntegerField
+    object EgaisLastRestsCDSEIID: TIntegerField
       DisplayLabel = #1050#1086#1076' '#1079#1072#1087#1088#1086#1089#1072
       FieldName = 'EIID'
     end
-    object EgaisRestsLastCDSPRESENT: TDateTimeField
+    object EgaisLastRestsCDSPRESENT: TDateTimeField
       DisplayLabel = #1044#1072#1090#1072
       FieldName = 'PRESENT'
     end
-    object EgaisRestsLastCDSCOUNTUNIT: TIntegerField
+    object EgaisLastRestsCDSCOUNTUNIT: TIntegerField
       DisplayLabel = #1050#1086#1083'-'#1074#1086', '#1096#1090'.'
       FieldName = 'COUNTUNIT'
     end

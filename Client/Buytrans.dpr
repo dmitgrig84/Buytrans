@@ -46,7 +46,7 @@ uses
   uTransportationEditPrice in 'uTransportationEditPrice.pas' {fTransportationEditPrice},
   uNotification in 'uNotification.pas' {fNotification},
   uEgaisRests3 in 'uEgaisRests3.pas' {fEgaisRests3},
-  uExciseFix in 'uExciseFix.pas' {fExciseFix},
+  uEgaisActChargeOn in 'uEgaisActChargeOn.pas' {fEgaisActChargeOn},
   uReport in 'uReport.pas' {fReport},
   uNotificationAdd in 'uNotificationAdd.pas' {fNotificationAdd},
   uRegradingDetailAdd in 'uRegradingDetailAdd.pas' {fRegradingDetailAdd},
@@ -59,7 +59,8 @@ uses
   uEgaisBuy in 'uEgaisBuy.pas' {fEgaisBuy},
   uLogViewer in 'uLogViewer.pas' {fLogViewer},
   uVetisStock in 'uVetisStock.pas' {fVetisStock},
-  uVetisVSD in 'uVetisVsd.pas' {fVetisVsd};
+  uVetisVSD in 'uVetisVsd.pas' {fVetisVsd},
+  uExciseFix in 'uExciseFix.pas' {fExciseFix};
 
 {$R *.res}
 

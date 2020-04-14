@@ -1104,7 +1104,7 @@ begin
   except on E: Exception do
    begin
     SocketConnection.AppServer.DBRollback;
-    MessageDlg('Ошибка. '+ ErrorCode + #13 + ' ' + E.Message,mtError,[mbOk],0);
+    MessageDlg('Ошибка. '+ ErrorCode + #13 + ' ' + E.Message+#13+InUpDelCDS.CommandText,mtError,[mbOk],0);
     exit;
    end;  //on
   end;//try..except}

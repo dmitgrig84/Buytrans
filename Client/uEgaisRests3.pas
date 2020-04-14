@@ -84,17 +84,19 @@ type
     PM: TPopupMenu;
     CopyClipBoardMI: TMenuItem;
     EgaisActFixBarcodeMI: TMenuItem;
-    LineMI: TMenuItem;
+    Line2MI: TMenuItem;
     EgaisRests3CDSNOWEXCISECOUNTUNIT: TIntegerField;
     ViewcxGridDBTVNOWEXCISECOUNTUNIT: TcxGridDBColumn;
     DrinkKindIDcxME: TcxMaskEdit;
     ActFixBarcodeMI: TMenuItem;
-    N1: TMenuItem;
+    Line1MI: TMenuItem;
     ExciseHostCDSBOXCODE: TStringField;
     ExciseHostcxGridDBTVBOXCODE: TcxGridDBColumn;
     ExciseEgaisCDSBOXCODE: TStringField;
     ExciseEgaiscxGridDBTVBOXCODE: TcxGridDBColumn;
     InformBRegidcxME: TcxMaskEdit;
+    ActChargeOnMI: TMenuItem;
+    EgaisResultMI: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure RefreshcxButtonClick(Sender: TObject);
@@ -120,6 +122,8 @@ type
     procedure InformBRegidcxMEEnter(Sender: TObject);
     procedure DrinkKindIDcxMEEnter(Sender: TObject);
     procedure StoragecxLCBPropertiesEditValueChanged(Sender: TObject);
+    procedure EgaisResultMIClick(Sender: TObject);
+    procedure ActChargeOnMIClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -131,7 +135,7 @@ var
 
 implementation
 
-uses uMain, uExciseFix;
+uses uMain, uExciseFix, uXmlViewer, uEgaisActChargeOn;
 
 {$R *.dfm}
 
@@ -333,8 +337,14 @@ begin
 end;
 
 procedure TfEgaisRests3.ViewPMPopup(Sender: TObject);
+var flag:boolean;
 begin
- ReplyRestsMI.Visible:=EgaisRests3CDS.RecordCount>0;
+ flag:=not EgaisRests3CDS.IsEmpty;
+ ActChargeOnMI.Visible:=EgaisRests3CDSINFORMA_REGID.IsNull;
+ ReplyRestsMI.Visible:=flag and (not ActChargeOnMI.Visible);
+ ActFixBarcodeMI.Visible:=flag and (not ActChargeOnMI.Visible);
+ EgaisResultMI.Visible:=flag;
+ Line1MI.Visible:=ActFixBarcodeMI.Visible or EgaisResultMI.Visible;
 end;
 
 procedure TfEgaisRests3.EgaisActFixBarcodeMIClick(Sender: TObject);
@@ -431,6 +441,24 @@ procedure TfEgaisRests3.StoragecxLCBPropertiesEditValueChanged(
   Sender: TObject);
 begin
  RefreshcxButtonClick(Sender);
+end;
+
+procedure TfEgaisRests3.EgaisResultMIClick(Sender: TObject);
+begin
+ if (not Assigned(fXmlViewer)) then
+  Application.CreateForm(TfXmlViewer, fXmlViewer);
+ fXmlViewer.Tag:=8;
+ fXmlViewer.XmlCDS.Tag:=EgaisRests3CDSDRINKKINDID.AsInteger;
+ fXmlViewer.ShowModal;
+end;
+
+procedure TfEgaisRests3.ActChargeOnMIClick(Sender: TObject);
+begin
+ if (not Assigned(fEgaisActChargeOn)) then
+  Application.CreateForm(TfEgaisActChargeOn, fEgaisActChargeOn);
+ fEgaisActChargeOn.ViewCDS.Params[0].AsInteger:=EgaisRests3CDSDRINKKINDID.AsInteger;
+ fEgaisActChargeOn.ShowModal;
+ fMain.RefreshCDS(EgaisRests3CDS);
 end;
 
 end.

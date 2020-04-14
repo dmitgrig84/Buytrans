@@ -843,7 +843,7 @@ begin
  CancelConfirmMI.Visible:=(ReturnSaleCDSFLAGCANCELCONFIRM.AsInteger=1);
  FirstLineMI.Visible:=EgaisSaleActMI.Visible or UnConfirmEgaisSaleMI.Visible or ConfirmEgaisSaleMI.Visible;
  SecondLineMI.Visible:=UnConfirmEgaisSaleMI.Visible or ConfirmEgaisSaleMI.Visible or SaleExciseMI.Visible or SaleNewTodayMI.Visible;
- EgaisResultMI.Visible:=(ReturnSaleCDSEGAISSTATUS.AsInteger>4);
+ EgaisResultMI.Visible:=(ReturnSaleCDSEGAISSTATUS.AsInteger>3);
 end;
 
 procedure TfReturn.EgaisSaleActMIClick(Sender: TObject);

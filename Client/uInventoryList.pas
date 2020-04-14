@@ -373,6 +373,7 @@ type
     InventoryDetailActCDSCOUNTUNIT: TFloatField;
     ViewcxGridDBTVISCLOSEDB: TcxGridDBColumn;
     RefreshLinkMI: TMenuItem;
+    N1: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure RefreshInventoryBBClick(Sender: TObject);
@@ -704,15 +705,19 @@ end;
 
 procedure TfInventoryList.ViewPMPopup(Sender: TObject);
 begin
- FixCasheMI.Enabled        := (Pos('J', fMain.AdvancedGrant) > 0) and (InventoryListCDSSTATUS.AsInteger = 0) and (InventoryListCDSISPARTIAL.AsInteger = 0);
  AddInventoryMI.Enabled    := (Pos('J', fMain.AdvancedGrant) > 0);
- OpenInventoryMI.Visible   := (Pos('Z', fMain.AdvancedGrant) > 0) and (InventoryListCDSSTATUS.AsInteger = 2);
- EditInventoryMI.Enabled   := (Pos('J', fMain.AdvancedGrant) > 0) and not (InventoryListCDSSTATUS.AsInteger in [2,3]);
-// CloseInventoryMI.Enabled  := (Pos('J', fMain.AdvancedGrant) > 0) and (InventoryListCDSSTATUS.AsInteger = 1);
- DeleteInventoryMI.Enabled := (Pos('J', fMain.AdvancedGrant) > 0) and not (InventoryListCDSSTATUS.AsInteger in [2,3]);
- CopyFixToFactMI.Enabled   := (Pos('J', fMain.AdvancedGrant) > 0) and (InventoryListCDSSTATUS.AsInteger = 1) and (InventoryListCDSISPARTIAL.AsInteger = 0);
- CheckEgaisDocMI.Visible   := (InventoryListCDSSTATUS.AsInteger in [0,99]);
- CancelInventoryMI.Visible := (Pos('J', fMain.AdvancedGrant) > 0) and (Pos('K', fMain.AdvancedGrant) > 0) and (InventoryListCDSSTATUS.AsInteger = 0);
+ FillActMI.Enabled         := not InventoryListCDS.IsEmpty;
+ FixCasheMI.Enabled        := FillActMI.Enabled  and (Pos('J', fMain.AdvancedGrant) > 0) and (InventoryListCDSSTATUS.AsInteger = 0) and (InventoryListCDSISPARTIAL.AsInteger = 0);
+ CopyFixToFactMI.Enabled   := FillActMI.Enabled  and (Pos('J', fMain.AdvancedGrant) > 0) and (InventoryListCDSSTATUS.AsInteger = 1) and (InventoryListCDSISPARTIAL.AsInteger = 0);
+ CloseInventoryMI.Enabled  := FillActMI.Enabled;
+
+ OpenInventoryMI.Visible   := FillActMI.Enabled  and (Pos('Z', fMain.AdvancedGrant) > 0) and (InventoryListCDSSTATUS.AsInteger = 2);
+ EditInventoryMI.Enabled   := FillActMI.Enabled  and (Pos('J', fMain.AdvancedGrant) > 0) and not (InventoryListCDSSTATUS.AsInteger in [2,3]);
+ DeleteInventoryMI.Enabled := FillActMI.Enabled  and (Pos('J', fMain.AdvancedGrant) > 0) and not (InventoryListCDSSTATUS.AsInteger in [2,3]);
+
+
+ CheckEgaisDocMI.Visible   := FillActMI.Enabled  and (InventoryListCDSSTATUS.AsInteger in [0,99]);
+ CancelInventoryMI.Visible := FillActMI.Enabled  and (Pos('J', fMain.AdvancedGrant) > 0) and (Pos('K', fMain.AdvancedGrant) > 0) and (InventoryListCDSSTATUS.AsInteger = 0);
 end;
 
 procedure TfInventoryList.DetailPMPopup(Sender: TObject);
@@ -1245,6 +1250,9 @@ end;
 
 procedure TfInventoryList.FillActMIClick(Sender: TObject);
 begin
+ if InventoryListCDS.IsEmpty then
+  exit;
+
  if InventoryListCDSINVENTORYTEMPID.IsNull then
   begin
    if (not Assigned(fInventoryAdd)) then

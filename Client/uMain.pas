@@ -107,7 +107,7 @@ type
     DrinkAlcCodeCDSCOUNTUNIT: TIntegerField;
     DrinkAlcCodeCDSALCCODE: TStringField;
     DrinkAlcCodeCDSEGAISDRINKNAME: TStringField;
-    N1: TMenuItem;
+    EgaisDrinkAlcCodeMI: TMenuItem;
     DrinkAlcCodeCDSVOLUME: TFloatField;
     DrinkAlcCodeCDSDIRECTIONNAME: TStringField;
     RegradingMI: TMenuItem;
@@ -138,7 +138,7 @@ type
     EgaisFirmTypeCDSFIRMNAME: TStringField;
     NotificationMI: TMenuItem;
     EgaisRests3MI: TMenuItem;
-    RetailErrorEgaisMI: TMenuItem;
+    EgaisRetailDocMI: TMenuItem;
     N4: TMenuItem;
     RetailEgaisDocCDS: TClientDataSet;
     RetailEgaisDocCDSDOCTYPENAME: TStringField;
@@ -154,17 +154,17 @@ type
     RetailEgaisDocCDSDISTRIBUTIONID: TIntegerField;
     RetailEgaisDocCDSKEYID: TIntegerField;
     DrinkAlcCodeCDSEGAISFACTORY: TStringField;
-    LastRestsMI: TMenuItem;
-    EgaisRestsLastCDS: TClientDataSet;
-    EgaisRestsLastCDSKEYID: TIntegerField;
-    EgaisRestsLastCDSEGAISCONNECTID: TIntegerField;
-    EgaisRestsLastCDSECNAME: TStringField;
-    EgaisRestsLastCDSEGAISDOCUMENTSTYPEID: TIntegerField;
-    EgaisRestsLastCDSEDNAME: TStringField;
-    EgaisRestsLastCDSEIID: TIntegerField;
-    EgaisRestsLastCDSPRESENT: TDateTimeField;
-    EgaisRestsLastCDSCOUNTUNIT: TIntegerField;
-    UTMMI: TMenuItem;
+    EgaisLastRestsMI: TMenuItem;
+    EgaisLastRestsCDS: TClientDataSet;
+    EgaisLastRestsCDSKEYID: TIntegerField;
+    EgaisLastRestsCDSEGAISCONNECTID: TIntegerField;
+    EgaisLastRestsCDSECNAME: TStringField;
+    EgaisLastRestsCDSEGAISDOCUMENTSTYPEID: TIntegerField;
+    EgaisLastRestsCDSEDNAME: TStringField;
+    EgaisLastRestsCDSEIID: TIntegerField;
+    EgaisLastRestsCDSPRESENT: TDateTimeField;
+    EgaisLastRestsCDSCOUNTUNIT: TIntegerField;
+    EgaisUTMSettingsMI: TMenuItem;
     EgaisConnectCDS: TClientDataSet;
     EgaisConnectCDSID: TSmallintField;
     EgaisConnectCDSDISTRIBUTIONID: TIntegerField;
@@ -192,6 +192,7 @@ type
     VetisStockMI: TMenuItem;
     LineMI: TMenuItem;
     VetisDistributionCDSREGISTRYSTATUS: TStringField;
+    EgaisMI: TMenuItem;
     procedure FormShow(Sender: TObject);
     procedure RefreshCDS(CDS:TClientDataSet);
     procedure CreateExistsCDS(CDS:TClientDataSet;SC:TSocketConnection;CompName,CommandText:string);
@@ -639,10 +640,16 @@ begin
       AggregationMI.Enabled:= (Pos('G', Grant) > 0);
       ShiftMI.Enabled := (Pos('G', Grant) > 0);
       RegradingMI.Enabled:= (Pos('P', Grant) > 0);
-      EgaisRestsMI.Enabled:= (Pos('E', Grant) > 0);
-      EgaisRests3MI.Enabled:= (Pos('E', Grant) > 0);
-      RetailErrorEgaisMI.Enabled:= (Pos('E', Grant) > 0);
-      LastRestsMI.Enabled:= (Pos('E', Grant) > 0);
+
+      EgaisMI.Visible:= (Pos('E', Grant) > 0);
+      EgaisRestsMI.Enabled:=EgaisMI.Visible;
+      EgaisRests3MI.Enabled:=EgaisMI.Visible;
+      EgaisRetailDocMI.Enabled:=EgaisMI.Visible;
+      EgaisLastRestsMI.Enabled:=EgaisMI.Visible;
+      EgaisFirmTypeMI.Enabled:=EgaisMI.Visible;
+      EgaisDrinkAlcCodeMI.Enabled:=EgaisMI.Visible;
+      EgaisUTMSettingsMI.Enabled:=EgaisMI.Visible;
+
       ReadParamFromRegistry(Base1CPath, HKEY_CURRENT_USER, BaseFolder, 'Base1C', '');
       ReadParamFromRegistry(Base1CTypeConnector,HKEY_CURRENT_USER,BaseFolder,'Base1CTypeConnector','V83.COMConnector');
 
@@ -701,7 +708,7 @@ begin
    Child:= TfReport.Create(Application);
    Child.Caption:=(Sender as TMenuItem).Caption;
 
-   if (Sender as TMenuItem).Caption='Висяки розницы по ЕГАИС' then
+   if (Sender as TMenuItem).Caption=EgaisRetailDocMI.Caption then
     begin
      CreateExistsCDS(RetailEgaisDocCDS,SocketConnection,'RetailEgaisDoc','select * from buytrans_reportegaisretailerror(:begindate,:enddate)');
      Child.TopPanel.Visible:=true;
@@ -712,13 +719,13 @@ begin
      CreateReportView(Child,RetailEgaisDocCDS,'KEYID');
     end;
 
-   if (Sender as TMenuItem).Name=LastRestsMI.Name then
+   if (Sender as TMenuItem).Name=EgaisLastRestsMI.Name then
     begin
-     CreateExistsCDS(EgaisRestsLastCDS,SocketConnection,'EgaisRestsLast','select * from buytrans_reportegaisrestslast');
+     CreateExistsCDS(EgaisLastRestsCDS,SocketConnection,'EgaisLastRests','select * from buytrans_reportegaisrestslast');
      Child.TopPanel.Visible:=false;
      Child.EgaisResultMI.Visible:=true;
      Child.ViewcxGridDBTV.PopupMenu:=Child.PM;
-     CreateReportView(Child,EgaisRestsLastCDS,'KEYID');
+     CreateReportView(Child,EgaisLastRestsCDS,'KEYID');
     end;
 
    CreateReportItems(Child.ViewcxGridDBTV);
@@ -820,7 +827,7 @@ begin
      CreateHandBookView(Child,EgaisFirmTypeCDS,'ID');
     end;
 
-   if (Sender as TMenuItem).Name=UTMMI.Name then
+   if (Sender as TMenuItem).Name=EgaisUTMSettingsMI.Name then
     begin
      CreateExistsCDS(EgaisConnectCDS,SocketConnection,'EgaisConnect','select * from BUYTRANS_EGAISCONNECT');
      CreateHandBookView(Child,EgaisConnectCDS,'ID');
@@ -935,12 +942,16 @@ begin
    if (Sender as TMenuItem).Caption='Объединение МЦ' then result:= TfAggregation.Create(Application);
    if (Sender as TMenuItem).Caption='Перемещение МЦ' then result:= TfShiftWealth.Create(Application);
    if (Sender as TMenuItem).Caption='Снабжение' then result:= TfSupply.Create(Application);
-   if (Sender as TMenuItem).Caption='Остатки ЕГАИС' then result:= TfEgaisRests.Create(Application);
    if (Sender as TMenuItem).Caption='Уведомления' then result:= TfNotification.Create(Application);
-   if (Sender as TMenuItem).Caption='Остатки З регистр' then result:= TfEgaisRests3.Create(Application);
+
+
    if (Sender as TMenuItem).Caption=VetisVSDMI.Caption then result:= TfVetisVSD.Create(Application);
    if (Sender as TMenuItem).Caption=VetisSaleMI.Caption then result:= TfVetisSale.Create(Application);
    if (Sender as TMenuItem).Caption=VetisStockMI.Caption then result:= TfVetisStock.Create(Application);
+
+   if (Sender as TMenuItem).Caption=EgaisRestsMI.Caption then result:= TfEgaisRests.Create(Application);
+   if (Sender as TMenuItem).Caption=EgaisRests3MI.Caption then result:= TfEgaisRests3.Create(Application);
+
    if Assigned(result) then
     result.Caption:=(Sender as TMenuItem).Caption;
   end
