@@ -1,6 +1,6 @@
 object fMain: TfMain
-  Left = 308
-  Top = 138
+  Left = 228
+  Top = 185
   Width = 1292
   Height = 732
   Color = clBtnFace

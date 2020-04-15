@@ -38,14 +38,20 @@ type
     ViewcxGridDBTVPARAMVALUE: TcxGridDBColumn;
     DetailCDSSTRLENEXCISE: TIntegerField;
     DetailCDSALCCODE: TStringField;
-    DetailcxGridDBTVID: TcxGridDBColumn;
-    DetailcxGridDBTVEXCISECODE: TcxGridDBColumn;
-    DetailcxGridDBTVSTRLENEXCISE: TcxGridDBColumn;
-    DetailcxGridDBTVALCCODE: TcxGridDBColumn;
     ExciseCodecxME: TcxMaskEdit;
     Label1: TLabel;
     PM: TPopupMenu;
     DeleteMI: TMenuItem;
+    DetailCDSRETAILSALEID: TIntegerField;
+    DetailCDSEXISTSDKID: TIntegerField;
+    DetailCDSINFORMA_REGID: TStringField;
+    DetailcxGridDBTVID: TcxGridDBColumn;
+    DetailcxGridDBTVEXCISECODE: TcxGridDBColumn;
+    DetailcxGridDBTVSTRLENEXCISE: TcxGridDBColumn;
+    DetailcxGridDBTVALCCODE: TcxGridDBColumn;
+    DetailcxGridDBTVRETAILSALEID: TcxGridDBColumn;
+    DetailcxGridDBTVEXISTSDKID: TcxGridDBColumn;
+    DetailcxGridDBTVINFORMA_REGID: TcxGridDBColumn;
     procedure FormActivate(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure SaveDKInfocxButtonClick(Sender: TObject);
@@ -58,6 +64,7 @@ type
     procedure ViewCDSAfterPost(DataSet: TDataSet);
     procedure DetailCDSAfterOpen(DataSet: TDataSet);
     procedure DeleteMIClick(Sender: TObject);
+    procedure PMPopup(Sender: TObject);
   private
     { Private declarations }
   public
@@ -117,13 +124,7 @@ end;
 procedure TfEgaisActChargeOn.SaveDKInfocxButtonClick(Sender: TObject);
 var cmdtxt:string;
 begin
- if (not ViewCDS.Modified) then
-  begin
-   MessageDlg('Данные по партии не менялись.',mtError,[mbOk],0);
-   exit;
-  end;
-
- cmdtxt:='';
+ cmdtxt:=''; ViewCDS.First;
  while not ViewCDS.Eof do
   begin
    cmdtxt:=cmdtxt+','+#39+ViewCDSPARAMVALUE.AsString+#39;
@@ -131,23 +132,11 @@ begin
   end;
 
  try
-  with fMain do
-   try
-    InUpDelCDS.Close;
-    InUpDelCDS.CommandText:='execute procedure buytrans_egaisaco_dkup('+copy(cmdtxt,2,length(cmdtxt))+')';
-    SocketConnection.AppServer.DBStartTransaction;
-    InUpDelCDS.Execute;
-    SocketConnection.Appserver.DBCommit;
-   except on E:Exception do
-    begin
-     MessageDlg('Ошибка: '+E.Message+InUpDelCDS.CommandText,mtError,[mbOk],0);
-     SocketConnection.AppServer.DBRollBack;
-     exit;
-    end;
-   end;//try..except
-  finally
-   fMain.RefreshCDS(ViewCDS);
-  end;
+  fMain.ExecCmdTxtWithTrans('execute procedure buytrans_egaisaco_dkup('+copy(cmdtxt,2,length(cmdtxt))+')');
+ finally
+  fMain.RefreshCDS(ViewCDS);
+ end;
+
 end;
 
 procedure TfEgaisActChargeOn.DetailCDSBeforeOpen(DataSet: TDataSet);
@@ -163,45 +152,20 @@ end;
 procedure TfEgaisActChargeOn.GetExcisecxButtonClick(Sender: TObject);
 begin
  try
-  with fMain do
-   try
-    InUpDelCDS.Close;
-    InUpDelCDS.CommandText:='execute procedure buytrans_egaisaco_inv('+ViewCDS.Params[0].AsString+')';
-    SocketConnection.AppServer.DBStartTransaction;
-    InUpDelCDS.Execute;
-    SocketConnection.Appserver.DBCommit;
-   except on E:Exception do
-    begin
-     MessageDlg('Ошибка: '+E.Message+InUpDelCDS.CommandText,mtError,[mbOk],0);
-     SocketConnection.AppServer.DBRollBack;
-     exit;
-    end;
-   end;//try..except
-  finally
-   fMain.RefreshCDS(ViewCDS);
-  end;
+  fMain.ExecCmdTxtWithTrans('execute procedure buytrans_egaisaco_excisein('+ViewCDS.Params[0].AsString+')');
+ finally
+  fMain.RefreshCDS(ViewCDS);
+ end;
 end;
 
 procedure TfEgaisActChargeOn.SendDKToEgaiscxButtonClick(Sender: TObject);
 begin
  try
-  with fMain do
-   try
-    InUpDelCDS.Close;
-    InUpDelCDS.CommandText:='execute procedure buytrans_egaisaco_send('+ViewCDS.Params[0].AsString+')';
-    SocketConnection.AppServer.DBStartTransaction;
-    InUpDelCDS.Execute;
-    SocketConnection.Appserver.DBCommit;
-   except on E:Exception do
-    begin
-     MessageDlg('Ошибка: '+E.Message+InUpDelCDS.CommandText,mtError,[mbOk],0);
-     SocketConnection.AppServer.DBRollBack;
-     exit;
-    end;
-   end;//try..except
-  finally
-   fMain.RefreshCDS(ViewCDS);
-  end;
+  if fMain.ExecCmdTxtWithTrans('execute procedure buytrans_egaisaco_send('+ViewCDS.Params[0].AsString+')') then
+   MessageDlg('Успешно. Смотрите результат выполнения.',mtInformation,[mbOk],0);
+ finally
+  fMain.RefreshCDS(ViewCDS);
+ end;
 end;
 
 procedure TfEgaisActChargeOn.ExciseCodecxMEKeyPress(Sender: TObject;
@@ -209,27 +173,16 @@ procedure TfEgaisActChargeOn.ExciseCodecxMEKeyPress(Sender: TObject;
 begin
  if Key=#13 then
   begin
-   with fMain do
-    try
-     InUpDelCDS.Close;
-     InUpDelCDS.CommandText:='execute procedure buytrans_excisescanadd('+
-      ViewCDS.Params[0].AsString+','+
-      ViewCDS.Params[1].AsString+','+
-      #39+ExciseCodecxME.Text+#39+')';
-     SocketConnection.AppServer.DBStartTransaction;
-     InUpDelCDS.Execute;
-     SocketConnection.Appserver.DBCommit;
-    except on E:Exception do
-     begin
-      MessageDlg('Ошибка: '+E.Message,mtError,[mbOk],0);
-      SocketConnection.AppServer.DBRollBack;
-      exit;
-     end;
-    end;//try..except
-   fMain.RefreshCDS(ViewCDS);
-   ExciseCodecxME.Clear;
-   ExciseCodecxME.SetFocus;
-  end; 
+   try
+    fMain.ExecCmdTxtWithTrans('execute procedure buytrans_excisescanadd(8,'+
+                              ViewCDS.Params[0].AsString+','+
+                              #39+ExciseCodecxME.Text+#39+')');
+   finally
+    fMain.RefreshCDS(ViewCDS);
+    ExciseCodecxME.Clear;
+    ExciseCodecxME.SetFocus;
+   end;
+  end;
 end;
 
 procedure TfEgaisActChargeOn.ViewCDSAfterOpen(DataSet: TDataSet);
@@ -245,28 +198,54 @@ end;
 procedure TfEgaisActChargeOn.DetailCDSAfterOpen(DataSet: TDataSet);
 begin
  GetExcisecxButton.Enabled:=DetailCDS.IsEmpty;
+ SendDKToEgaiscxButton.Enabled:=not DetailCDS.IsEmpty;
 end;
 
 procedure TfEgaisActChargeOn.DeleteMIClick(Sender: TObject);
+var ARowIndex,i: Integer;
+    ARowInfo: TcxRowInfo;
 begin
- try
-  with fMain do
+ with DetailcxGridDBTV.DataController do
+  begin
+   BeginUpdate;
    try
-    InUpDelCDS.Close;
-    InUpDelCDS.CommandText:='execute procedure buytrans_egaisaco_excisedel('+ViewCDS.Params[0].AsString+','+#39+DetailCDSEXCISECODE.AsString+#39+')';
-    SocketConnection.AppServer.DBStartTransaction;
-    InUpDelCDS.Execute;
-    SocketConnection.Appserver.DBCommit;
-   except on E:Exception do
-    begin
-     MessageDlg('Ошибка: '+E.Message+InUpDelCDS.CommandText,mtError,[mbOk],0);
-     SocketConnection.AppServer.DBRollBack;
-     exit;
-    end;
-   end;//try..except
-  finally
-   fMain.RefreshCDS(ViewCDS);
-  end;
+    if GetSelectedCount > 0 then
+     begin
+      try
+       fMain.SocketConnection.AppServer.DBStartTransaction;
+       for i:= 0 to GetSelectedCount - 1 do
+        begin
+         ARowIndex := GetSelectedRowIndex(I);
+         ARowInfo := GetRowInfo(ARowIndex);
+         if ARowInfo.Level < Groups.GroupingItemCount then
+          Continue
+         else
+          begin
+           fMain.InUpDelCDS.Close;
+           fMain.InUpDelCDS.CommandText:='execute procedure buytrans_egaisaco_excisedel('+ViewCDS.Params[0].AsString+','+#39+Values[ARowInfo.RecordIndex, DetailcxGridDBTVEXCISECODE.Index]+#39+')';
+           fMain.InUpDelCDS.Execute;
+          end;
+        end; // for
+       fMain.SocketConnection.Appserver.DBCommit;
+       ClearSelection;
+      except on E:Exception do
+       begin
+        fMain.SocketConnection.AppServer.DBRollBack;
+        MessageDlg('Ошибка: '+E.Message+fMain.InUpDelCDS.CommandText,mtError,[mbOk],0);
+        exit;
+       end; //on E:Exception
+      end;
+     end;//if GetSelectedCount > 0 then
+   finally
+    EndUpdate;
+    fMain.RefreshCDS(ViewCDS);
+   end;
+  end;//with
+end;
+
+procedure TfEgaisActChargeOn.PMPopup(Sender: TObject);
+begin
+ DeleteMI.Visible:= not DetailCDS.IsEmpty;
 end;
 
 end.

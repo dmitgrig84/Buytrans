@@ -128,7 +128,7 @@ object fEgaisActChargeOn: TfEgaisActChargeOn
       Top = 8
       Width = 267
       Height = 25
-      Hint = #1054#1073#1085#1086#1074#1080#1090#1100
+      Hint = #1057#1086#1093#1088#1072#1085#1080#1090#1100' '#1080#1085#1092#1086#1088#1084#1072#1094#1080#1102' '#1087#1086' '#1087#1072#1088#1090#1080#1080
       Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100' '#1080#1085#1092#1086#1088#1084#1072#1094#1080#1102' '#1087#1086' '#1087#1072#1088#1090#1080#1080
       ParentShowHint = False
       ShowHint = True
@@ -168,7 +168,7 @@ object fEgaisActChargeOn: TfEgaisActChargeOn
       Top = 8
       Width = 267
       Height = 25
-      Hint = #1054#1073#1085#1086#1074#1080#1090#1100
+      Hint = #1055#1086#1083#1091#1095#1080#1090#1100' '#1084#1072#1088#1082#1080' '#1080#1079' '#1087#1086#1089#1083#1077#1076#1085#1077#1081' '#1088#1077#1074#1080#1079#1080#1080
       Caption = #1055#1086#1083#1091#1095#1080#1090#1100' '#1084#1072#1088#1082#1080' '#1080#1079' '#1087#1086#1089#1083#1077#1076#1085#1077#1081' '#1088#1077#1074#1080#1079#1080#1080
       ParentShowHint = False
       ShowHint = True
@@ -208,7 +208,7 @@ object fEgaisActChargeOn: TfEgaisActChargeOn
       Top = 8
       Width = 267
       Height = 25
-      Hint = #1054#1073#1085#1086#1074#1080#1090#1100
+      Hint = #1054#1090#1087#1088#1072#1074#1080#1090#1100' '#1076#1086#1082#1091#1084#1077#1085#1090' '#1087#1086#1089#1090#1072#1085#1086#1074#1082#1080' '#1085#1072' '#1073#1072#1083#1072#1085#1089
       Caption = #1054#1090#1087#1088#1072#1074#1080#1090#1100' '#1076#1086#1082#1091#1084#1077#1085#1090' '#1087#1086#1089#1090#1072#1085#1086#1074#1082#1080' '#1085#1072' '#1073#1072#1083#1072#1085#1089
       ParentShowHint = False
       ShowHint = True
@@ -276,7 +276,6 @@ object fEgaisActChargeOn: TfEgaisActChargeOn
         item
           Kind = skCount
           Position = spFooter
-          Column = DetailcxGridDBTVEXCISECODE
         end>
       DataController.Summary.FooterSummaryItems = <
         item
@@ -323,13 +322,22 @@ object fEgaisActChargeOn: TfEgaisActChargeOn
         end
         item
           Kind = skCount
+        end
+        item
+          Kind = skCount
           Column = DetailcxGridDBTVEXCISECODE
         end>
       DataController.Summary.SummaryGroups = <>
+      OptionsBehavior.IncSearch = True
       OptionsCustomize.ColumnsQuickCustomization = True
-      OptionsSelection.CellSelect = False
+      OptionsData.CancelOnExit = False
+      OptionsData.Deleting = False
+      OptionsData.DeletingConfirmation = False
+      OptionsData.Editing = False
+      OptionsData.Inserting = False
       OptionsSelection.HideFocusRectOnExit = False
       OptionsSelection.InvertSelect = False
+      OptionsSelection.MultiSelect = True
       OptionsSelection.UnselectFocusedRecordOnExit = False
       OptionsView.ColumnAutoWidth = True
       OptionsView.Footer = True
@@ -342,6 +350,7 @@ object fEgaisActChargeOn: TfEgaisActChargeOn
       end
       object DetailcxGridDBTVEXCISECODE: TcxGridDBColumn
         DataBinding.FieldName = 'EXCISECODE'
+        Width = 383
       end
       object DetailcxGridDBTVSTRLENEXCISE: TcxGridDBColumn
         DataBinding.FieldName = 'STRLENEXCISE'
@@ -350,6 +359,18 @@ object fEgaisActChargeOn: TfEgaisActChargeOn
       object DetailcxGridDBTVALCCODE: TcxGridDBColumn
         DataBinding.FieldName = 'ALCCODE'
         Visible = False
+      end
+      object DetailcxGridDBTVRETAILSALEID: TcxGridDBColumn
+        DataBinding.FieldName = 'RETAILSALEID'
+        Width = 86
+      end
+      object DetailcxGridDBTVEXISTSDKID: TcxGridDBColumn
+        DataBinding.FieldName = 'EXISTSDKID'
+        Width = 86
+      end
+      object DetailcxGridDBTVINFORMA_REGID: TcxGridDBColumn
+        DataBinding.FieldName = 'INFORMA_REGID'
+        Width = 264
       end
     end
     object DetailcxGridLevel: TcxGridLevel
@@ -421,6 +442,19 @@ object fEgaisActChargeOn: TfEgaisActChargeOn
       Visible = False
       Size = 32
     end
+    object DetailCDSRETAILSALEID: TIntegerField
+      DisplayLabel = #1055#1088#1086#1076#1072#1078#1072
+      FieldName = 'RETAILSALEID'
+    end
+    object DetailCDSEXISTSDKID: TIntegerField
+      DisplayLabel = #1042' '#1086#1095#1077#1088#1077#1076#1080' '#1089' '#1087#1072#1088#1090#1080#1077#1081
+      FieldName = 'EXISTSDKID'
+    end
+    object DetailCDSINFORMA_REGID: TStringField
+      DisplayLabel = #1057#1087#1088#1072#1074#1082#1072' '#1040
+      FieldName = 'INFORMA_REGID'
+      Size = 32
+    end
   end
   object DetailDS: TDataSource
     DataSet = DetailCDS
@@ -428,6 +462,7 @@ object fEgaisActChargeOn: TfEgaisActChargeOn
     Top = 400
   end
   object PM: TPopupMenu
+    OnPopup = PMPopup
     Left = 72
     Top = 400
     object DeleteMI: TMenuItem

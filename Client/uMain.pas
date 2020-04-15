@@ -225,6 +225,7 @@ type
     procedure CreateReportItems(cxGridDBTV:TcxGridDBTableView);
     function FindChildForm(Sender:TObject):TForm;
     procedure ImageStatusColumnFromBase(cmdText:String;cxGridDBC:TcxGridColumn;sourceIL:TImageList);
+    function ExecCmdTxtWithTrans(cmdtxt:string):boolean;
   end;
 
 var
@@ -245,6 +246,15 @@ begin
  if (BaseSQLDialect=3) then
   TClientDsFloatToBcd.GetInstanse().AddToConvert(Sender);
 end;
+
+function TfMain.ExecCmdTxtWithTrans(cmdtxt:string):boolean;
+var err:string;
+begin
+ Result:=DynamicProvider.ExecCmdTxtWithTrans(InUpDelCDS,SocketConnection,cmdtxt,err);
+ if (not Result) then
+  MessageDlg('Ошибка: '+err+#10#13+cmdtxt,mtError,[mbOk],0);
+end;
+
 
 procedure TfMain.ExportToExcel(Caption:string;cxGrid:TcxGrid);
 begin

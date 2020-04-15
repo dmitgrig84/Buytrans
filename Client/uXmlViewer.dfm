@@ -66,6 +66,7 @@ object fXmlViewer: TfXmlViewer
     TabOrder = 2
     LookAndFeel.Kind = lfFlat
     object XmlcxGridDBTV: TcxGridDBTableView
+      PopupMenu = PM
       NavigatorButtons.ConfirmDelete = False
       DataController.DataSource = XmlDS
       DataController.KeyFieldNames = 'ID'
@@ -266,5 +267,13 @@ object fXmlViewer: TfXmlViewer
     OnDataChange = XmlDSDataChange
     Left = 72
     Top = 56
+  end
+  object PM: TPopupMenu
+    Left = 104
+    Top = 56
+    object RefreshMI: TMenuItem
+      Caption = #1054#1073#1085#1086#1074#1080#1090#1100
+      OnClick = RefreshMIClick
+    end
   end
 end

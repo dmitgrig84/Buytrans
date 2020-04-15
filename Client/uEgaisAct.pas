@@ -32,14 +32,14 @@ begin
   begin
    if Self.Tag=3 then fEgaisAct.CommentarycxTE.Text:='Запрашиваем отмену акта ТТН';
    if Self.Tag=2 then fEgaisAct.CommentarycxTE.Text:='Принимаем продукцию';
-   if Self.Tag=1 then fEgaisAct.CommentarycxTE.Text:='Подтверждаем отмену проведения ТТН';
+   if Self.Tag=1 then fEgaisAct.CommentarycxTE.Text:='Подтверждаем отмену акта ТТН';
    if Self.Tag=0 then fEgaisAct.CommentarycxTE.Text:='Принимаем изменения';
    fEgaisAct.AcceptxCB.Caption:='Подтвердить';
   end
  else
   begin
    if Self.Tag=2 then fEgaisAct.CommentarycxTE.Text:='Отказываемся от товара';
-   if Self.Tag=1 then fEgaisAct.CommentarycxTE.Text:='Отклоняем отмену проведения ТТН';
+   if Self.Tag=1 then fEgaisAct.CommentarycxTE.Text:='Отклоняем отмену акта ТТН';
    if Self.Tag=0 then fEgaisAct.CommentarycxTE.Text:='Не принимаем изменения';
    fEgaisAct.AcceptxCB.Caption:='Отклонить';
   end;

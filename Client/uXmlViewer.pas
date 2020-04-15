@@ -57,12 +57,15 @@ type
     XmlcxGridDBTVWHENINSERT: TcxGridDBColumn;
     XmlcxGridDBTVWHENREPLYID: TcxGridDBColumn;
     XmlcxGridDBTVWHENSTATUS: TcxGridDBColumn;
+    PM: TPopupMenu;
+    RefreshMI: TMenuItem;
     procedure UTF8cxRBClick(Sender: TObject);
     procedure AnsicxRBClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure XmlDSDataChange(Sender: TObject; Field: TField);
     procedure XmlCDSBeforeOpen(DataSet: TDataSet);
+    procedure RefreshMIClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -129,6 +132,9 @@ begin
  XmlCDS.Params[1].AsInteger:=XmlCDS.Tag;
 end;
 
-
+procedure TfXmlViewer.RefreshMIClick(Sender: TObject);
+begin
+ fMain.RefreshCDS(XmlCDS);
+end;
 
 end.
