@@ -97,6 +97,7 @@ type
     InformBRegidcxME: TcxMaskEdit;
     ActChargeOnMI: TMenuItem;
     EgaisResultMI: TMenuItem;
+    SplitDKMI: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure RefreshcxButtonClick(Sender: TObject);
@@ -124,6 +125,7 @@ type
     procedure StoragecxLCBPropertiesEditValueChanged(Sender: TObject);
     procedure EgaisResultMIClick(Sender: TObject);
     procedure ActChargeOnMIClick(Sender: TObject);
+    procedure SplitDKMIClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -345,6 +347,7 @@ begin
  ActFixBarcodeMI.Visible:=flag and (not ActChargeOnMI.Visible);
  EgaisResultMI.Visible:=flag;
  Line1MI.Visible:=ActFixBarcodeMI.Visible or EgaisResultMI.Visible;
+ SplitDKMI.Visible:=ActChargeOnMI.Visible and (EgaisRests3CDSNOWEXCISECOUNTUNIT.AsInteger>0) and (EgaisRests3CDSNOWCASHWCOUNTUNIT.AsInteger>EgaisRests3CDSNOWEXCISECOUNTUNIT.AsInteger);
 end;
 
 procedure TfEgaisRests3.EgaisActFixBarcodeMIClick(Sender: TObject);
@@ -459,6 +462,15 @@ begin
  fEgaisActChargeOn.ViewCDS.Params[0].AsInteger:=EgaisRests3CDSDRINKKINDID.AsInteger;
  fEgaisActChargeOn.ShowModal;
  fMain.RefreshCDS(EgaisRests3CDS);
+end;
+
+procedure TfEgaisRests3.SplitDKMIClick(Sender: TObject);
+begin
+ try
+  fMain.ExecCmdTxtWithTrans('execute procedure buytrans_egaisrests3splitdk('+EgaisRests3CDSDRINKKINDID.AsString+')');
+ finally
+  fMain.RefreshCDS(EgaisRests3CDS);
+ end;
 end;
 
 end.

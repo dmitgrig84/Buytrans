@@ -1,6 +1,6 @@
 object fEgaisRests3: TfEgaisRests3
-  Left = 140
-  Top = 154
+  Left = 169
+  Top = 112
   Width = 1460
   Height = 690
   Caption = 'fEgaisRests3'
@@ -412,40 +412,39 @@ object fEgaisRests3: TfEgaisRests3
       OnCustomDrawColumnHeader = ViewcxGridDBTVCustomDrawColumnHeader
       object ViewcxGridDBTVDRINKKINDID: TcxGridDBColumn
         DataBinding.FieldName = 'DRINKKINDID'
-        Width = 62
+        Width = 59
       end
       object ViewcxGridDBTVDRINKID: TcxGridDBColumn
         DataBinding.FieldName = 'DRINKID'
-        Visible = False
-        Width = 20
+        Width = 73
       end
       object ViewcxGridDBTVPRINTMARK: TcxGridDBColumn
         DataBinding.FieldName = 'PRINTMARK'
-        Width = 252
+        Width = 229
       end
       object ViewcxGridDBTVALCCODE: TcxGridDBColumn
         DataBinding.FieldName = 'ALCCODE'
-        Width = 126
+        Width = 114
       end
       object ViewcxGridDBTVINFORMA_REGID: TcxGridDBColumn
         DataBinding.FieldName = 'INFORMA_REGID'
-        Width = 126
+        Width = 114
       end
       object ViewcxGridDBTVINFORMB_REGID: TcxGridDBColumn
         DataBinding.FieldName = 'INFORMB_REGID'
-        Width = 125
+        Width = 115
       end
       object ViewcxGridDBTVNOWCASHWCOUNTUNIT: TcxGridDBColumn
         DataBinding.FieldName = 'NOWCASHWCOUNTUNIT'
-        Width = 91
+        Width = 82
       end
       object ViewcxGridDBTVNOWEXCISECOUNTUNIT: TcxGridDBColumn
         DataBinding.FieldName = 'NOWEXCISECOUNTUNIT'
-        Width = 87
+        Width = 79
       end
       object ViewcxGridDBTVOUTWHENINSERT: TcxGridDBColumn
         DataBinding.FieldName = 'OUTWHENINSERT'
-        Width = 127
+        Width = 115
       end
       object ViewcxGridDBTVOUTEGAISIDENTIFIERID: TcxGridDBColumn
         DataBinding.FieldName = 'OUTEGAISIDENTIFIERID'
@@ -469,15 +468,15 @@ object fEgaisRests3: TfEgaisRests3
       end
       object ViewcxGridDBTVHOSTCOUNTUNIT: TcxGridDBColumn
         DataBinding.FieldName = 'HOSTCOUNTUNIT'
-        Width = 130
+        Width = 119
       end
       object ViewcxGridDBTVHOSTCOUNTUNITEXCISE: TcxGridDBColumn
         DataBinding.FieldName = 'HOSTCOUNTUNITEXCISE'
-        Width = 122
+        Width = 110
       end
       object ViewcxGridDBTVEGAISCOUNTUNITEXCISE: TcxGridDBColumn
         DataBinding.FieldName = 'EGAISCOUNTUNITEXCISE'
-        Width = 134
+        Width = 122
       end
       object ViewcxGridDBTVINSTATUS: TcxGridDBColumn
         DataBinding.FieldName = 'INSTATUS'
@@ -510,7 +509,7 @@ object fEgaisRests3: TfEgaisRests3
             Value = 4
           end>
         Properties.ShowDescriptions = False
-        Width = 112
+        Width = 102
       end
     end
     object ViewcxGridLevel: TcxGridLevel
@@ -878,6 +877,11 @@ object fEgaisRests3: TfEgaisRests3
         00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF}
       Caption = #1056#1077#1079#1091#1083#1100#1090#1072#1090' '#1086#1073#1088#1072#1073#1086#1090#1082#1080' '#1045#1043#1040#1048#1057
       OnClick = EgaisResultMIClick
+    end
+    object SplitDKMI: TMenuItem
+      Caption = #1056#1072#1079#1076#1077#1083#1080#1090#1100' '#1087#1072#1088#1090#1080#1102
+      ImageIndex = 18
+      OnClick = SplitDKMIClick
     end
   end
   object PM: TPopupMenu

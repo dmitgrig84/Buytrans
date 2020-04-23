@@ -44,14 +44,15 @@ type
     DeleteMI: TMenuItem;
     DetailCDSRETAILSALEID: TIntegerField;
     DetailCDSEXISTSDKID: TIntegerField;
-    DetailCDSINFORMA_REGID: TStringField;
     DetailcxGridDBTVID: TcxGridDBColumn;
     DetailcxGridDBTVEXCISECODE: TcxGridDBColumn;
     DetailcxGridDBTVSTRLENEXCISE: TcxGridDBColumn;
     DetailcxGridDBTVALCCODE: TcxGridDBColumn;
     DetailcxGridDBTVRETAILSALEID: TcxGridDBColumn;
     DetailcxGridDBTVEXISTSDKID: TcxGridDBColumn;
-    DetailcxGridDBTVINFORMA_REGID: TcxGridDBColumn;
+    CopyMI: TMenuItem;
+    DetailCDSINFORMREG: TStringField;
+    DetailcxGridDBTVINFORMREG: TcxGridDBColumn;
     procedure FormActivate(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure SaveDKInfocxButtonClick(Sender: TObject);
@@ -65,6 +66,7 @@ type
     procedure DetailCDSAfterOpen(DataSet: TDataSet);
     procedure DeleteMIClick(Sender: TObject);
     procedure PMPopup(Sender: TObject);
+    procedure CopyMIClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -246,6 +248,11 @@ end;
 procedure TfEgaisActChargeOn.PMPopup(Sender: TObject);
 begin
  DeleteMI.Visible:= not DetailCDS.IsEmpty;
+end;
+
+procedure TfEgaisActChargeOn.CopyMIClick(Sender: TObject);
+begin
+ ((((Sender as TMenuItem).Parent.Owner as TPopupMenu).PopupComponent as TcxGrid).Views[0] as TcxGridDBTableView).CopyToClipboard(false);
 end;
 
 end.

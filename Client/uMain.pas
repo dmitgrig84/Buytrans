@@ -611,7 +611,7 @@ begin
           else
            begin
             TMI.Items[j].Enabled:=false;
-            if TMI.Items[j].Tag>0 then
+            if ((TMI.Items[j].Tag>0) and (MainMenu.Items[i].Caption='Справочники')) then
              TMI.Items[j].Tag:=-1;
            end;
          end;
@@ -823,14 +823,14 @@ begin
      Child.HandBookcxGridDBTV.DataController.KeyFieldNames:='ID';
     end;
 
-   if (Sender as TMenuItem).Caption='Привязка номенклатуры к ЕГАИС' then
+   if (Sender as TMenuItem).Name=EgaisDrinkAlcCodeMI.Name then
     begin
      CreateExistsCDS(DrinkAlcCodeCDS,SocketConnection,'DrinkAlcCode',
                  'select * from buytrans_drinkalccodecalc');
      CreateHandBookView(Child,DrinkAlcCodeCDS,'ID;DRINKID');
     end;
 
-   if (Sender as TMenuItem).Caption='Клиенты исключения ЕГАИС' then
+   if (Sender as TMenuItem).Name=EgaisFirmTypeMI.Name then
     begin
      CreateExistsCDS(EgaisFirmTypeCDS,SocketConnection,'EgaisFirmType',
                  'select id,firmid,firmname from egaisfirmtype et where et.id>100');
@@ -841,6 +841,7 @@ begin
     begin
      CreateExistsCDS(EgaisConnectCDS,SocketConnection,'EgaisConnect','select * from BUYTRANS_EGAISCONNECT');
      CreateHandBookView(Child,EgaisConnectCDS,'ID');
+
     end;
 
    if (Sender as TMenuItem).Name=VetisDistributionMI.Name then

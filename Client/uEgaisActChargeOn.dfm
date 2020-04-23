@@ -265,10 +265,10 @@ object fEgaisActChargeOn: TfEgaisActChargeOn
     Width = 836
     Height = 266
     Align = alBottom
+    PopupMenu = PM
     TabOrder = 2
     LookAndFeel.Kind = lfFlat
     object DetailcxGridDBTV: TcxGridDBTableView
-      PopupMenu = PM
       NavigatorButtons.ConfirmDelete = False
       DataController.DataSource = DetailDS
       DataController.KeyFieldNames = 'ID'
@@ -328,6 +328,7 @@ object fEgaisActChargeOn: TfEgaisActChargeOn
           Column = DetailcxGridDBTVEXCISECODE
         end>
       DataController.Summary.SummaryGroups = <>
+      OptionsBehavior.CopyCaptionsToClipboard = False
       OptionsBehavior.IncSearch = True
       OptionsCustomize.ColumnsQuickCustomization = True
       OptionsData.CancelOnExit = False
@@ -336,9 +337,8 @@ object fEgaisActChargeOn: TfEgaisActChargeOn
       OptionsData.Editing = False
       OptionsData.Inserting = False
       OptionsSelection.HideFocusRectOnExit = False
-      OptionsSelection.InvertSelect = False
-      OptionsSelection.MultiSelect = True
       OptionsSelection.UnselectFocusedRecordOnExit = False
+      OptionsSelection.CellMultiSelect = True
       OptionsView.ColumnAutoWidth = True
       OptionsView.Footer = True
       OptionsView.GroupByBox = False
@@ -350,27 +350,27 @@ object fEgaisActChargeOn: TfEgaisActChargeOn
       end
       object DetailcxGridDBTVEXCISECODE: TcxGridDBColumn
         DataBinding.FieldName = 'EXCISECODE'
-        Width = 383
+        Width = 277
+      end
+      object DetailcxGridDBTVALCCODE: TcxGridDBColumn
+        DataBinding.FieldName = 'ALCCODE'
+        Width = 136
       end
       object DetailcxGridDBTVSTRLENEXCISE: TcxGridDBColumn
         DataBinding.FieldName = 'STRLENEXCISE'
         Visible = False
       end
-      object DetailcxGridDBTVALCCODE: TcxGridDBColumn
-        DataBinding.FieldName = 'ALCCODE'
-        Visible = False
-      end
       object DetailcxGridDBTVRETAILSALEID: TcxGridDBColumn
         DataBinding.FieldName = 'RETAILSALEID'
-        Width = 86
+        Width = 64
       end
       object DetailcxGridDBTVEXISTSDKID: TcxGridDBColumn
         DataBinding.FieldName = 'EXISTSDKID'
-        Width = 86
+        Width = 63
       end
-      object DetailcxGridDBTVINFORMA_REGID: TcxGridDBColumn
-        DataBinding.FieldName = 'INFORMA_REGID'
-        Width = 264
+      object DetailcxGridDBTVINFORMREG: TcxGridDBColumn
+        DataBinding.FieldName = 'INFORMREG'
+        Width = 279
       end
     end
     object DetailcxGridLevel: TcxGridLevel
@@ -450,10 +450,10 @@ object fEgaisActChargeOn: TfEgaisActChargeOn
       DisplayLabel = #1042' '#1086#1095#1077#1088#1077#1076#1080' '#1089' '#1087#1072#1088#1090#1080#1077#1081
       FieldName = 'EXISTSDKID'
     end
-    object DetailCDSINFORMA_REGID: TStringField
-      DisplayLabel = #1057#1087#1088#1072#1074#1082#1072' '#1040
-      FieldName = 'INFORMA_REGID'
-      Size = 32
+    object DetailCDSINFORMREG: TStringField
+      DisplayLabel = #1048#1085#1092#1086#1088#1084#1072#1094#1080#1103' '#1045#1043#1040#1048#1057
+      FieldName = 'INFORMREG'
+      Size = 256
     end
   end
   object DetailDS: TDataSource
@@ -468,6 +468,10 @@ object fEgaisActChargeOn: TfEgaisActChargeOn
     object DeleteMI: TMenuItem
       Caption = #1059#1076#1072#1083#1080#1090#1100
       OnClick = DeleteMIClick
+    end
+    object CopyMI: TMenuItem
+      Caption = #1050#1086#1087#1080#1088#1086#1074#1072#1090#1100' '#1074' '#1073#1091#1092#1077#1088
+      OnClick = CopyMIClick
     end
   end
 end

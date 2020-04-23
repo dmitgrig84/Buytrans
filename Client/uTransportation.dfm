@@ -1,6 +1,6 @@
 object fTransportation: TfTransportation
-  Left = 383
-  Top = 185
+  Left = 602
+  Top = 287
   Width = 1217
   Height = 685
   Caption = #1055#1077#1088#1077#1084#1077#1097#1077#1085#1080#1077

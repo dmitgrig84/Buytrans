@@ -216,6 +216,8 @@ type
     CancelConfirmMI: TMenuItem;
     SalecxGridDBTVFLAGCANCELCONFIRM: TcxGridDBColumn;
     EgaisResultMI: TMenuItem;
+    PrintTorgMI: TMenuItem;
+    ReturnSaleCDSISRETAILRETURN: TSmallintField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure SalecxGridDBTVCustomDrawColumnHeader(
       Sender: TcxGridTableView; ACanvas: TcxCanvas;
@@ -276,6 +278,7 @@ type
     procedure SaleExciseMIClick(Sender: TObject);
     procedure CancelConfirmMIClick(Sender: TObject);
     procedure EgaisResultMIClick(Sender: TObject);
+    procedure PrintTorgMIClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -844,6 +847,7 @@ begin
  FirstLineMI.Visible:=EgaisSaleActMI.Visible or UnConfirmEgaisSaleMI.Visible or ConfirmEgaisSaleMI.Visible;
  SecondLineMI.Visible:=UnConfirmEgaisSaleMI.Visible or ConfirmEgaisSaleMI.Visible or SaleExciseMI.Visible or SaleNewTodayMI.Visible;
  EgaisResultMI.Visible:=(ReturnSaleCDSEGAISSTATUS.AsInteger>3);
+ PrintTorgMI.Visible:=flag and (ReturnSaleCDSISRETAILRETURN.AsInteger=1) and (not ReturnSaleCDSSUMPRICE.IsNull);
 end;
 
 procedure TfReturn.EgaisSaleActMIClick(Sender: TObject);
@@ -1089,6 +1093,35 @@ begin
  fXmlViewer.Tag:=1;
  fXmlViewer.XmlCDS.Tag:=ReturnSaleCDSSALEID.AsInteger;
  fXmlViewer.ShowModal;
+end;
+
+procedure TfReturn.PrintTorgMIClick(Sender: TObject);
+var pi:TProcessInformation;
+    si:TStartupInfo;
+    ResCP:Boolean;
+    Params:string;
+    ErrorText:string;
+    SpoolDocsCount:integer;
+begin
+ Params:=ReturnSaleCDSSALEID.AsString+//operationid
+         ' 0 '+//operationtypeid
+         ' -1 '+//printer
+         ' 0 '+//факсимиле
+         ' 1 '+//просмотр или печать
+         ' 0 1 0 0 0 0 0 0 0 0 0 0 ';
+
+ try
+  GetStartupInfo(si);
+  ResCP:=False;
+  ResCP:=CreateProcess(nil,PChar('docprinter.exe '+Params),nil,nil,false,0,nil,nil,si,pi);
+  if ResCP then
+   begin
+    CloseHandle(PI.hThread);
+    CloseHandle(PI.hProcess)
+   end;//if Res
+ except
+  ;
+ end;
 end;
 
 end.
