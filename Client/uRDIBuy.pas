@@ -110,6 +110,7 @@ type
     DetailCDSRETAILPRICE: TBCDField;
     DetailcxGridDBTVRETAILPRICE: TcxGridDBColumn;
     DeleteMI: TMenuItem;
+    ExportToExcelcxButton: TcxButton;
     procedure FormCreate(Sender: TObject);
     procedure BegincxDEPropertiesChange(Sender: TObject);
     procedure EndcxDEPropertiesChange(Sender: TObject);
@@ -121,6 +122,7 @@ type
     procedure PMPopup(Sender: TObject);
     procedure EditDistributionIDMIClick(Sender: TObject);
     procedure DeleteMIClick(Sender: TObject);
+    procedure ExportToExcelcxButtonClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -194,7 +196,7 @@ end;
 
 procedure TfRDIBuy.RefreshcxButtonClick(Sender: TObject);
 begin
- fMain.RefreshCDS(ViewCDS)
+ fMain.RefreshCDS(ViewCDS);
 end;
 
 procedure TfRDIBuy.ViewCDSBeforeOpen(DataSet: TDataSet);
@@ -307,6 +309,11 @@ begin
  finally
   fMain.RefreshCDS(ViewCDS);
  end;
+end;
+
+procedure TfRDIBuy.ExportToExcelcxButtonClick(Sender: TObject);
+begin
+ fMain.ExportToExcel(Self.Caption+' с '+DateToStr(BegincxDE.Date)+' по '+DateToStr(EndcxDE.Date)+'.xls',ViewcxGrid);
 end;
 
 end.
