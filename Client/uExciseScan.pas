@@ -46,6 +46,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure ExcisecxButtonClick(Sender: TObject);
     procedure RefreshcxButtonClick(Sender: TObject);
+    procedure DeleteMIClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -123,28 +124,25 @@ end;
 
 procedure TfExciseScan.ExcisecxButtonClick(Sender: TObject);
 begin
- with fMain do
-  try
-   InUpDelCDS.Close;
-   InUpDelCDS.CommandText:='execute procedure buytrans_excisescanauto('+
-    ViewCDS.Params[0].AsString+','+
-    ViewCDS.Params[1].AsString+')';
-   SocketConnection.AppServer.DBStartTransaction;
-   InUpDelCDS.Execute;
-   SocketConnection.Appserver.DBCommit;
-  except on E:Exception do
-   begin
-    MessageDlg('Ошибка: '+E.Message,mtError,[mbOk],0);
-    SocketConnection.AppServer.DBRollBack;
-    exit;
-   end;
-  end;//try..except
- fMain.RefreshCDS(ViewCDS);
+ try
+  fMain.ExecCmdTxtWithTrans('execute procedure buytrans_excisescanauto('+ViewCDS.Params[0].AsString+','+ViewCDS.Params[1].AsString+')');
+ finally
+  fMain.RefreshCDS(ViewCDS);
+ end;
 end;
 
 procedure TfExciseScan.RefreshcxButtonClick(Sender: TObject);
 begin
  fMain.RefreshCDS(ViewCDS);
+end;
+
+procedure TfExciseScan.DeleteMIClick(Sender: TObject);
+begin
+ try
+  fMain.ExecCmdTxtWithTrans('execute procedure buytrans_excisescandel('+ViewCDS.Params[0].AsString+','+ViewCDSOPERATIONDETAILID.AsString+')');
+ finally
+  fMain.RefreshCDS(ViewCDS);
+ end;
 end;
 
 end.

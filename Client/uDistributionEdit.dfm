@@ -1,6 +1,6 @@
 object fDistributionEdit: TfDistributionEdit
-  Left = 594
-  Top = 342
+  Left = 713
+  Top = 410
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = #1060#1080#1082#1090#1080#1074#1085#1072#1103' '#1085#1072#1082#1083#1072#1076#1085#1072#1103

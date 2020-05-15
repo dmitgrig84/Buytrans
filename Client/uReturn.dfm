@@ -1,8 +1,8 @@
 object fReturn: TfReturn
-  Left = 334
-  Top = 214
-  Width = 1266
-  Height = 656
+  Left = 59
+  Top = 89
+  Width = 1551
+  Height = 796
   Caption = 'fReturn'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -59,14 +59,14 @@ object fReturn: TfReturn
   object TopPanel: TPanel
     Left = 0
     Top = 0
-    Width = 1258
+    Width = 1543
     Height = 35
     Align = alTop
     BevelInner = bvRaised
     BevelOuter = bvLowered
     TabOrder = 0
     object TopRightPanel: TPanel
-      Left = 826
+      Left = 1111
       Top = 2
       Width = 430
       Height = 31
@@ -314,16 +314,16 @@ object fReturn: TfReturn
   object ReturnSalePanel: TPanel
     Left = 0
     Top = 35
-    Width = 1258
-    Height = 243
+    Width = 1543
+    Height = 383
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 1
     object SalecxGrid: TcxGrid
       Left = 0
       Top = 0
-      Width = 946
-      Height = 243
+      Width = 1231
+      Height = 383
       Align = alClient
       TabOrder = 0
       LookAndFeel.Kind = lfFlat
@@ -465,10 +465,10 @@ object fReturn: TfReturn
       end
     end
     object SalecxSplitter: TcxSplitter
-      Left = 946
+      Left = 1231
       Top = 0
       Width = 8
-      Height = 243
+      Height = 383
       HotZoneClassName = 'TcxXPTaskBarStyle'
       AlignSplitter = salRight
       Control = FilterPanel
@@ -476,10 +476,10 @@ object fReturn: TfReturn
       OnAfterClose = SalecxSplitterAfterClose
     end
     object FilterPanel: TPanel
-      Left = 954
+      Left = 1239
       Top = 0
       Width = 304
-      Height = 243
+      Height = 383
       Align = alRight
       BevelInner = bvRaised
       BevelOuter = bvLowered
@@ -550,8 +550,8 @@ object fReturn: TfReturn
   end
   object SaleDetailcxSplitter: TcxSplitter
     Left = 0
-    Top = 278
-    Width = 1258
+    Top = 418
+    Width = 1543
     Height = 8
     HotZoneClassName = 'TcxXPTaskBarStyle'
     AlignSplitter = salBottom
@@ -559,8 +559,8 @@ object fReturn: TfReturn
   end
   object SaleDetailcxGrid: TcxGrid
     Left = 0
-    Top = 286
-    Width = 1258
+    Top = 426
+    Width = 1543
     Height = 176
     Align = alBottom
     TabOrder = 3
@@ -723,8 +723,8 @@ object fReturn: TfReturn
   end
   object ReturncxSplitter: TcxSplitter
     Left = 0
-    Top = 462
-    Width = 1258
+    Top = 602
+    Width = 1543
     Height = 8
     HotZoneClassName = 'TcxXPTaskBarStyle'
     AlignSplitter = salBottom
@@ -732,8 +732,8 @@ object fReturn: TfReturn
   end
   object ReturncxGrid: TcxGrid
     Left = 0
-    Top = 470
-    Width = 1258
+    Top = 610
+    Width = 1543
     Height = 159
     Align = alBottom
     PopupMenu = ReturnPM

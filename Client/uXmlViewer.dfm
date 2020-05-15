@@ -1,6 +1,6 @@
 object fXmlViewer: TfXmlViewer
-  Left = 532
-  Top = 260
+  Left = 638
+  Top = 312
   BorderStyle = bsSingle
   Caption = #1056#1077#1079#1091#1083#1100#1090#1072#1090' '#1086#1073#1088#1072#1073#1086#1090#1082#1080' '#1076#1086#1082#1091#1084#1077#1085#1090#1072
   ClientHeight = 534

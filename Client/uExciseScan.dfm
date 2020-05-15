@@ -1,6 +1,6 @@
 object fExciseScan: TfExciseScan
-  Left = 696
-  Top = 401
+  Left = 835
+  Top = 481
   Width = 801
   Height = 436
   Caption = #1055#1088#1080#1074#1103#1079#1082#1072' '#1072#1082#1094#1080#1079#1085#1099#1093' '#1084#1072#1088#1086#1082' '#1082' '#1076#1086#1082#1091#1084#1077#1085#1090#1091
@@ -62,6 +62,7 @@ object fExciseScan: TfExciseScan
     TabOrder = 0
     LookAndFeel.Kind = lfFlat
     object ViewcxGridDBTV: TcxGridDBTableView
+      PopupMenu = PM
       NavigatorButtons.ConfirmDelete = False
       DataController.DataSource = ViewDS
       DataController.DetailKeyFieldNames = 'ID'
@@ -269,6 +270,7 @@ object fExciseScan: TfExciseScan
     Top = 80
     object DeleteMI: TMenuItem
       Caption = #1059#1076#1072#1083#1080#1090#1100' '#1087#1088#1080#1074#1103#1079#1082#1091
+      OnClick = DeleteMIClick
     end
   end
   object ViewCDS: TClientDataSet

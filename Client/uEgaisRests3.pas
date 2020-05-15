@@ -98,6 +98,9 @@ type
     ActChargeOnMI: TMenuItem;
     EgaisResultMI: TMenuItem;
     SplitDKMI: TMenuItem;
+    EgaisRests3CDSDIRECTIONNAME: TStringField;
+    ViewcxGridDBTVDIRECTIONNAME: TcxGridDBColumn;
+    EgaisRests3CDSDIRECTIONID: TIntegerField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure RefreshcxButtonClick(Sender: TObject);
@@ -342,9 +345,9 @@ procedure TfEgaisRests3.ViewPMPopup(Sender: TObject);
 var flag:boolean;
 begin
  flag:=not EgaisRests3CDS.IsEmpty;
- ActChargeOnMI.Visible:=EgaisRests3CDSINFORMA_REGID.IsNull;
- ReplyRestsMI.Visible:=flag and (not ActChargeOnMI.Visible);
- ActFixBarcodeMI.Visible:=flag and (not ActChargeOnMI.Visible);
+ ActChargeOnMI.Visible:=flag and EgaisRests3CDSINFORMA_REGID.IsNull;
+ ReplyRestsMI.Visible:=flag and (not ActChargeOnMI.Visible) and (EgaisRests3CDSDIRECTIONID.AsInteger=1);
+ ActFixBarcodeMI.Visible:=flag and (not ActChargeOnMI.Visible) and (EgaisRests3CDSDIRECTIONID.AsInteger=1);;
  EgaisResultMI.Visible:=flag;
  Line1MI.Visible:=ActFixBarcodeMI.Visible or EgaisResultMI.Visible;
  SplitDKMI.Visible:=ActChargeOnMI.Visible and (EgaisRests3CDSNOWEXCISECOUNTUNIT.AsInteger>0) and (EgaisRests3CDSNOWCASHWCOUNTUNIT.AsInteger>EgaisRests3CDSNOWEXCISECOUNTUNIT.AsInteger);
@@ -460,6 +463,7 @@ begin
  if (not Assigned(fEgaisActChargeOn)) then
   Application.CreateForm(TfEgaisActChargeOn, fEgaisActChargeOn);
  fEgaisActChargeOn.ViewCDS.Params[0].AsInteger:=EgaisRests3CDSDRINKKINDID.AsInteger;
+ fEgaisActChargeOn.SendDKToEgaiscxButton.Tag:=EgaisRests3CDSDIRECTIONID.AsInteger;
  fEgaisActChargeOn.ShowModal;
  fMain.RefreshCDS(EgaisRests3CDS);
 end;

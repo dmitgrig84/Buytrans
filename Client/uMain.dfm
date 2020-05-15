@@ -1,6 +1,6 @@
 object fMain: TfMain
-  Left = 288
-  Top = 121
+  Left = 346
+  Top = 145
   Width = 1292
   Height = 732
   Color = clBtnFace
@@ -169,7 +169,7 @@ object fMain: TfMain
         OnClick = CreateChildForm
       end
       object EgaisRests3MI: TMenuItem
-        Caption = #1054#1089#1090#1072#1090#1082#1080' '#1047' '#1088#1077#1075#1080#1089#1090#1088
+        Caption = #1054#1089#1090#1072#1090#1082#1080' 1 '#1080' '#1047' '#1088#1077#1075#1080#1089#1090#1088#1072
         OnClick = CreateChildForm
       end
       object N3: TMenuItem

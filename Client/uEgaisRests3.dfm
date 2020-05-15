@@ -1,6 +1,6 @@
 object fEgaisRests3: TfEgaisRests3
-  Left = 169
-  Top = 112
+  Left = 278
+  Top = 194
   Width = 1460
   Height = 690
   Caption = 'fEgaisRests3'
@@ -410,41 +410,45 @@ object fEgaisRests3: TfEgaisRests3
       OptionsView.Indicator = True
       OptionsView.IndicatorWidth = 15
       OnCustomDrawColumnHeader = ViewcxGridDBTVCustomDrawColumnHeader
+      object ViewcxGridDBTVDIRECTIONNAME: TcxGridDBColumn
+        DataBinding.FieldName = 'DIRECTIONNAME'
+        Width = 79
+      end
       object ViewcxGridDBTVDRINKKINDID: TcxGridDBColumn
         DataBinding.FieldName = 'DRINKKINDID'
-        Width = 59
+        Width = 56
       end
       object ViewcxGridDBTVDRINKID: TcxGridDBColumn
         DataBinding.FieldName = 'DRINKID'
-        Width = 73
+        Width = 69
       end
       object ViewcxGridDBTVPRINTMARK: TcxGridDBColumn
         DataBinding.FieldName = 'PRINTMARK'
-        Width = 229
+        Width = 216
       end
       object ViewcxGridDBTVALCCODE: TcxGridDBColumn
         DataBinding.FieldName = 'ALCCODE'
-        Width = 114
+        Width = 108
       end
       object ViewcxGridDBTVINFORMA_REGID: TcxGridDBColumn
         DataBinding.FieldName = 'INFORMA_REGID'
-        Width = 114
+        Width = 108
       end
       object ViewcxGridDBTVINFORMB_REGID: TcxGridDBColumn
         DataBinding.FieldName = 'INFORMB_REGID'
-        Width = 115
+        Width = 108
       end
       object ViewcxGridDBTVNOWCASHWCOUNTUNIT: TcxGridDBColumn
         DataBinding.FieldName = 'NOWCASHWCOUNTUNIT'
-        Width = 82
+        Width = 78
       end
       object ViewcxGridDBTVNOWEXCISECOUNTUNIT: TcxGridDBColumn
         DataBinding.FieldName = 'NOWEXCISECOUNTUNIT'
-        Width = 79
+        Width = 74
       end
       object ViewcxGridDBTVOUTWHENINSERT: TcxGridDBColumn
         DataBinding.FieldName = 'OUTWHENINSERT'
-        Width = 115
+        Width = 109
       end
       object ViewcxGridDBTVOUTEGAISIDENTIFIERID: TcxGridDBColumn
         DataBinding.FieldName = 'OUTEGAISIDENTIFIERID'
@@ -468,15 +472,15 @@ object fEgaisRests3: TfEgaisRests3
       end
       object ViewcxGridDBTVHOSTCOUNTUNIT: TcxGridDBColumn
         DataBinding.FieldName = 'HOSTCOUNTUNIT'
-        Width = 119
+        Width = 112
       end
       object ViewcxGridDBTVHOSTCOUNTUNITEXCISE: TcxGridDBColumn
         DataBinding.FieldName = 'HOSTCOUNTUNITEXCISE'
-        Width = 110
+        Width = 104
       end
       object ViewcxGridDBTVEGAISCOUNTUNITEXCISE: TcxGridDBColumn
         DataBinding.FieldName = 'EGAISCOUNTUNITEXCISE'
-        Width = 122
+        Width = 116
       end
       object ViewcxGridDBTVINSTATUS: TcxGridDBColumn
         DataBinding.FieldName = 'INSTATUS'
@@ -509,7 +513,7 @@ object fEgaisRests3: TfEgaisRests3
             Value = 4
           end>
         Properties.ShowDescriptions = False
-        Width = 102
+        Width = 96
       end
     end
     object ViewcxGridLevel: TcxGridLevel
@@ -763,6 +767,14 @@ object fEgaisRests3: TfEgaisRests3
     object EgaisRests3CDSNOWEXCISECOUNTUNIT: TIntegerField
       DisplayLabel = #1058#1077#1082#1091#1097#1077#1077' '#1082#1086#1083'-'#1074#1086' '#1040#1052', '#1096#1090'.'
       FieldName = 'NOWEXCISECOUNTUNIT'
+    end
+    object EgaisRests3CDSDIRECTIONNAME: TStringField
+      DisplayLabel = #1058#1080#1087' '#1090#1086#1074#1072#1088
+      FieldName = 'DIRECTIONNAME'
+      Size = 32
+    end
+    object EgaisRests3CDSDIRECTIONID: TIntegerField
+      FieldName = 'DIRECTIONID'
     end
   end
   object EgaisRests3DS: TDataSource

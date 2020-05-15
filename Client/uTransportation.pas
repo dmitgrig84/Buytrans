@@ -220,6 +220,8 @@ type
     RePriceMI: TMenuItem;
     ransportationcxGridDBTVREPRICEID: TcxGridDBColumn;
     EgaisResultMI: TMenuItem;
+    RemBuyMI: TMenuItem;
+    TransportationCDSFLAGREMBUY: TIntegerField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure TransportationcxGridDBTVCustomDrawColumnHeader(
       Sender: TcxGridTableView; ACanvas: TcxCanvas;
@@ -259,6 +261,7 @@ type
       AViewInfo: TcxGridTableDataCellViewInfo; var ADone: Boolean);
     procedure RePriceMIClick(Sender: TObject);
     procedure EgaisResultMIClick(Sender: TObject);
+    procedure RemBuyMIClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -271,7 +274,7 @@ var
 implementation
 
 uses uMain,DynamicProvider, uTransportationAddDetail, uBuyTransTerm,
-  uTransportationEditPrice, uExciseScan, uXmlViewer;
+  uTransportationEditPrice, uExciseScan, uXmlViewer, uDistributionEdit;
 
 {$R *.dfm}
 
@@ -593,6 +596,7 @@ begin
 
  RePriceMI.Visible:=FlagTrans and (TransportationCDSREPRICEID.AsInteger=0);
  EgaisResultMI.Visible:=(TransportationCDSEGAISTRANSPORTATIONSTATUSID.AsInteger>=4);
+ RemBuyMI.Visible:=(TransportationCDSFLAGREMBUY.AsInteger=1);
 end;
 
 procedure TfTransportation.DeleteTransportationDetailMIClick(Sender: TObject);
@@ -1007,19 +1011,12 @@ begin
   exit;
 
  try
-  fMain.SocketConnection.AppServer.DBStartTransaction;
-  fMain.InUpDelCDS.Close;
-  fMain.InUpDelCDS.CommandText:=
-   'execute procedure buytrans_transreprice('+TransportationCDSTRANSPORTATIONID.AsString+')';
-  fMain.InUpDelCDS.Execute;
-  fMain.SocketConnection.AppServer.DBCommit;
- except on E:Exception do
-  begin
-   fMain.SocketConnection.AppServer.DBRollBack;
-   MessageDLG(E.Message,mtError,[mbOK],0);
-  end;//on
- end;//try..except
- fMain.RefreshCDS(TransportationCDS);
+  if fMain.ExecCmdTxtWithTrans('execute procedure buytrans_transreprice('+TransportationCDSTRANSPORTATIONID.AsString+')') then
+   MessageDlg('Успешно. Смотрите результат выполнения.',mtInformation,[mbOk],0);
+ finally
+  fMain.RefreshCDS(TransportationCDS);
+ end;
+
 end;
 
 procedure TfTransportation.EgaisResultMIClick(Sender: TObject);
@@ -1029,6 +1026,36 @@ begin
  fXmlViewer.Tag:=3;
  fXmlViewer.XmlCDS.Tag:=TransportationCDSTRANSPORTATIONID.AsInteger;
  fXmlViewer.ShowModal;
+end;
+
+procedure TfTransportation.RemBuyMIClick(Sender: TObject);
+var resultstr:string;
+begin
+ if (not Assigned(fDistributionEdit)) then
+  Application.CreateForm(TfDistributionEdit, fDistributionEdit);
+ fDistributionEdit.Caption:=RemBuyMI.Caption;
+ if fDistributionEdit.ShowModal=mrOk then
+  begin
+   with fMain do
+    try
+     SocketConnection.AppServer.DBStartTransaction;
+     InUpDelCDS.Close;
+     InUpDelCDS.CommandText:=
+     'select * from buytrans_transretailrembuy('+
+       TransportationCDSTRANSPORTATIONID.AsString+','+
+       fDistributionEdit.DistributionIDcxME.Text+')';
+     InUpDelCDS.Open;
+     resultstr:=InUpDelCDS.Fields[0].AsString;
+     SocketConnection.AppServer.DBCommit;
+     MessageDlg(resultstr,mtInformation,[mbOk],0);
+    except on E: Exception do
+     begin
+      SocketConnection.AppServer.DBRollback;
+      MessageDlg('Ошибка:'+E.Message,mtError,[mbOk],0);
+     end; //on
+    end; //try..except
+    RefreshBBClick(self);
+  end;
 end;
 
 end.

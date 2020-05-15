@@ -1,6 +1,6 @@
 object fBuy: TfBuy
-  Left = 341
-  Top = 174
+  Left = 409
+  Top = 209
   Width = 1122
   Height = 614
   Caption = #1055#1088#1080#1077#1084#1082#1072

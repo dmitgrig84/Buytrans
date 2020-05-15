@@ -1,6 +1,6 @@
 object fRemoving: TfRemoving
-  Left = 254
-  Top = 118
+  Left = 305
+  Top = 142
   Width = 1096
   Height = 594
   Caption = 'fRemoving'

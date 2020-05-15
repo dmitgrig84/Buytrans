@@ -199,8 +199,8 @@ end;
 
 procedure TfEgaisActChargeOn.DetailCDSAfterOpen(DataSet: TDataSet);
 begin
- GetExcisecxButton.Enabled:=DetailCDS.IsEmpty;
- SendDKToEgaiscxButton.Enabled:=not DetailCDS.IsEmpty;
+ GetExcisecxButton.Enabled:=DetailCDS.IsEmpty and (SendDKToEgaiscxButton.Tag=1);
+ SendDKToEgaiscxButton.Enabled:=(not DetailCDS.IsEmpty) or (SendDKToEgaiscxButton.Tag=2);
 end;
 
 procedure TfEgaisActChargeOn.DeleteMIClick(Sender: TObject);
