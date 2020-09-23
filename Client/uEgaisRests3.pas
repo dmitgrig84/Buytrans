@@ -10,7 +10,7 @@ uses
   cxClasses, cxGridCustomView, cxGridCustomTableView, cxGridTableView,
   cxGridDBTableView, cxGrid, cxTextEdit, cxDropDownEdit, cxLookupEdit,
   cxDBLookupEdit, cxDBLookupComboBox, StdCtrls, cxButtons, ExtCtrls,
-  DBClient,DynamicProvider, cxImageComboBox,CLIPBrd;
+  DBClient,DynamicProvider, cxImageComboBox,CLIPBrd, cxExportGrid4Link;
 
 type
   TfEgaisRests3 = class(TForm)
@@ -101,6 +101,8 @@ type
     EgaisRests3CDSDIRECTIONNAME: TStringField;
     ViewcxGridDBTVDIRECTIONNAME: TcxGridDBColumn;
     EgaisRests3CDSDIRECTIONID: TIntegerField;
+    N1: TMenuItem;
+    RemovingExMI: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure RefreshcxButtonClick(Sender: TObject);
@@ -129,6 +131,8 @@ type
     procedure EgaisResultMIClick(Sender: TObject);
     procedure ActChargeOnMIClick(Sender: TObject);
     procedure SplitDKMIClick(Sender: TObject);
+    procedure RemovingExMIClick(Sender: TObject);
+    procedure ExportToExcelcxButtonClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -324,6 +328,8 @@ end;
 procedure TfEgaisRests3.PMPopup(Sender: TObject);
 
 begin
+ if TClientDataSet((((Sender as TPopupMenu).PopupComponent as TcxGrid).Views[0] as TcxGridDBTableView).DataController.DataSource.DataSet).Active then
+ begin
  EgaisActFixBarcodeMI.Visible:=TClientDataSet((((Sender as TPopupMenu).PopupComponent as TcxGrid).Views[0] as TcxGridDBTableView).DataController.DataSource.DataSet).RecordCount>0;
  CopyClipBoardMI.Visible:=EgaisActFixBarcodeMI.Visible;
 
@@ -331,9 +337,21 @@ begin
   begin
    EgaisActFixBarcodeMI.Caption:='Отмена фиксации АМ';
    EgaisActFixBarcodeMI.Tag:=0;
+   RemovingExMI.Visible:=(ExciseEgaisCDSFLAGERROR.Value=1) and
+   (TClientDataSet((((Sender as TPopupMenu).PopupComponent as TcxGrid).Views[0] as TcxGridDBTableView).DataController.DataSource.DataSet).RecordCount>0);
   end
  else
+   begin
    EgaisActFixBarcodeMI.Visible:=false;
+   RemovingExMI.Visible:=False;
+   end
+ end
+ else
+   begin
+   CopyClipBoardMI.Visible :=false;
+   EgaisActFixBarcodeMI.Visible:=false;
+   RemovingExMI.Visible:=False;
+   end
  {else
   begin
    EgaisActFixBarcodeMI.Caption:='Фиксация АМ';
@@ -475,6 +493,48 @@ begin
  finally
   fMain.RefreshCDS(EgaisRests3CDS);
  end;
+end;
+
+procedure TfEgaisRests3.RemovingExMIClick(Sender: TObject);
+var cxGridDBTV:TcxGridDBTableView;
+    ARowIndex,i: Integer;
+    ARowInfo: TcxRowInfo;
+begin
+ cxGridDBTV:=((((Sender as TMenuItem).Parent.Owner as TPopupMenu).PopupComponent as TcxGrid).Views[0] as TcxGridDBTableView);
+// ShowMessage(IntToStr(cxGridDBTV.FindItemByName(cxGridDBTV.Name+cxGridDBTV.DataController.KeyFieldNames).index));
+ with cxGridDBTV.DataController do
+  begin
+   BeginUpdate;
+   for i:= 0 to GetSelectedCount - 1 do
+    begin
+     ARowIndex := GetSelectedRowIndex(I);
+     ARowInfo := GetRowInfo(ARowIndex);
+     if ARowInfo.Level < Groups.GroupingItemCount then
+      Continue
+     else
+      begin
+      fMain.ExecCmdTxtWithTrans('execute procedure EGAIS_REMOVINGAUTOINSERT1 ('+IntToStr(TClientDataSet(DataSource.DataSet).Params[0].asInteger)+','+
+          #39+Values[ARowInfo.RecordIndex, cxGridDBTV.FindItemByName(cxGridDBTV.Name+KeyFieldNames).Index]+#39+')');
+      end;
+    end;//for  GetSelectedCount
+   fMain.ExecCmdTxtWithTrans('execute procedure EGAIS_REMOVINGAUTO1 ('+IntToStr(TClientDataSet(DataSource.DataSet).Params[0].asInteger)+')');
+   EndUpdate;
+  end;//with cxGEDIdbTVOrders.DataController
+
+ RefreshcxButtonClick(nil);
+ showmessage('Запросите остаток АМ минут через 5');
+end;
+
+procedure TfEgaisRests3.ExportToExcelcxButtonClick(Sender: TObject);
+begin
+ with fMain.SaveDialog do
+  begin
+   DefaultExt := 'xls';
+   Filter := 'Microsoft Excel 2000 (*.xls)|*.xls';
+   FileName := StoragecxLCB.Text+'.xls';
+   if Execute then
+    ExportGrid4ToExcel(FileName,ViewcxGrid);
+  end;
 end;
 
 end.

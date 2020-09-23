@@ -87,6 +87,7 @@ type
     InventoryCDSISREGRADINGNAME: TStringField;
     InventorycxGridDBTVISREGRADINGNAME: TcxGridDBColumn;
     EgaisResultMI: TMenuItem;
+    EnterWithOutEgaisMI: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure InventoryCDSBeforeOpen(DataSet: TDataSet);
@@ -107,6 +108,7 @@ type
     procedure NotSendEgaisMIClick(Sender: TObject);
     procedure InventoryIsNotMakeMIClick(Sender: TObject);
     procedure EgaisResultMIClick(Sender: TObject);
+    procedure EnterWithOutEgaisMIClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -339,6 +341,7 @@ end;
 procedure TfInventory.InventoryPMPopup(Sender: TObject);
 begin
  InventoryIsNotMakeMI.Visible:=(InventoryCDSISMAKE.AsInteger=1) and (Pos('Z', fMain.AdvancedGrant) > 0);
+ EnterWithOutEgaisMI.Visible:=(InventoryCDSISMAKE.AsInteger=0) and (Pos('Z', fMain.AdvancedGrant) > 0);
  SendEgaisMI.Visible:=(InventoryCDSEGAISSENDFLAG.AsInteger=1);
  NotSendEgaisMI.Visible:=(InventoryCDSEGAISSENDFLAG.AsInteger=2);
  EgaisResultMI.Visible:=(InventoryCDSEGAISREMOVINGSTATUSID.AsInteger>=4);
@@ -355,7 +358,7 @@ begin
    SocketConnection.AppServer.DBStartTransaction;
    InUpDelCDS.Close;
    InUpDelCDS.CommandText:=
-    'execute procedure buytrans_inventoryegaissend('+InventoryCDSINVENTORYID.AsString+',1)';
+    'execute procedure buytrans_inventorymakeoutegais('+InventoryCDSINVENTORYID.AsString+',1)';
    InUpDelCDS.Execute;
    SocketConnection.AppServer.DBCommit;
   except on E: Exception do
@@ -427,6 +430,19 @@ begin
  fXmlViewer.Tag:=2;
  fXmlViewer.XmlCDS.Tag:=InventoryCDSINVENTORYID.AsInteger;
  fXmlViewer.ShowModal;
+end;
+
+procedure TfInventory.EnterWithOutEgaisMIClick(Sender: TObject);
+begin
+ if MessageDlg('Вы действительно хотите провести акт без отправки в ЕГАИС?'+#10+#13+
+                 'Её далнейшее редактирование будет запрещено.' ,mtConfirmation,[mbYes,mbNo],0)<>mrYes then
+  exit;
+
+ try
+  fMain.ExecCmdTxtWithTrans('execute procedure buytrans_inventorymakeoutegais('+InventoryCDSINVENTORYID.AsString+')');
+ finally
+  fMain.RefreshCDS(InventoryCDS);
+ end;
 end;
 
 end.

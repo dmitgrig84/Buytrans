@@ -1,6 +1,6 @@
 object fMain: TfMain
-  Left = 346
-  Top = 145
+  Left = 344
+  Top = 212
   Width = 1292
   Height = 732
   Color = clBtnFace
@@ -194,6 +194,7 @@ object fMain: TfMain
       object EgaisDrinkAlcCodeMI: TMenuItem
         Tag = 1
         Caption = #1055#1088#1080#1074#1103#1079#1082#1072' '#1085#1086#1084#1077#1085#1082#1083#1072#1090#1091#1088#1099
+        Visible = False
         OnClick = HandBookMIClick
       end
       object EgaisUTMSettingsMI: TMenuItem

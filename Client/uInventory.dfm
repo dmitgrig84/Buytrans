@@ -796,6 +796,12 @@ object fInventory: TfInventory
       ImageIndex = 10
       OnClick = EntercxButtonClick
     end
+    object EnterWithOutEgaisMI: TMenuItem
+      Caption = #1055#1088#1086#1074#1077#1089#1090#1080' '#1073#1077#1079' '#1086#1090#1087#1088#1072#1074#1082#1080' '#1074' '#1045#1043#1040#1048#1057
+      ImageIndex = 37
+      Visible = False
+      OnClick = EnterWithOutEgaisMIClick
+    end
     object InventoryIsNotMakeMI: TMenuItem
       Caption = #1054#1090#1084#1077#1085#1080#1090#1100' '#1087#1088#1086#1074#1077#1076#1077#1085#1080#1077' '#1072#1082#1090#1072
       ImageIndex = 1

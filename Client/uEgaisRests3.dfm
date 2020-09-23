@@ -1,6 +1,6 @@
 object fEgaisRests3: TfEgaisRests3
-  Left = 278
-  Top = 194
+  Left = 36
+  Top = 80
   Width = 1460
   Height = 690
   Caption = 'fEgaisRests3'
@@ -115,6 +115,7 @@ object fEgaisRests3: TfEgaisRests3
         ParentShowHint = False
         ShowHint = True
         TabOrder = 1
+        OnClick = ExportToExcelcxButtonClick
         Glyph.Data = {
           F6060000424DF606000000000000360000002800000018000000180000000100
           180000000000C0060000130B0000130B00000000000000000000FF00FFFF00FF
@@ -910,6 +911,13 @@ object fEgaisRests3: TfEgaisRests3
     object EgaisActFixBarcodeMI: TMenuItem
       Caption = #1060#1080#1082#1089#1072#1094#1080#1103' '#1040#1052
       OnClick = EgaisActFixBarcodeMIClick
+    end
+    object N1: TMenuItem
+      Caption = '-'
+    end
+    object RemovingExMI: TMenuItem
+      Caption = #1057#1087#1080#1089#1072#1085#1080#1077' '#1073#1072#1075#1072
+      OnClick = RemovingExMIClick
     end
   end
 end

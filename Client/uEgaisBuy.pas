@@ -424,7 +424,7 @@ end;
 
 procedure TfEgaisBuy.DetailPMPopup(Sender: TObject);
 begin
- DetailDrinkMI.Visible:=(EgaisBuyCDSEGAISBUYSTATUSID.AsInteger in [0,1,2]);
+ DetailDrinkMI.Visible:=false;//(EgaisBuyCDSEGAISBUYSTATUSID.AsInteger in [0,1,2]);
 end;
 
 procedure TfEgaisBuy.IsReturnMIClick(Sender: TObject);
