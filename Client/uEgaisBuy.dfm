@@ -430,17 +430,16 @@ object fEgaisBuy: TfEgaisBuy
           Column = DetailcxGridDBTVSUMPRICE
         end>
       DataController.Summary.SummaryGroups = <>
+      OptionsBehavior.CopyCaptionsToClipboard = False
       OptionsCustomize.ColumnsQuickCustomization = True
       OptionsData.CancelOnExit = False
       OptionsData.Deleting = False
       OptionsData.DeletingConfirmation = False
       OptionsData.Editing = False
       OptionsData.Inserting = False
-      OptionsSelection.CellSelect = False
       OptionsSelection.HideFocusRectOnExit = False
-      OptionsSelection.InvertSelect = False
-      OptionsSelection.MultiSelect = True
       OptionsSelection.UnselectFocusedRecordOnExit = False
+      OptionsSelection.CellMultiSelect = True
       OptionsView.ColumnAutoWidth = True
       OptionsView.Footer = True
       OptionsView.GroupByBox = False
@@ -881,6 +880,10 @@ object fEgaisBuy: TfEgaisBuy
     object AlcCodeMI: TMenuItem
       Caption = #1047#1072#1087#1088#1086#1089' '#1087#1086' '#1072#1083#1082#1086#1082#1086#1076#1091
       OnClick = AlcCodeMIClick
+    end
+    object CopyToClipboardMI: TMenuItem
+      Caption = #1050#1086#1087#1080#1088#1086#1074#1072#1090#1100' '#1074' '#1073#1091#1092#1077#1088
+      OnClick = CopyToClipboardMIClick
     end
   end
   object IL: TImageList

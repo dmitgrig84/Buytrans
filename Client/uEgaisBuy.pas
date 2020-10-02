@@ -134,6 +134,7 @@ type
     DetailcxGridDBTVIMPORTERINN: TcxGridDBColumn;
     DetailcxGridDBTVIMPORTERKPP: TcxGridDBColumn;
     DetailcxGridDBTVIMPORTERNAME: TcxGridDBColumn;
+    CopyToClipboardMI: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure BegincxDEPropertiesChange(Sender: TObject);
     procedure EndcxDEPropertiesChange(Sender: TObject);
@@ -157,6 +158,7 @@ type
     procedure AlcCodeMIClick(Sender: TObject);
     procedure RequestRepealMIClick(Sender: TObject);
     procedure EgaisResultMIClick(Sender: TObject);
+    procedure CopyToClipboardMIClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -551,6 +553,11 @@ begin
  fXmlViewer.Tag:=4;
  fXmlViewer.XmlCDS.Tag:=EgaisBuyCDSID.AsInteger;
  fXmlViewer.ShowModal;
+end;
+
+procedure TfEgaisBuy.CopyToClipboardMIClick(Sender: TObject);
+begin
+ DetailcxGridDBTV.CopyToClipboard(false);
 end;
 
 end.
