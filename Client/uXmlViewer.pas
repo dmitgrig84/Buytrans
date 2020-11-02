@@ -59,6 +59,8 @@ type
     XmlcxGridDBTVWHENSTATUS: TcxGridDBColumn;
     PM: TPopupMenu;
     RefreshMI: TMenuItem;
+    DeleteMI: TMenuItem;
+    XmlCDSDELETEFLAG: TSmallintField;
     procedure UTF8cxRBClick(Sender: TObject);
     procedure AnsicxRBClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
@@ -66,6 +68,8 @@ type
     procedure XmlDSDataChange(Sender: TObject; Field: TField);
     procedure XmlCDSBeforeOpen(DataSet: TDataSet);
     procedure RefreshMIClick(Sender: TObject);
+    procedure PMPopup(Sender: TObject);
+    procedure DeleteMIClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -135,6 +139,21 @@ end;
 procedure TfXmlViewer.RefreshMIClick(Sender: TObject);
 begin
  fMain.RefreshCDS(XmlCDS);
+end;
+
+procedure TfXmlViewer.PMPopup(Sender: TObject);
+begin
+ DeleteMI.Visible:=XmlCDSDELETEFLAG.AsInteger=1;
+end;
+
+procedure TfXmlViewer.DeleteMIClick(Sender: TObject);
+begin
+ try
+  fMain.ExecCmdTxtWithTrans('execute procedure buytrans_xmlviewerdelete('+IntToStr(Self.Tag)+','+XmlCDSID.AsString+')');
+ finally
+  fMain.RefreshCDS(XmlCDS);
+ end;
+
 end;
 
 end.

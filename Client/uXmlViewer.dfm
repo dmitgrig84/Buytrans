@@ -261,6 +261,9 @@ object fXmlViewer: TfXmlViewer
       FieldName = 'WHENSTATUS'
       Visible = False
     end
+    object XmlCDSDELETEFLAG: TSmallintField
+      FieldName = 'DELETEFLAG'
+    end
   end
   object XmlDS: TDataSource
     DataSet = XmlCDS
@@ -269,11 +272,16 @@ object fXmlViewer: TfXmlViewer
     Top = 56
   end
   object PM: TPopupMenu
+    OnPopup = PMPopup
     Left = 104
     Top = 56
     object RefreshMI: TMenuItem
       Caption = #1054#1073#1085#1086#1074#1080#1090#1100
       OnClick = RefreshMIClick
+    end
+    object DeleteMI: TMenuItem
+      Caption = #1059#1076#1072#1083#1080#1090#1100
+      OnClick = DeleteMIClick
     end
   end
 end
