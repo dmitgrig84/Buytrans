@@ -353,22 +353,11 @@ begin
                  'Её далнейшее редактирование будет запрещено.' ,mtConfirmation,[mbYes,mbNo],0)<>mrYes then
   exit;
 
- with fMain do
-  try
-   SocketConnection.AppServer.DBStartTransaction;
-   InUpDelCDS.Close;
-   InUpDelCDS.CommandText:=
-    'execute procedure buytrans_inventorymakeoutegais('+InventoryCDSINVENTORYID.AsString+',1)';
-   InUpDelCDS.Execute;
-   SocketConnection.AppServer.DBCommit;
-  except on E: Exception do
-   begin
-    SocketConnection.AppServer.DBRollback;
-    MessageDlg('Ошибка добавления акта!' + #13+ ' ' + E.Message,mtError,[mbOk],0);
-    exit;
-   end; //on
-  end; //try..except
- fMain.RefreshCDS(InventoryCDS);
+ try
+  fMain.ExecCmdTxtWithTrans('execute procedure buytrans_inventoryegaissend('+InventoryCDSINVENTORYID.AsString+',1)');
+ finally
+  fMain.RefreshCDS(InventoryCDS);
+ end;
 end;
 
 procedure TfInventory.NotSendEgaisMIClick(Sender: TObject);
@@ -376,22 +365,11 @@ begin
  if MessageDlg('Вы действительно хотите отменить отправку акта в ЕГАИС?',mtConfirmation,[mbYes,mbNo],0)<>mrYes then
   exit;
 
- with fMain do
-  try
-   SocketConnection.AppServer.DBStartTransaction;
-   InUpDelCDS.Close;
-   InUpDelCDS.CommandText:=
-    'execute procedure buytrans_inventoryegaissend('+InventoryCDSINVENTORYID.AsString+',0)';
-   InUpDelCDS.Execute;
-   SocketConnection.AppServer.DBCommit;
-  except on E: Exception do
-   begin
-    SocketConnection.AppServer.DBRollback;
-    MessageDlg('Ошибка добавления акта!' + #13+ ' ' + E.Message,mtError,[mbOk],0);
-    exit;
-   end; //on
-  end; //try..except
- fMain.RefreshCDS(InventoryCDS);
+ try
+  fMain.ExecCmdTxtWithTrans('execute procedure buytrans_inventoryegaissend('+InventoryCDSINVENTORYID.AsString+',0)');
+ finally
+  fMain.RefreshCDS(InventoryCDS);
+ end;
 end;
 
 procedure TfInventory.InventoryIsNotMakeMIClick(Sender: TObject);
@@ -444,5 +422,7 @@ begin
   fMain.RefreshCDS(InventoryCDS);
  end;
 end;
+
+
 
 end.

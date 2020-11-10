@@ -1,6 +1,6 @@
 object fInventory: TfInventory
-  Left = 368
-  Top = 232
+  Left = 1031
+  Top = 190
   Width = 1135
   Height = 638
   Caption = 'fInventory'
