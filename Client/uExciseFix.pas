@@ -114,7 +114,7 @@ end;
 procedure TfExciseFix.FormActivate(Sender: TObject);
 begin
  fMain.RefreshCDS(ViewCDS);
- ExciseCodecxME.SetFocus;
+// ExciseCodecxME.SetFocus;
 end;
 
 procedure TfExciseFix.TopPanelResize(Sender: TObject);

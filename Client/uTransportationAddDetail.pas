@@ -85,6 +85,8 @@ type
     StorageCasheCDSWEIGHT: TFloatField;
     StorageCasheCDSDRINKGROUPNAME: TStringField;
     StorageCashecxGridDBTVDRINKGROUPNAME: TcxGridDBColumn;
+    StorageCasheCDSFLAGEXCISE: TIntegerField;
+    StorageCashecxGridDBTVFLAGEXCISE: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure StorageCashecxGridDBTVCustomDrawColumnHeader(
@@ -99,6 +101,9 @@ type
     procedure CountUnitcxSEKeyPress(Sender: TObject; var Key: Char);
     procedure ExportToExcelMIClick(Sender: TObject);
     procedure StorageCasheCDSAfterOpen(DataSet: TDataSet);
+    procedure StorageCashecxGridDBTVCustomDrawCell(
+      Sender: TcxCustomGridTableView; ACanvas: TcxCanvas;
+      AViewInfo: TcxGridTableDataCellViewInfo; var ADone: Boolean);
   private
     { Private declarations }
   public
@@ -288,6 +293,12 @@ end;
 procedure TfTransportationAddDetail.AddBBClick(Sender: TObject);
 var cashebottlecount,cashebottlereserve,casheunitreserve, minimalcashe:integer;
 begin
+ if (StorageCasheCDSFLAGEXCISE.AsInteger=0) then
+  begin
+   MessageDlg('Перемещение алкоголя без привязки АМ по ЕГАИС не проходит. Подготовьте партию.', mtError, [mbOk],0);
+   exit;
+  end;
+
  if (BuyBoxcxLCB.Text= '') then
   begin
    MessageDlg('Выберите тару приемки!', mtError, [mbOk],0);
@@ -472,6 +483,17 @@ begin
  StorageCashecxGridDBTVMAXRETAILPRICE.Visible:=StorageCasheCDSFLAGMAXRETAILPRICE.AsInteger=1;
  StorageCashecxGridDBTVSHELFLIFEPRESENT.Visible:=(StorageCasheCDSEGAISSTORAGEFLAG.AsInteger=1) and (StorageCasheCDSFLAGRETAILSTORAGE.AsInteger=0);
  StorageCashecxGridDBTVEGAISINFO.Visible:=StorageCasheCDSEGAISSTORAGEFLAG.AsInteger=1;
+end;
+
+procedure TfTransportationAddDetail.StorageCashecxGridDBTVCustomDrawCell(
+  Sender: TcxCustomGridTableView; ACanvas: TcxCanvas;
+  AViewInfo: TcxGridTableDataCellViewInfo; var ADone: Boolean);
+begin
+ if (AViewInfo.GridRecord.DisplayTexts[StorageCashecxGridDBTVFLAGEXCISE.Index]='1') then
+  ACanvas.Brush.Color := $00B5E8B9;
+
+ if (AViewInfo.GridRecord.DisplayTexts[StorageCashecxGridDBTVFLAGEXCISE.Index]='0') then
+  ACanvas.Brush.Color := $00DFDFFF;
 end;
 
 end.

@@ -189,6 +189,7 @@ object fExciseFix: TfExciseFix
       Style.Font.Style = []
       Style.IsFontAssigned = True
       TabOrder = 0
+      Visible = False
       OnKeyPress = ExciseCodecxMEKeyPress
       Width = 686
     end

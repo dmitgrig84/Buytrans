@@ -89,7 +89,7 @@ type
     ViewcxGridDBTVNOWEXCISECOUNTUNIT: TcxGridDBColumn;
     DrinkKindIDcxME: TcxMaskEdit;
     ActFixBarcodeMI: TMenuItem;
-    Line1MI: TMenuItem;
+    LineMI: TMenuItem;
     ExciseHostCDSBOXCODE: TStringField;
     ExciseHostcxGridDBTVBOXCODE: TcxGridDBColumn;
     ExciseEgaisCDSBOXCODE: TStringField;
@@ -103,6 +103,8 @@ type
     EgaisRests3CDSDIRECTIONID: TIntegerField;
     N1: TMenuItem;
     RemovingExMI: TMenuItem;
+    EgaisTransferWithExciseFixMI: TMenuItem;
+    EgaisRests3CDSFORMDECLARATION: TSmallintField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure RefreshcxButtonClick(Sender: TObject);
@@ -133,6 +135,7 @@ type
     procedure SplitDKMIClick(Sender: TObject);
     procedure RemovingExMIClick(Sender: TObject);
     procedure ExportToExcelcxButtonClick(Sender: TObject);
+    procedure EgaisTransferWithExciseFixMIClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -144,7 +147,8 @@ var
 
 implementation
 
-uses uMain, uExciseFix, uXmlViewer, uEgaisActChargeOn;
+uses uMain, uExciseFix, uXmlViewer, uEgaisActChargeOn,
+  uEgaisTransferWithExciseFix;
 
 {$R *.dfm}
 
@@ -363,11 +367,16 @@ procedure TfEgaisRests3.ViewPMPopup(Sender: TObject);
 var flag:boolean;
 begin
  flag:=not EgaisRests3CDS.IsEmpty;
- ActChargeOnMI.Visible:=flag and EgaisRests3CDSINFORMA_REGID.IsNull;
- ReplyRestsMI.Visible:=flag and (not ActChargeOnMI.Visible) and (EgaisRests3CDSDIRECTIONID.AsInteger=1);
- ActFixBarcodeMI.Visible:=flag and (not ActChargeOnMI.Visible) and (EgaisRests3CDSDIRECTIONID.AsInteger=1);;
+ ActChargeOnMI.Visible:=flag and EgaisRests3CDSINFORMA_REGID.IsNull and EgaisRests3CDSINFORMB_REGID.IsNull;
+ EgaisTransferWithExciseFixMI.Visible:=flag and (not ActChargeOnMI.Visible) and
+                                        (not EgaisRests3CDSINFORMA_REGID.IsNull) and
+                                        (not EgaisRests3CDSINFORMB_REGID.IsNull) and
+                                        (EgaisRests3CDSNOWEXCISECOUNTUNIT.AsInteger=0) and
+                                        (EgaisRests3CDSFORMDECLARATION.AsInteger=11);
+ ReplyRestsMI.Visible:=flag and (not ActChargeOnMI.Visible) and (EgaisRests3CDSFORMDECLARATION.AsInteger=11);
+ ActFixBarcodeMI.Visible:=flag and (not ActChargeOnMI.Visible) and (EgaisRests3CDSFORMDECLARATION.AsInteger=11);
  EgaisResultMI.Visible:=flag;
- Line1MI.Visible:=ActFixBarcodeMI.Visible or EgaisResultMI.Visible;
+ LineMI.Visible:=ActFixBarcodeMI.Visible or EgaisResultMI.Visible;
  SplitDKMI.Visible:=ActChargeOnMI.Visible and (EgaisRests3CDSNOWEXCISECOUNTUNIT.AsInteger>0) and (EgaisRests3CDSNOWCASHWCOUNTUNIT.AsInteger>EgaisRests3CDSNOWEXCISECOUNTUNIT.AsInteger);
 end;
 
@@ -486,6 +495,15 @@ begin
  fMain.RefreshCDS(EgaisRests3CDS);
 end;
 
+procedure TfEgaisRests3.EgaisTransferWithExciseFixMIClick(Sender: TObject);
+begin
+ if (not Assigned(fEgaisTransferWithExciseFix)) then
+  Application.CreateForm(TfEgaisTransferWithExciseFix, fEgaisTransferWithExciseFix);
+ fEgaisTransferWithExciseFix.ViewCDS.Params[0].AsInteger:=EgaisRests3CDSDRINKKINDID.AsInteger;
+ fEgaisTransferWithExciseFix.ShowModal;
+ fMain.RefreshCDS(EgaisRests3CDS);
+end;
+
 procedure TfEgaisRests3.SplitDKMIClick(Sender: TObject);
 begin
  try
@@ -536,5 +554,7 @@ begin
     ExportGrid4ToExcel(FileName,ViewcxGrid);
   end;
 end;
+
+
 
 end.

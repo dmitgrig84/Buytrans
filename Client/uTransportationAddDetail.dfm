@@ -1,6 +1,6 @@
 object fTransportationAddDetail: TfTransportationAddDetail
-  Left = 281
-  Top = 185
+  Left = 486
+  Top = 191
   Width = 1014
   Height = 563
   Caption = #1053#1086#1074#1072#1103' '#1087#1086#1079#1080#1094#1080#1103' '#1074' '#1085#1072#1082#1083#1072#1076#1085#1091#1102' '#1085#1072' '#1087#1077#1088#1077#1084#1077#1097#1077#1085#1080#1077
@@ -247,6 +247,7 @@ object fTransportationAddDetail: TfTransportationAddDetail
     object StorageCashecxGridDBTV: TcxGridDBTableView
       PopupMenu = PM
       NavigatorButtons.ConfirmDelete = False
+      OnCustomDrawCell = StorageCashecxGridDBTVCustomDrawCell
       DataController.DataSource = StorageCasheDS
       DataController.Filter.Options = [fcoCaseInsensitive]
       DataController.Filter.AutoDataSetFilter = True
@@ -559,6 +560,10 @@ object fTransportationAddDetail: TfTransportationAddDetail
         DataBinding.FieldName = 'EGAISINFO'
         Width = 200
       end
+      object StorageCashecxGridDBTVFLAGEXCISE: TcxGridDBColumn
+        DataBinding.FieldName = 'FLAGEXCISE'
+        Visible = False
+      end
     end
     object StorageCashecxGridLevel: TcxGridLevel
       GridView = StorageCashecxGridDBTV
@@ -701,6 +706,10 @@ object fTransportationAddDetail: TfTransportationAddDetail
     object StorageCasheCDSSUMWEIGHT: TFloatField
       FieldName = 'SUMWEIGHT'
     end
+    object StorageCasheCDSFLAGEXCISE: TIntegerField
+      DisplayLabel = #1040#1052' '#1087#1088#1080#1074#1103#1079#1072#1085#1099
+      FieldName = 'FLAGEXCISE'
+    end
   end
   object StorageCasheDS: TDataSource
     DataSet = StorageCasheCDS
@@ -710,7 +719,7 @@ object fTransportationAddDetail: TfTransportationAddDetail
   end
   object PM: TPopupMenu
     Images = fMain.MenuIL
-    Left = 112
+    Left = 88
     Top = 160
     object ExportToExcelMI: TMenuItem
       Caption = #1069#1082#1089#1087#1086#1088#1090' '#1074' Excel'
