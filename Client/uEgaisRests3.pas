@@ -105,6 +105,9 @@ type
     RemovingExMI: TMenuItem;
     EgaisTransferWithExciseFixMI: TMenuItem;
     EgaisRests3CDSFORMDECLARATION: TSmallintField;
+    EgaisRests3CDSBARCODE: TStringField;
+    ViewcxGridDBTVBARCODE: TcxGridDBColumn;
+    BarcodecxME: TcxMaskEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure RefreshcxButtonClick(Sender: TObject);
@@ -136,6 +139,7 @@ type
     procedure RemovingExMIClick(Sender: TObject);
     procedure ExportToExcelcxButtonClick(Sender: TObject);
     procedure EgaisTransferWithExciseFixMIClick(Sender: TObject);
+    procedure BarcodecxMEEnter(Sender: TObject);
   private
     { Private declarations }
   public
@@ -251,6 +255,9 @@ begin
   EgaisRests3CDS.Params[1].AsString:=DrinkKindIDcxME.Text;
  if (InformBRegidcxME.Visible) and (InformBRegidcxME.Text<>'') then
   EgaisRests3CDS.Params[1].AsString:=InformBRegidcxME.Text;
+ if (BarcodecxME.Visible) and (BarcodecxME.Text<>'') then
+  EgaisRests3CDS.Params[1].AsString:=BarcodecxME.Text;
+
 end;
 
 procedure TfEgaisRests3.EgaisRests3DSDataChange(Sender: TObject;
@@ -430,7 +437,14 @@ begin
  DrinkKindIDcxME.Visible:=ViewcxGridDBTVDRINKKINDID.Visible;
  StoragecxLCB.Visible:=ViewcxGridDBTVPRINTMARK.Visible;
  InformBRegidcxME.Visible:=ViewcxGridDBTVINFORMB_REGID.Visible;
- 
+ BarcodecxME.Visible:=ViewcxGridDBTVBARCODE.Visible;
+
+ if AViewInfo.Column.Name=ViewcxGridDBTVBARCODE.Name then
+  begin
+   BarcodecxME.Left:=AViewInfo.RealBounds.Left+2;
+   BarcodecxME.Width:=AViewInfo.RealBounds.Right-AViewInfo.RealBounds.Left+1;
+  end;
+
  if AViewInfo.Column.Name=ViewcxGridDBTVDRINKKINDID.Name then
   begin
    DrinkKindIDcxME.Left:=AViewInfo.RealBounds.Left+2;
@@ -463,11 +477,19 @@ end;
 procedure TfEgaisRests3.InformBRegidcxMEEnter(Sender: TObject);
 begin
  DrinkKindIDcxME.Clear;
+ BarcodecxME.Clear;
 end;
 
 procedure TfEgaisRests3.DrinkKindIDcxMEEnter(Sender: TObject);
 begin
  InformBRegidcxME.Clear;
+ BarcodecxME.Clear;
+end;
+
+procedure TfEgaisRests3.BarcodecxMEEnter(Sender: TObject);
+begin
+ InformBRegidcxME.Clear;
+ DrinkKindIDcxME.Clear;
 end;
 
 procedure TfEgaisRests3.StoragecxLCBPropertiesEditValueChanged(
@@ -554,6 +576,8 @@ begin
     ExportGrid4ToExcel(FileName,ViewcxGrid);
   end;
 end;
+
+
 
 
 

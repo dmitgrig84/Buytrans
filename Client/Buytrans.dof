@@ -61,7 +61,7 @@ IncludeVerInfo=1
 AutoIncBuild=0
 MajorVer=3
 MinorVer=6
-Release=27
+Release=28
 Build=1
 Debug=1
 PreRelease=0
@@ -73,7 +73,7 @@ CodePage=1251
 [Version Info Keys]
 CompanyName=HostWMS
 FileDescription=BuyTransportation Client
-FileVersion=3.6.27.1
+FileVersion=3.6.28.1
 InternalName=
 LegalCopyright=
 LegalTrademarks=

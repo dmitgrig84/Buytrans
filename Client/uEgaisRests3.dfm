@@ -208,10 +208,13 @@ object fEgaisRests3: TfEgaisRests3
     object DrinkKindIDcxME: TcxMaskEdit
       Left = 40
       Top = 6
+      Hint = #1055#1086#1080#1089#1082' '#1087#1086' '#1082#1086#1076#1091' '#1087#1072#1088#1090#1080#1080
       ParentFont = False
+      ParentShowHint = False
       Properties.MaskKind = emkRegExpr
       Properties.EditMask = '\d+'
       Properties.MaxLength = 0
+      ShowHint = True
       Style.BorderStyle = ebsFlat
       Style.Font.Charset = DEFAULT_CHARSET
       Style.Font.Color = clWindowText
@@ -224,11 +227,12 @@ object fEgaisRests3: TfEgaisRests3
       Width = 121
     end
     object InformBRegidcxME: TcxMaskEdit
-      Left = 544
+      Left = 832
       Top = 6
+      Hint = #1055#1086#1080#1089#1082' '#1087#1086' '#1057#1087#1088#1072#1074#1082#1077' '#1041' '#1045#1043#1040#1048#1057
       ParentFont = False
       ParentShowHint = False
-      ShowHint = False
+      ShowHint = True
       Style.BorderStyle = ebsFlat
       Style.Font.Charset = DEFAULT_CHARSET
       Style.Font.Color = clWindowText
@@ -238,6 +242,24 @@ object fEgaisRests3: TfEgaisRests3
       Style.IsFontAssigned = True
       TabOrder = 3
       OnEnter = InformBRegidcxMEEnter
+      Width = 121
+    end
+    object BarcodecxME: TcxMaskEdit
+      Left = 672
+      Top = 6
+      Hint = #1055#1086#1080#1089#1082' '#1087#1086' '#1096#1090#1088#1080#1093'-'#1082#1086#1076#1091
+      ParentFont = False
+      ParentShowHint = False
+      ShowHint = True
+      Style.BorderStyle = ebsFlat
+      Style.Font.Charset = DEFAULT_CHARSET
+      Style.Font.Color = clWindowText
+      Style.Font.Height = -15
+      Style.Font.Name = 'MS Sans Serif'
+      Style.Font.Style = []
+      Style.IsFontAssigned = True
+      TabOrder = 4
+      OnEnter = BarcodecxMEEnter
       Width = 121
     end
   end
@@ -426,6 +448,9 @@ object fEgaisRests3: TfEgaisRests3
       object ViewcxGridDBTVPRINTMARK: TcxGridDBColumn
         DataBinding.FieldName = 'PRINTMARK'
         Width = 216
+      end
+      object ViewcxGridDBTVBARCODE: TcxGridDBColumn
+        DataBinding.FieldName = 'BARCODE'
       end
       object ViewcxGridDBTVALCCODE: TcxGridDBColumn
         DataBinding.FieldName = 'ALCCODE'
@@ -779,6 +804,11 @@ object fEgaisRests3: TfEgaisRests3
     end
     object EgaisRests3CDSFORMDECLARATION: TSmallintField
       FieldName = 'FORMDECLARATION'
+    end
+    object EgaisRests3CDSBARCODE: TStringField
+      DisplayLabel = #1064#1090#1088#1080#1093'-'#1082#1086#1076
+      FieldName = 'BARCODE'
+      Size = 16
     end
   end
   object EgaisRests3DS: TDataSource
