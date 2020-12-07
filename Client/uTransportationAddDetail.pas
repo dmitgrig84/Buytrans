@@ -293,7 +293,7 @@ end;
 procedure TfTransportationAddDetail.AddBBClick(Sender: TObject);
 var cashebottlecount,cashebottlereserve,casheunitreserve, minimalcashe:integer;
 begin
- if (StorageCasheCDSFLAGEXCISE.AsInteger=0) then
+ if ((not StorageCasheCDSFLAGEXCISE.IsNull) and (StorageCasheCDSFLAGEXCISE.AsInteger=0)) then
   begin
    MessageDlg('Перемещение алкоголя без привязки АМ по ЕГАИС не проходит. Подготовьте партию.', mtError, [mbOk],0);
    exit;
