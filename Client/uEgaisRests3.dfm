@@ -224,6 +224,7 @@ object fEgaisRests3: TfEgaisRests3
       Style.IsFontAssigned = True
       TabOrder = 2
       OnEnter = DrinkKindIDcxMEEnter
+      OnKeyPress = InformBRegidcxMEKeyPress
       Width = 121
     end
     object InformBRegidcxME: TcxMaskEdit
@@ -242,6 +243,7 @@ object fEgaisRests3: TfEgaisRests3
       Style.IsFontAssigned = True
       TabOrder = 3
       OnEnter = InformBRegidcxMEEnter
+      OnKeyPress = InformBRegidcxMEKeyPress
       Width = 121
     end
     object BarcodecxME: TcxMaskEdit
@@ -260,6 +262,7 @@ object fEgaisRests3: TfEgaisRests3
       Style.IsFontAssigned = True
       TabOrder = 4
       OnEnter = BarcodecxMEEnter
+      OnKeyPress = InformBRegidcxMEKeyPress
       Width = 121
     end
   end

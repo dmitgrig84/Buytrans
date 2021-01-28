@@ -140,6 +140,7 @@ type
     procedure ExportToExcelcxButtonClick(Sender: TObject);
     procedure EgaisTransferWithExciseFixMIClick(Sender: TObject);
     procedure BarcodecxMEEnter(Sender: TObject);
+    procedure InformBRegidcxMEKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -580,5 +581,12 @@ end;
 
 
 
+
+procedure TfEgaisRests3.InformBRegidcxMEKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+ if Key=#13 then
+  RefreshcxButtonClick(Sender);
+end;
 
 end.
