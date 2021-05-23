@@ -62,6 +62,7 @@ object fTransportation: TfTransportation
     Width = 1209
     Height = 658
     Align = alClient
+    PageIndex = 1
     TabOrder = 0
     object TPage
       Left = 0
