@@ -1,6 +1,6 @@
 object fReturn: TfReturn
-  Left = 59
-  Top = 89
+  Left = 239
+  Top = 112
   Width = 1551
   Height = 796
   Caption = 'fReturn'

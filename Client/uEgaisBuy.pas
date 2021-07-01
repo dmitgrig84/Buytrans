@@ -135,6 +135,9 @@ type
     DetailcxGridDBTVIMPORTERKPP: TcxGridDBColumn;
     DetailcxGridDBTVIMPORTERNAME: TcxGridDBColumn;
     CopyToClipboardMI: TMenuItem;
+    ResendDocPanel: TPanel;
+    ResendDoccxButton: TcxButton;
+    ResendDoccxME: TcxMaskEdit;
     procedure FormCreate(Sender: TObject);
     procedure BegincxDEPropertiesChange(Sender: TObject);
     procedure EndcxDEPropertiesChange(Sender: TObject);
@@ -159,6 +162,10 @@ type
     procedure RequestRepealMIClick(Sender: TObject);
     procedure EgaisResultMIClick(Sender: TObject);
     procedure CopyToClipboardMIClick(Sender: TObject);
+    procedure ViewcxGridDBTVCustomDrawColumnHeader(
+      Sender: TcxGridTableView; ACanvas: TcxCanvas;
+      AViewInfo: TcxGridColumnHeaderViewInfo; var ADone: Boolean);
+    procedure ResendDoccxButtonClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -558,6 +565,35 @@ end;
 procedure TfEgaisBuy.CopyToClipboardMIClick(Sender: TObject);
 begin
  DetailcxGridDBTV.CopyToClipboard(false);
+end;
+
+procedure TfEgaisBuy.ViewcxGridDBTVCustomDrawColumnHeader(
+  Sender: TcxGridTableView; ACanvas: TcxCanvas;
+  AViewInfo: TcxGridColumnHeaderViewInfo; var ADone: Boolean);
+begin
+ ResendDocPanel.Visible:=ViewcxGridDBTVWBREGID.Visible;
+ if AViewInfo.Column.Name=ViewcxGridDBTVWBREGID.Name then
+  begin
+   ResendDocPanel.Left:=AViewInfo.RealBounds.Left+2;
+   ResendDocPanel.Width:=AViewInfo.RealBounds.Right-AViewInfo.RealBounds.Left+1;
+  end;
+end;
+
+procedure TfEgaisBuy.ResendDoccxButtonClick(Sender: TObject);
+begin
+ if StoragecxLCB.Text='' then
+  begin
+   MessageDlg('Не выбран склад.',mtError,[mbOk],0);
+   exit;
+  end;
+
+ try
+  if fMain.ExecCmdTxtWithTrans('execute procedure buytrans_egaisbuy_resenddoc('+IntToStr(StoragecxLCB.EditValue)+','+#39+ResendDoccxME.Text+#39+')') then
+   MessageDlg('Запрос успешно поставлен в очередь на обработку.',mtInformation,[mbOk],0);
+  ResendDoccxME.Clear;
+ finally
+  fMain.RefreshCDS(EgaisBuyCDS);
+ end;
 end;
 
 end.

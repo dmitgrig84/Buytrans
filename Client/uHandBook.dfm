@@ -193,6 +193,11 @@ object fHandBook: TfHandBook
       ImageIndex = 8
       OnClick = miExcelClick
     end
+    object ProcessUTM: TMenuItem
+      Caption = #1054#1073#1088#1072#1073#1086#1090#1072#1090#1100' '#1059#1058#1052
+      ImageIndex = 31
+      OnClick = ProcessUTMClick
+    end
   end
   object cxESC: TcxEditStyleController
     Style.BorderStyle = ebsFlat

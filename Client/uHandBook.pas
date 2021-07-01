@@ -34,6 +34,7 @@ type
     EgaisMI: TMenuItem;
     miExcel: TMenuItem;
     N1: TMenuItem;
+    ProcessUTM: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure FieldsToControl(cxGridDBTV: TcxGridDBTableView);
     procedure RefreshHandBookMIClick(Sender: TObject);
@@ -50,6 +51,7 @@ type
     procedure HandBookPMPopup(Sender: TObject);
     procedure EgaisMIClick(Sender: TObject);
     procedure miExcelClick(Sender: TObject);
+    procedure ProcessUTMClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -601,6 +603,7 @@ end;
 procedure TfHandBook.HandBookPMPopup(Sender: TObject);
 begin
  EgaisMI.Visible:=HandBookcxGridDBTV.DataController.DataSource.DataSet=fMain.DrinkAlcCodeCDS;
+ ProcessUTM.Visible:=HandBookcxGridDBTV.DataController.DataSource.DataSet=fMain.EgaisConnectCDS;
 end;
 
 procedure TfHandBook.EgaisMIClick(Sender: TObject);
@@ -642,6 +645,16 @@ begin
    if Execute then
     ExportGrid4ToExcel(FileName,HandBookcxGrid);
   end;
+end;
+
+procedure TfHandBook.ProcessUTMClick(Sender: TObject);
+begin
+ try
+  if fMain.ExecCmdTxtWithTrans('execute procedure egais_egaisconnectadmin('+fMain.EgaisConnectCDSID.AsString+')') then
+   MessageDlg('УТМ в течении текущего дня будет обрабатываться без задержек.',mtInformation,[mbOk],0);
+ finally
+  fMain.RefreshCDS(fMain.EgaisConnectCDS);
+ end;
 end;
 
 end.
