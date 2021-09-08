@@ -111,6 +111,8 @@ type
     DetailcxGridDBTVRETAILPRICE: TcxGridDBColumn;
     DeleteMI: TMenuItem;
     ExportToExcelcxButton: TcxButton;
+    DetailCDSTABACCOCOUNTUNIT: TFloatField;
+    DetailcxGridDBTVTABACCOCOUNTUNIT: TcxGridDBColumn;
     procedure FormCreate(Sender: TObject);
     procedure BegincxDEPropertiesChange(Sender: TObject);
     procedure EndcxDEPropertiesChange(Sender: TObject);

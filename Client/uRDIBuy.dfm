@@ -533,6 +533,10 @@ object fRDIBuy: TfRDIBuy
           Format = ',0.00;-,0.00'
           Kind = skSum
           Column = DetailcxGridDBTVSUMNDS
+        end
+        item
+          Kind = skSum
+          Column = DetailcxGridDBTVTABACCOCOUNTUNIT
         end>
       DataController.Summary.SummaryGroups = <>
       OptionsCustomize.ColumnsQuickCustomization = True
@@ -623,6 +627,10 @@ object fRDIBuy: TfRDIBuy
       object DetailcxGridDBTVDELTACOUNTUNIT: TcxGridDBColumn
         DataBinding.FieldName = 'DELTACOUNTUNIT'
         Width = 138
+      end
+      object DetailcxGridDBTVTABACCOCOUNTUNIT: TcxGridDBColumn
+        Caption = 'QR '#1082#1086#1076
+        DataBinding.FieldName = 'TABACCOCOUNTUNIT'
       end
     end
     object DetailcxGridL: TcxGridLevel
@@ -836,6 +844,9 @@ object fRDIBuy: TfRDIBuy
     object DetailCDSDELTACOUNTUNIT: TFloatField
       DisplayLabel = #1056#1072#1079#1085#1080#1094#1072', '#1096#1090'.'
       FieldName = 'DELTACOUNTUNIT'
+    end
+    object DetailCDSTABACCOCOUNTUNIT: TFloatField
+      FieldName = 'TABACCOCOUNTUNIT'
     end
   end
   object DetailDS: TDataSource
