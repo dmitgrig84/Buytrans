@@ -211,7 +211,7 @@ type
     TransExciseMI: TMenuItem;
     TransportationCDSFLAGEXCISESCAN: TSmallintField;
     LineEgaisMI: TMenuItem;
-    ShopBuyEgaisMI: TMenuItem;
+    RemoveDrinkKindEgaisInformMI: TMenuItem;
     LineEgaisErrorMI: TMenuItem;
     EgaisErrorFixMI: TMenuItem;
     TransportationcxGridDBTVFLAGEGAISRETAILERROR: TcxGridDBColumn;
@@ -254,7 +254,7 @@ type
     procedure EditPriceTransportationDetailMIClick(Sender: TObject);
     procedure EgaisErrorMIClick(Sender: TObject);
     procedure TransExciseMIClick(Sender: TObject);
-    procedure ShopBuyEgaisMIClick(Sender: TObject);
+    procedure RemoveDrinkKindEgaisInformMIClick(Sender: TObject);
     procedure EgaisErrorFixMIClick(Sender: TObject);
     procedure TransportationcxGridDBTVCustomDrawCell(
       Sender: TcxCustomGridTableView; ACanvas: TcxCanvas;
@@ -657,8 +657,8 @@ begin
  TransExciseMI.Visible:=(TransportationCDSFLAGEXCISESCAN.AsInteger<>0);
  LineMI.Visible:=TransExciseMI.Visible;
 
- ShopBuyEgaisMI.Visible:=(TransportationCDSFLAGEGAISRETAILERROR.AsInteger in [1]);
- LineEgaisMI.Visible:=ShopBuyEgaisMI.Visible;
+ RemoveDrinkKindEgaisInformMI.Visible:=(TransportationCDSFLAGEGAISRETAILERROR.AsInteger in [1]);
+ LineEgaisMI.Visible:=RemoveDrinkKindEgaisInformMI.Visible;
 end;
 
 procedure TfTransportation.RefreshBBClick(Sender: TObject);
@@ -956,16 +956,16 @@ begin
  fMain.RefreshCDS(TransportationCDS);
 end;
 
-procedure TfTransportation.ShopBuyEgaisMIClick(Sender: TObject);
+procedure TfTransportation.RemoveDrinkKindEgaisInformMIClick(Sender: TObject);
 begin
- if MessageDlg('Вы дейстыительно хотите выполнить эту операцию?', mtConfirmation, [mbYes, mbNo] , 0)<> mrYes then
+ if MessageDlg('Вы действительно хотите выполнить эту операцию?', mtConfirmation, [mbYes, mbNo] , 0)<> mrYes then
   exit;
 
  try
   fMain.SocketConnection.AppServer.DBStartTransaction;
   fMain.InUpDelCDS.Close;
   fMain.InUpDelCDS.CommandText:=
-   'execute procedure buytrans_transegaisbuyr2('+TransportationDetailCDSTRANSPORTATIONDETAILID.AsString+')';
+   'execute procedure buytrans_transegaisremoveinform('+TransportationDetailCDSTRANSPORTATIONDETAILID.AsString+')';
   fMain.InUpDelCDS.Execute;
   fMain.SocketConnection.AppServer.DBCommit;
  except on E:Exception do

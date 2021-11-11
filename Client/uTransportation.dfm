@@ -62,7 +62,6 @@ object fTransportation: TfTransportation
     Width = 1209
     Height = 658
     Align = alClient
-    PageIndex = 1
     TabOrder = 0
     object TPage
       Left = 0
@@ -1798,10 +1797,10 @@ object fTransportation: TfTransportation
     object LineEgaisMI: TMenuItem
       Caption = '-'
     end
-    object ShopBuyEgaisMI: TMenuItem
-      Caption = #1055#1086#1089#1090#1072#1074#1080#1090#1100' '#1085#1072' 2 '#1088#1077#1075#1080#1089#1090#1088
-      ImageIndex = 34
-      OnClick = ShopBuyEgaisMIClick
+    object RemoveDrinkKindEgaisInformMI: TMenuItem
+      Caption = #1059#1076#1072#1083#1080#1090#1100' '#1089#1087#1088#1072#1074#1082#1080' '#1045#1043#1040#1048#1057
+      ImageIndex = 15
+      OnClick = RemoveDrinkKindEgaisInformMIClick
     end
   end
   object TransDetailTempRxMD: TRxMemoryData
