@@ -974,6 +974,7 @@ begin
    MessageDLG(E.Message,mtError,[mbOK],0);
   end;//on
  end;//try..except
+ fMain.RefreshCDS(TransportationCDS);
 end;
 
 procedure TfTransportation.EgaisErrorFixMIClick(Sender: TObject);
