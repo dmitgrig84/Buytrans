@@ -258,6 +258,10 @@ type
     BuyDetailcxGridDBTVID: TcxGridDBColumn;
     BuyDetailCDSVETISBUYDETAILSTATUSID: TSmallintField;
     BuyDetailcxGridDBTVVETISBUYDETAILSTATUSID: TcxGridDBColumn;
+    frxMX1: TfrxReport;
+    BuyPrintCDSssprice: TFloatField;
+    BuyPrintCDSbuyorgname: TStringField;
+    BuyPrintCDSbuytermname: TStringField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure BuycxGridDBTVCustomDrawCell(Sender: TcxCustomGridTableView;
       ACanvas: TcxCanvas; AViewInfo: TcxGridTableDataCellViewInfo;
@@ -671,12 +675,24 @@ end;
 
 procedure TfBuy.PrintBuyMIClick(Sender: TObject);
 begin
+if ((BuyCDSSTORAGEID.Value = 453) or (BuyCDSSTORAGEID.Value = 454)) then
+begin
  BuyPrintCDS.Params[0].AsInteger:=BuyCDSID.AsInteger;
  BuyPrintSubCDS.Params[0].AsInteger:=BuyCDSID.AsInteger;
  fMain.RefreshCDS(BuyPrintCDS);
- fMain.RefreshCDS(BuyPrintSubCDS); 
+ fMain.RefreshCDS(BuyPrintSubCDS);
+ frxMX1.PrepareReport;
+ frxMX1.ShowReport;
+end
+else
+begin
+ BuyPrintCDS.Params[0].AsInteger:=BuyCDSID.AsInteger;
+ BuyPrintSubCDS.Params[0].AsInteger:=BuyCDSID.AsInteger;
+ fMain.RefreshCDS(BuyPrintCDS);
+ fMain.RefreshCDS(BuyPrintSubCDS);
  BuyfrxReport.PrepareReport;
  BuyfrxReport.ShowReport;
+end;
 end;
 
 procedure TfBuy.PrintTorgBuyMIClick(Sender: TObject);
