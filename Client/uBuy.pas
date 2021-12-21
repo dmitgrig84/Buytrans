@@ -262,6 +262,10 @@ type
     BuyPrintCDSssprice: TFloatField;
     BuyPrintCDSbuyorgname: TStringField;
     BuyPrintCDSbuytermname: TStringField;
+    miNarad: TMenuItem;
+    miMX1: TMenuItem;
+    miMX3: TMenuItem;
+    frxMX3: TfrxReport;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure BuycxGridDBTVCustomDrawCell(Sender: TcxCustomGridTableView;
       ACanvas: TcxCanvas; AViewInfo: TcxGridTableDataCellViewInfo;
@@ -276,7 +280,6 @@ type
     procedure AddBuyMIClick(Sender: TObject);
     procedure EditBuyMIClick(Sender: TObject);
     procedure DeleteBuyMIClick(Sender: TObject);
-    procedure PrintBuyMIClick(Sender: TObject);
     procedure PrintTorgBuyMIClick(Sender: TObject);
     procedure AccessBuyMIClick(Sender: TObject);
     procedure AccessComeBuyMIClick(Sender: TObject);
@@ -300,6 +303,9 @@ type
     procedure BuyDetailcxGridDBTVCustomDrawCell(
       Sender: TcxCustomGridTableView; ACanvas: TcxCanvas;
       AViewInfo: TcxGridTableDataCellViewInfo; var ADone: Boolean);
+    procedure miNaradClick(Sender: TObject);
+    procedure miMX1Click(Sender: TObject);
+    procedure miMX3Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -673,28 +679,6 @@ begin
   end;//try..except}
 end;
 
-procedure TfBuy.PrintBuyMIClick(Sender: TObject);
-begin
-if ((BuyCDSSTORAGEID.Value = 453) or (BuyCDSSTORAGEID.Value = 454)) then
-begin
- BuyPrintCDS.Params[0].AsInteger:=BuyCDSID.AsInteger;
- BuyPrintSubCDS.Params[0].AsInteger:=BuyCDSID.AsInteger;
- fMain.RefreshCDS(BuyPrintCDS);
- fMain.RefreshCDS(BuyPrintSubCDS);
- frxMX1.PrepareReport;
- frxMX1.ShowReport;
-end
-else
-begin
- BuyPrintCDS.Params[0].AsInteger:=BuyCDSID.AsInteger;
- BuyPrintSubCDS.Params[0].AsInteger:=BuyCDSID.AsInteger;
- fMain.RefreshCDS(BuyPrintCDS);
- fMain.RefreshCDS(BuyPrintSubCDS);
- BuyfrxReport.PrepareReport;
- BuyfrxReport.ShowReport;
-end;
-end;
-
 procedure TfBuy.PrintTorgBuyMIClick(Sender: TObject);
 var pi:TProcessInformation;
     si:TStartupInfo;
@@ -1057,6 +1041,36 @@ procedure TfBuy.BuyDetailcxGridDBTVCustomDrawCell(
 begin
  if (AViewInfo.GridRecord.DisplayTexts[BuyDetailcxGridDBTVVETISBUYDETAILSTATUSID.Index] <>'0' ) then
   ACanvas.Brush.Color := $000080FF;
+end;
+
+procedure TfBuy.miNaradClick(Sender: TObject);
+begin
+ BuyPrintCDS.Params[0].AsInteger:=BuyCDSID.AsInteger;
+ BuyPrintSubCDS.Params[0].AsInteger:=BuyCDSID.AsInteger;
+ fMain.RefreshCDS(BuyPrintCDS);
+ fMain.RefreshCDS(BuyPrintSubCDS);
+ BuyfrxReport.PrepareReport;
+ BuyfrxReport.ShowReport;
+end;
+
+procedure TfBuy.miMX1Click(Sender: TObject);
+begin
+ BuyPrintCDS.Params[0].AsInteger:=BuyCDSID.AsInteger;
+ BuyPrintSubCDS.Params[0].AsInteger:=BuyCDSID.AsInteger;
+ fMain.RefreshCDS(BuyPrintCDS);
+ fMain.RefreshCDS(BuyPrintSubCDS);
+ frxMX1.PrepareReport;
+ frxMX1.ShowReport;
+end;
+
+procedure TfBuy.miMX3Click(Sender: TObject);
+begin
+ BuyPrintCDS.Params[0].AsInteger:=BuyCDSID.AsInteger;
+ BuyPrintSubCDS.Params[0].AsInteger:=BuyCDSID.AsInteger;
+ fMain.RefreshCDS(BuyPrintCDS);
+ fMain.RefreshCDS(BuyPrintSubCDS);
+ frxMX3.PrepareReport;
+ frxMX3.ShowReport;
 end;
 
 end.
