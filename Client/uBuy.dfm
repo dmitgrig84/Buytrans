@@ -3029,7 +3029,7 @@ object fBuy: TfBuy
     PrintOptions.Printer = #1055#1086' '#1091#1084#1086#1083#1095#1072#1085#1080#1102
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 44549.9746442708
-    ReportOptions.LastChange = 44552.6767541898
+    ReportOptions.LastChange = 44586.9810604745
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       'begin'
@@ -3419,9 +3419,9 @@ object fBuy: TfBuy
           ParentFont = False
         end
         object Memo24: TfrxMemoView
-          Left = 423.30736
+          Left = 385.51206
           Top = 287.24428
-          Width = 94.48825
+          Width = 132.28355
           Height = 37.7953
           ShowHint = False
           Font.Charset = DEFAULT_CHARSET
@@ -3452,39 +3452,9 @@ object fBuy: TfBuy
             #1056#8221#1056#176#1057#8218#1056#176' '#1057#1027#1056#1109#1057#1027#1057#8218#1056#176#1056#1030#1056#187#1056#181#1056#1029#1056#1105#1057#1039)
           ParentFont = False
         end
-        object Memo26: TfrxMemoView
-          Left = 423.30736
-          Top = 325.03958
-          Width = 94.48825
-          Height = 18.89765
-          ShowHint = False
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -13
-          Font.Name = 'Times New Roman'
-          Font.Style = []
-          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          HAlign = haCenter
-          ParentFont = False
-        end
-        object Memo27: TfrxMemoView
-          Left = 517.79561
-          Top = 325.03958
-          Width = 94.48825
-          Height = 18.89765
-          ShowHint = False
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -13
-          Font.Name = 'Times New Roman'
-          Font.Style = []
-          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
-          HAlign = haCenter
-          ParentFont = False
-        end
         object Memo28: TfrxMemoView
-          Left = 381.73253
-          Top = 325.03958
+          Left = 340.1577
+          Top = 328.81911
           Width = 41.57483
           Height = 18.89765
           ShowHint = False
@@ -3625,7 +3595,7 @@ object fBuy: TfBuy
         object Memo36: TfrxMemoView
           Left = 56.69295
           Top = 472.44125
-          Width = 170.07885
+          Width = 204.09462
           Height = 34.01577
           ShowHint = False
           Font.Charset = DEFAULT_CHARSET
@@ -3644,7 +3614,7 @@ object fBuy: TfBuy
         object Memo37: TfrxMemoView
           Left = 56.69295
           Top = 506.45702
-          Width = 120.94496
+          Width = 154.96073
           Height = 64.25201
           ShowHint = False
           Font.Charset = DEFAULT_CHARSET
@@ -3661,7 +3631,7 @@ object fBuy: TfBuy
           VAlign = vaCenter
         end
         object Memo38: TfrxMemoView
-          Left = 177.63791
+          Left = 211.65368
           Top = 506.45702
           Width = 49.13389
           Height = 64.25201
@@ -3679,7 +3649,7 @@ object fBuy: TfBuy
           VAlign = vaCenter
         end
         object Memo39: TfrxMemoView
-          Left = 226.7718
+          Left = 260.78757
           Top = 472.44125
           Width = 94.48825
           Height = 98.26778
@@ -3697,7 +3667,7 @@ object fBuy: TfBuy
           VAlign = vaCenter
         end
         object Memo40: TfrxMemoView
-          Left = 321.26005
+          Left = 355.27582
           Top = 472.44125
           Width = 75.5906
           Height = 34.01577
@@ -3715,7 +3685,7 @@ object fBuy: TfBuy
           VAlign = vaCenter
         end
         object Memo41: TfrxMemoView
-          Left = 396.85065
+          Left = 430.86642
           Top = 472.44125
           Width = 71.81107
           Height = 98.26778
@@ -3733,7 +3703,7 @@ object fBuy: TfBuy
           VAlign = vaCenter
         end
         object Memo42: TfrxMemoView
-          Left = 321.26005
+          Left = 355.27582
           Top = 506.45702
           Width = 37.7953
           Height = 64.25201
@@ -3751,7 +3721,7 @@ object fBuy: TfBuy
           VAlign = vaCenter
         end
         object Memo43: TfrxMemoView
-          Left = 359.05535
+          Left = 393.07112
           Top = 506.45702
           Width = 37.7953
           Height = 64.25201
@@ -3769,7 +3739,7 @@ object fBuy: TfBuy
           VAlign = vaCenter
         end
         object Memo44: TfrxMemoView
-          Left = 468.66172
+          Left = 502.67749
           Top = 472.44125
           Width = 173.85838
           Height = 34.01577
@@ -3787,7 +3757,7 @@ object fBuy: TfBuy
           VAlign = vaCenter
         end
         object Memo45: TfrxMemoView
-          Left = 468.66172
+          Left = 502.67749
           Top = 506.45702
           Width = 83.14966
           Height = 64.25201
@@ -3806,7 +3776,7 @@ object fBuy: TfBuy
           VAlign = vaCenter
         end
         object Memo46: TfrxMemoView
-          Left = 551.81138
+          Left = 585.82715
           Top = 506.45702
           Width = 90.70872
           Height = 64.25201
@@ -3844,7 +3814,7 @@ object fBuy: TfBuy
         object Memo48: TfrxMemoView
           Left = 56.69295
           Top = 570.70903
-          Width = 120.94496
+          Width = 154.96073
           Height = 18.89765
           ShowHint = False
           Font.Charset = DEFAULT_CHARSET
@@ -3860,7 +3830,7 @@ object fBuy: TfBuy
           VAlign = vaCenter
         end
         object Memo49: TfrxMemoView
-          Left = 177.63791
+          Left = 211.65368
           Top = 570.70903
           Width = 49.13389
           Height = 18.89765
@@ -3878,7 +3848,7 @@ object fBuy: TfBuy
           VAlign = vaCenter
         end
         object Memo50: TfrxMemoView
-          Left = 226.7718
+          Left = 260.78757
           Top = 570.70903
           Width = 94.48825
           Height = 18.89765
@@ -3896,7 +3866,7 @@ object fBuy: TfBuy
           VAlign = vaCenter
         end
         object Memo51: TfrxMemoView
-          Left = 321.26005
+          Left = 355.27582
           Top = 570.70903
           Width = 37.7953
           Height = 18.89765
@@ -3914,7 +3884,7 @@ object fBuy: TfBuy
           VAlign = vaCenter
         end
         object Memo52: TfrxMemoView
-          Left = 359.05535
+          Left = 393.07112
           Top = 570.70903
           Width = 37.7953
           Height = 18.89765
@@ -3932,7 +3902,7 @@ object fBuy: TfBuy
           VAlign = vaCenter
         end
         object Memo53: TfrxMemoView
-          Left = 396.85065
+          Left = 430.86642
           Top = 570.70903
           Width = 71.81107
           Height = 18.89765
@@ -3950,7 +3920,7 @@ object fBuy: TfBuy
           VAlign = vaCenter
         end
         object Memo54: TfrxMemoView
-          Left = 468.66172
+          Left = 502.67749
           Top = 570.70903
           Width = 83.14966
           Height = 18.89765
@@ -3968,7 +3938,7 @@ object fBuy: TfBuy
           VAlign = vaCenter
         end
         object Memo55: TfrxMemoView
-          Left = 551.81138
+          Left = 585.82715
           Top = 570.70903
           Width = 90.70872
           Height = 18.89765
@@ -4034,9 +4004,9 @@ object fBuy: TfBuy
           ParentFont = False
         end
         object Memo72: TfrxMemoView
-          Left = 423.30736
+          Left = 385.51206
           Top = 325.03958
-          Width = 94.48825
+          Width = 132.28355
           Height = 18.89765
           ShowHint = False
           Font.Charset = DEFAULT_CHARSET
@@ -4044,6 +4014,7 @@ object fBuy: TfBuy
           Font.Height = -12
           Font.Name = 'Times New Roman'
           Font.Style = []
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           HAlign = haCenter
           Memo.UTF8 = (
             '['#1056#1119#1057#1026#1056#1105#1056#181#1056#1112#1056#1108#1056#176'."BUYNUMBERDOC"]')
@@ -4060,6 +4031,7 @@ object fBuy: TfBuy
           Font.Height = -12
           Font.Name = 'Times New Roman'
           Font.Style = []
+          Frame.Typ = [ftLeft, ftRight, ftTop, ftBottom]
           HAlign = haCenter
           Memo.UTF8 = (
             '['#1056#1119#1057#1026#1056#1105#1056#181#1056#1112#1056#1108#1056#176'."BUYINPUTDATE"]')
@@ -4104,7 +4076,7 @@ object fBuy: TfBuy
         ParentFont = False
       end
       object MasterData1: TfrxMasterData
-        Height = 18.89765
+        Height = 26.4566929133858
         Top = 668.97681
         Width = 718.1107
         DataSet = BuyfrxDBDataset
@@ -4113,7 +4085,7 @@ object fBuy: TfBuy
         object Memo56: TfrxMemoView
           Left = 15.11812
           Width = 41.57483
-          Height = 18.89765
+          Height = 26.4566929133858
           ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -4129,8 +4101,8 @@ object fBuy: TfBuy
         end
         object Memo57: TfrxMemoView
           Left = 56.69295
-          Width = 120.94496
-          Height = 18.89765
+          Width = 154.96073
+          Height = 26.45669291
           ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -4144,9 +4116,9 @@ object fBuy: TfBuy
           VAlign = vaCenter
         end
         object Memo58: TfrxMemoView
-          Left = 177.63791
+          Left = 211.65368
           Width = 49.13389
-          Height = 18.89765
+          Height = 26.45669291
           ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -4161,9 +4133,9 @@ object fBuy: TfBuy
           VAlign = vaCenter
         end
         object Memo59: TfrxMemoView
-          Left = 226.7718
+          Left = 260.78757
           Width = 94.48825
-          Height = 18.89765
+          Height = 26.45669291
           ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -4178,9 +4150,9 @@ object fBuy: TfBuy
           VAlign = vaCenter
         end
         object Memo60: TfrxMemoView
-          Left = 321.26005
+          Left = 355.27582
           Width = 37.7953
-          Height = 18.89765
+          Height = 26.45669291
           ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -4195,9 +4167,9 @@ object fBuy: TfBuy
           VAlign = vaCenter
         end
         object Memo61: TfrxMemoView
-          Left = 359.05535
+          Left = 393.07112
           Width = 37.7953
-          Height = 18.89765
+          Height = 26.45669291
           ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -4210,9 +4182,9 @@ object fBuy: TfBuy
           VAlign = vaCenter
         end
         object Memo62: TfrxMemoView
-          Left = 396.85065
+          Left = 430.86642
           Width = 71.81107
-          Height = 18.89765
+          Height = 26.45669291
           ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -4227,9 +4199,9 @@ object fBuy: TfBuy
           VAlign = vaCenter
         end
         object Memo63: TfrxMemoView
-          Left = 468.66172
+          Left = 502.67749
           Width = 83.14966
-          Height = 18.89765
+          Height = 26.45669291
           ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -4244,9 +4216,9 @@ object fBuy: TfBuy
           VAlign = vaCenter
         end
         object Memo64: TfrxMemoView
-          Left = 551.81138
+          Left = 585.82715
           Width = 90.70872
-          Height = 18.89765
+          Height = 26.45669291
           ShowHint = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -4263,10 +4235,10 @@ object fBuy: TfBuy
       end
       object Footer1: TfrxFooter
         Height = 340.1577
-        Top = 710.55164
+        Top = 718.1107
         Width = 718.1107
         object Memo65: TfrxMemoView
-          Left = 396.85065
+          Left = 430.86642
           Width = 71.81107
           Height = 18.89765
           ShowHint = False
@@ -4283,7 +4255,7 @@ object fBuy: TfBuy
           VAlign = vaCenter
         end
         object Memo66: TfrxMemoView
-          Left = 468.66172
+          Left = 502.67749
           Width = 83.14966
           Height = 18.89765
           ShowHint = False
@@ -4298,7 +4270,7 @@ object fBuy: TfBuy
           VAlign = vaCenter
         end
         object Memo67: TfrxMemoView
-          Left = 551.81138
+          Left = 585.82715
           Width = 90.70872
           Height = 18.89765
           ShowHint = False
@@ -4317,7 +4289,7 @@ object fBuy: TfBuy
           VAlign = vaCenter
         end
         object Memo68: TfrxMemoView
-          Left = 302.3624
+          Left = 336.37817
           Width = 94.48825
           Height = 18.89765
           ShowHint = False
@@ -4333,7 +4305,7 @@ object fBuy: TfBuy
           VAlign = vaCenter
         end
         object Memo75: TfrxMemoView
-          Left = 396.85065
+          Left = 430.86642
           Top = 18.89765
           Width = 71.81107
           Height = 18.89765
@@ -4351,7 +4323,7 @@ object fBuy: TfBuy
           VAlign = vaCenter
         end
         object Memo76: TfrxMemoView
-          Left = 468.66172
+          Left = 502.67749
           Top = 18.89765
           Width = 83.14966
           Height = 18.89765
@@ -4367,7 +4339,7 @@ object fBuy: TfBuy
           VAlign = vaCenter
         end
         object Memo77: TfrxMemoView
-          Left = 551.81138
+          Left = 585.82715
           Top = 18.89765
           Width = 90.70872
           Height = 18.89765
@@ -4387,7 +4359,7 @@ object fBuy: TfBuy
           VAlign = vaCenter
         end
         object Memo78: TfrxMemoView
-          Left = 302.3624
+          Left = 336.37817
           Top = 18.89765
           Width = 94.48825
           Height = 18.89765
@@ -4684,6 +4656,36 @@ object fBuy: TfBuy
           HAlign = haCenter
           Memo.UTF8 = (
             #1056#1114'.'#1056#1119'.')
+          ParentFont = False
+        end
+        object Memo96: TfrxMemoView
+          Left = 15.11812
+          Top = 313.70099
+          Width = 94.48825
+          Height = 18.89765
+          ShowHint = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -15
+          Font.Name = 'Times New Roman'
+          Font.Style = [fsBold]
+          Memo.UTF8 = (
+            ' '#1056#8221#1056#176#1057#8218#1056#176)
+          ParentFont = False
+        end
+        object Memo97: TfrxMemoView
+          Left = 113.3859
+          Top = 313.70099
+          Width = 132.28355
+          Height = 18.89765
+          ShowHint = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Times New Roman'
+          Font.Style = [fsBold]
+          Frame.Typ = [ftBottom]
+          HAlign = haCenter
           ParentFont = False
         end
       end
