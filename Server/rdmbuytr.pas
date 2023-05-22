@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Classes, ComServ, ComObj, VCLCom, DataBkr,
   DBClient, buytrsrv_TLB, StdVcl, DBTables, Db, Provider, IBDatabase,
-  IBCustomDataSet, IBQuery, IBEvents, DBCtrls;
+  IBCustomDataSet, IBQuery, IBEvents, DBCtrls,Dialogs;
 
 type
   TBuyTrRDM = class(TRemoteDataModule, IBuyTrRDM)
@@ -126,6 +126,7 @@ begin
       retval:=2;
      if pos('user',E.Message)>0 then
       retval:=3;
+     ShowMessage(E.Message);
      exit;
     end;
    end;

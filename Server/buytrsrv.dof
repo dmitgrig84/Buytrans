@@ -56,16 +56,12 @@ HostApplication=
 Launcher=
 UseLauncher=0
 DebugCWD=
-[Language]
-ActiveLang=
-ProjectLang=$00000419
-RootDir=
 [Version Info]
 IncludeVerInfo=1
 AutoIncBuild=0
 MajorVer=3
 MinorVer=5
-Release=1
+Release=2
 Build=1
 Debug=1
 PreRelease=1
@@ -77,16 +73,24 @@ CodePage=1251
 [Version Info Keys]
 CompanyName=HostWMS
 FileDescription=BuyTransportation Server
-FileVersion=3.5.1.1
+FileVersion=3.5.2.1
 InternalName=
 LegalCopyright=
 LegalTrademarks=
 OriginalFilename=
 ProductName=
-ProductVersion=
+ProductVersion=1.0.0.0
 Comments=
 SpecialBuild=
 PrivateBuild=
+[Excluded Packages]
+c:\program files\borland\delphi6\Bin\dclqrt60.bpl=QuickReport Components
+c:\program files\borland\delphi6\Bin\dcltqr60.bpl=TeeChart for QuickReport Components
+c:\program files\borland\delphi6\Bin\dclsoap60.bpl=Borland SOAP Components
+c:\program files\borland\delphi6\Bin\dclite60.bpl=Borland Integrated Translation Environment
+c:\program files\borland\delphi6\Bin\dclindy60.bpl=Internet Direct (Indy) for D6 Property and Component Editors
+C:\PROGRA~1\Borland\Delphi6\Projects\Bpl\RxBDE6.bpl=RX Library BDE DB Component Package
+c:\program files\borland\delphi6\Projects\Bpl\dclcxWebSnapD6.bpl=ExpressWebPage Module for WebSnap Application by Developer Express Inc.
 [HistoryLists\hlUnitAliases]
 Count=1
 Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
