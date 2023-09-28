@@ -1,5 +1,5 @@
 object fEgaisBuy: TfEgaisBuy
-  Left = 441
+  Left = 416
   Top = 171
   Width = 1024
   Height = 699
