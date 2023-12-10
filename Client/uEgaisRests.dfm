@@ -604,8 +604,12 @@ object fEgaisRests: TfEgaisRests
       Visible = False
       OnClick = TransToR2MIClick
     end
-    object N1: TMenuItem
+    object Line1MI: TMenuItem
       Caption = '-'
+    end
+    object RemR1MI: TMenuItem
+      Caption = #1057#1087#1080#1089#1072#1090#1100' '#1089' '#1056#1077#1075#1080#1089#1090#1088#1072' 1'
+      OnClick = RemR1MIClick
     end
     object RemR2MI: TMenuItem
       Caption = #1057#1087#1080#1089#1072#1090#1100' '#1089' '#1056#1077#1075#1080#1089#1090#1088#1072' 2'

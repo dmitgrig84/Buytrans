@@ -56,12 +56,13 @@ type
     BuyR2MI: TMenuItem;
     TransToR2MI: TMenuItem;
     RemR2MI: TMenuItem;
-    N1: TMenuItem;
+    Line1MI: TMenuItem;
     EgaisRestsCDSFLAGPM: TSmallintField;
     Line2MI: TMenuItem;
     AlcCodeMI: TMenuItem;
     ExportToExcelcxButton: TcxButton;
     CopyToClipboardMI: TMenuItem;
+    RemR1MI: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure RefreshcxButtonClick(Sender: TObject);
@@ -77,6 +78,7 @@ type
     procedure AlcCodeMIClick(Sender: TObject);
     procedure ExportToExcelcxButtonClick(Sender: TObject);
     procedure CopyToClipboardMIClick(Sender: TObject);
+    procedure RemR1MIClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -350,9 +352,10 @@ var flag:boolean;
 begin
  flag:=not EgaisRestsCDS.IsEmpty;
  BuyR2MI.Visible:=flag and (EgaisRestsCDSFLAGPM.AsInteger=2);
- TransToR2MI.Visible:=flag and (EgaisRestsCDSFLAGPM.AsInteger=1);
+ TransToR2MI.Visible:=false;//flag and (EgaisRestsCDSFLAGPM.AsInteger=1);
+ RemR1MI.Visible:=flag and (EgaisRestsCDSFLAGPM.AsInteger=1);
  RemR2MI.Visible:=flag and (EgaisRestsCDSFLAGPM.AsInteger=2);
- Line2MI.Visible:=flag and EgaisRestsCDSUNITNAME.IsNull and (RemR2MI.Visible or TransToR2MI.Visible);
+ Line2MI.Visible:=flag and EgaisRestsCDSUNITNAME.IsNull and (RemR2MI.Visible or TransToR2MI.Visible or RemR1MI.Visible);
  AlcCodeMI.Visible:=flag and EgaisRestsCDSUNITNAME.IsNull;
 end;
 
@@ -463,5 +466,58 @@ procedure TfEgaisRests.CopyToClipboardMIClick(Sender: TObject);
 begin
  ViewcxGridDBTV.CopyToClipboard(false);
 end;
+
+procedure TfEgaisRests.RemR1MIClick(Sender: TObject);
+var ARowIndex,i: Integer;
+    ARowInfo: TcxRowInfo;
+begin
+ if ViewcxGridDBTV.DataController.GetSelectedCount=0 then
+  begin
+   MessageDLG('Нет выбранных записей.',mtError,[mbOK],0);
+   exit;
+  end;
+
+ if MessageDLG('Вы действительно хотите списать выбранные позиции с баланса ЕГАИС Регистра 1?',mtConfirmation, [mbYes, mbNo], 0)<>mrYes then
+  exit;
+
+ with ViewcxGridDBTV.DataController do
+  begin
+   BeginUpdate;
+   for i:= 0 to GetSelectedCount - 1 do
+    begin
+     ARowIndex := GetSelectedRowIndex(I);
+     ARowInfo := GetRowInfo(ARowIndex);
+     if ARowInfo.Level < Groups.GroupingItemCount then
+      Continue
+     else
+      begin
+       try
+        fMain.SocketConnection.AppServer.DBStartTransaction;
+        fMain.InUpDelCDS.Close;
+        fMain.InUpDelCDS.CommandText:=
+         'execute procedure buytrans_egaisrestsremr1('+
+          IntToStr(i)+','+
+          IntToStr(StoragecxLCB.EditValue)+','+
+          #39+Values[ARowInfo.RecordIndex, ViewcxGridDBTVINFORMB_REGID.Index]+#39+','+
+          #39+Values[ARowInfo.RecordIndex, ViewcxGridDBTVALCCODE.Index]+#39+','+
+          FloatToStr(Values[ARowInfo.RecordIndex, ViewcxGridDBTVCOUNTEGAISUNIT.Index])+','+
+          FloatToStr(Values[ARowInfo.RecordIndex, ViewcxGridDBTVCOUNTHOSTUNIT.Index])+','+
+          FloatToStr(Values[ARowInfo.RecordIndex, ViewcxGridDBTVDELTACOUNTUNIT.Index])+')';
+        fMain.InUpDelCDS.Execute;
+        fMain.SocketConnection.AppServer.DBCommit;
+       except on E:Exception do
+        begin
+         fMain.SocketConnection.AppServer.DBRollBack;
+         MessageDLG(E.Message,mtError,[mbOK],0);
+         break;
+        end;//on
+       end;//try..except
+      end;
+    end;//for  GetSelectedCount
+   EndUpdate;
+  end;//with cxGEDIdbTVOrders.DataController}
+ fMain.RefreshCDS(EgaisRestsCDS);
+end;
+
 
 end.
